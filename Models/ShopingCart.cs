@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace FlowersStore.Models
 {
-    [Table("ProductCart")]
-    public class ProductCart
+    [Table("ShopingCart")]
+    public class ShopingCart
     {
         [Key]
         public string CartId { get; set; }

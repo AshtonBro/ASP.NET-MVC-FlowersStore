@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "sD1bQifhKKSle0uPewk6fU2brwEL+ZtN3gF7xZkostVRvu67yUlZa/dwMupp8YMkEgpsUzyGk1UFF8XL+PT1bQ==",
+  "dgSpecHash": "EgcH9Xv1wQghLm/U5ySWkYu3jOZVTbFdLvEAttBX3fJEGLRgqvjYm0Yalrnbr90x28Xi0xKy2V49dlIMOeQ5jw==",
   "success": true,
   "projectFilePath": "D:\\Web-developer\\3. С#\\VS_source\\FlowersStore\\FlowersStore.csproj",
   "expectedPackageFiles": [
@@ -14,6 +14,7 @@
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.entityframeworkcore.design\\5.0.1\\microsoft.entityframeworkcore.design.5.0.1.nupkg.sha512",
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.entityframeworkcore.relational\\5.0.1\\microsoft.entityframeworkcore.relational.5.0.1.nupkg.sha512",
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.entityframeworkcore.sqlserver\\5.0.1\\microsoft.entityframeworkcore.sqlserver.5.0.1.nupkg.sha512",
+    "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.entityframeworkcore.tools\\5.0.1\\microsoft.entityframeworkcore.tools.5.0.1.nupkg.sha512",
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.extensions.caching.abstractions\\5.0.0\\microsoft.extensions.caching.abstractions.5.0.0.nupkg.sha512",
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.extensions.caching.memory\\5.0.0\\microsoft.extensions.caching.memory.5.0.0.nupkg.sha512",
     "C:\\Users\\Evgenii Solovev\\.nuget\\packages\\microsoft.extensions.configuration.abstractions\\5.0.0\\microsoft.extensions.configuration.abstractions.5.0.0.nupkg.sha512",

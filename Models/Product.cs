@@ -33,7 +33,6 @@ namespace FlowersStore.Models
         
         [Required]
         public virtual Category Category { get; set; }
-        public virtual IEnumerable<Basket> Baskets { get; set; }
 
     }
 }

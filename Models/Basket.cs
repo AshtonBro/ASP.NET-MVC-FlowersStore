@@ -12,11 +12,11 @@ namespace FlowersStore.Models
     {
         [Key]
         public Guid BasketId { get; set; }
-
+        public Guid UserId { get; set; }
         public User User { get; set; }
 
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
-        public virtual IEnumerable<ProductCart> ProductCarts { get; set; } 
+        public virtual IEnumerable<ShopingCart> ShopingCarts { get; set; } 
     }
 }
