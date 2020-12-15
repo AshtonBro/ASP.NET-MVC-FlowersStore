@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlowersStore.Models
 {
-    [Table("User")]
-    public class User
+    public class UserViewModel
     {
-        [Key]
+        [HiddenInput(DisplayValue = false)]
         public Guid UserId { get; set; }
 
         [Required(ErrorMessage = "Name isn't be empty")]
@@ -22,7 +21,7 @@ namespace FlowersStore.Models
         public string SecondName { get; set; }
 
         [Phone(ErrorMessage = "Please enter valid phone number.")]
-        public int? Phone { get; set; }
+        public int Phone { get; set; }
 
         [Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid.")]
@@ -33,10 +32,14 @@ namespace FlowersStore.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public virtual IEnumerable<Order> Orders { get; set; }
+        [Required(ErrorMessage = "Confirm Password is required")]
+        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [DataType(DataType.Password)]
+        [Compare("Password")]
+        public string ConfirmPassword { get; set; }
 
-        [Required]
-        [DataType(DataType.DateTime)]
-        public DateTime DateCreated { get; set; }
+        public Order Basket { get; set; }
+
+        public DateTime CreateDate { get; set; }
     }
 }
