@@ -8,16 +8,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FlowersStore.Models
 {
     [Table("Basket")]
-    public class Order
+    public class Basket
     {
         [Key]
-        public Guid OrderId { get; set; }
+        public Guid BasketId { get; set; }
 
         public User User { get; set; }
 
         [DataType(DataType.DateTime)]
-        public DateTime OrderDate { get; set; }
-
-        public virtual IEnumerable<Product> Products { get; set; } 
+        public DateTime DateCreated { get; set; }
+        public virtual IEnumerable<ProductCart> ProductCarts { get; set; } 
     }
 }

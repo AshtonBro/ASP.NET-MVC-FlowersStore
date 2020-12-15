@@ -38,7 +38,7 @@ namespace FlowersStore.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        public Order Basket { get; set; }
+        public Basket Basket { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

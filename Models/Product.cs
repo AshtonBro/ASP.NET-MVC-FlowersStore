@@ -19,7 +19,6 @@ namespace FlowersStore.Models
         [StringLength(40, ErrorMessage = "Name can't be more than 40 characters")]
         public string Name { get; set; }
 
-        [Required]
         [MaxLength(250, ErrorMessage = "Description can't be more than 250 characters")]
         public string Description { get; set; }
         
@@ -34,7 +33,7 @@ namespace FlowersStore.Models
         
         [Required]
         public virtual Category Category { get; set; }
-        public virtual IEnumerable<Order> Orders { get; set; }
+        public virtual IEnumerable<Basket> Baskets { get; set; }
 
     }
 }

@@ -11,6 +11,7 @@ namespace FlowersStore.Models
         [Key]
         public Guid CategoryId { get; set; }
 
+        [Required]
         [StringLength(40, ErrorMessage = "FlowersType can't be more than 40 characters")]
         public string FlowersType { get; set; }
         public virtual IEnumerable<Product> Products { get; set; }

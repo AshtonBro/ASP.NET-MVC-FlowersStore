@@ -33,7 +33,7 @@ namespace FlowersStore.Models
         [DataType(DataType.Password)]
         public string Password { get; set; }
 
-        public virtual IEnumerable<Order> Orders { get; set; }
+        public virtual Basket Basket { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
