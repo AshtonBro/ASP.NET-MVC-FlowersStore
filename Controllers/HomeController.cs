@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FlowersStore.Models;
+using FlowersStore.Data;
 
 namespace FlowersStore.Controllers
 {
@@ -20,7 +21,11 @@ namespace FlowersStore.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            using ( StoreDBContext db = new StoreDBContext() )
+            {
+
+            }
+                return View();
         }
 
         public IActionResult Privacy()
