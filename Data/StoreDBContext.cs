@@ -19,7 +19,7 @@ namespace FlowersStore.Data
             this.Database.EnsureCreated();
 
             // Mock datasource
-            if (!(Users.Any() & Products.Any() & ShopingCarts.Any() & Baskets.Any() & Categories.Any()))
+            if (!(Users.Any() & Products.Any() & Baskets.Any() & Categories.Any()))
             {
 
                 var categories = new Category[]
@@ -33,7 +33,7 @@ namespace FlowersStore.Data
                 var allCategoriesDirectories = Directory.GetDirectories(@"wwwroot\Image\").Select(f => new DirectoryInfo(f));
 
                 List<Product> products = new List<Product>();
-
+                
                 Dictionary<string, Dictionary<string, string>> nameDescription = new Dictionary<string, Dictionary<string, string>>();
                 nameDescription.Add("Букеты", new Dictionary<string, string>()
                 {
@@ -68,14 +68,12 @@ namespace FlowersStore.Data
                 });
 
 
-                //var Bouquets = new string[] { };
-                //var Plants = new string[] { };
-                //var Roses = new string[] { };
-                //var Tulips = new string[] { };
-
                 foreach (DirectoryInfo category in allCategoriesDirectories)
                 {
                     var categoryName = category.Name;
+                    var dictionaryNameDescription = nameDescription[categoryName];
+                    var index = 0;
+                    decimal price = 100.00M;
                     foreach (var image in category.GetFiles())
                     {
                         products.Add(new Product()
@@ -83,30 +81,71 @@ namespace FlowersStore.Data
                             ProductId = Guid.NewGuid(),
                             Image = File.ReadAllBytes(image.FullName),
                             CategoryId = categories.FirstOrDefault(f => f.FlowersType == categoryName).CategoryId,
-                            
+                            Name = dictionaryNameDescription.ElementAt(index).Key, 
+                            Description = dictionaryNameDescription.ElementAt(index).Value,
+                            Price = price
                         });
+                        index++;
+                        price += 100.00M;
                     }
                 }
 
-
-                //var products = new Product[]
-                //{
-                //     new Product() { ProductId = Guid.NewGuid(), Image = byteImage[0], Name = "Роза кастовая", Description = "Большая часть сортов роз получена в результате длительной...", Color = "Красный", Price = 78, Category = categories[1]}
-                //};
+                var userId0 = Guid.NewGuid();
+                var basketId0 = Guid.NewGuid();
+                var userId1 = Guid.NewGuid();
+                var basketId1 = Guid.NewGuid();
+                var userId2 = Guid.NewGuid();
+                var basketId2 = Guid.NewGuid();
 
                 var users = new User[]
                 {
-                 new User() { UserId = Guid.NewGuid(), Name = "Alan", SecondName = "Rikman", Email = "rikmanAl@gmail.com", Password = "admin", DateCreated = DateTime.Now, Phone = 89226664433 }
+                 new User() 
+                 {
+                     UserId = userId0,
+                     Name = "User1",
+                     SecondName = "SecondName1", 
+                     Email = "111@gmail.com", 
+                     Password = "admin", 
+                     DateCreated = DateTime.Now,
+                     Phone = 11111111111
+                 },
+                 new User()
+                 {
+                     UserId = userId1,
+                     Name = "User2",
+                     SecondName = "SecondName2",
+                     Email = "222@gmail.com",
+                     Password = "admin",
+                     DateCreated = DateTime.Now,
+                     Phone = 22222222222
+                 },
+                 new User()
+                 {
+                     UserId = userId2,
+                     Name = "User3",
+                     SecondName = "SecondName3",
+                     Email = "333@gmail.com",
+                     Password = "admin",
+                     DateCreated = DateTime.Now,
+                     Phone = 33333333333
+                 }
+               
                 };
 
                 var baskets = new Basket[]
                 {
-                new Basket() { UserId = users[0].UserId}
+                    new Basket() { BasketId = basketId0, UserId = userId0, DateCreated = DateTime.Now },
+                    new Basket() { BasketId = basketId1, UserId = userId1, DateCreated = DateTime.Now },
+                    new Basket() { BasketId = basketId2, UserId = userId2, DateCreated = DateTime.Now }
                 };
 
+                Categories.AddRange(categories);
+                Products.AddRange(products);
+                Users.AddRange(users);
+                Baskets.AddRange(baskets);
 
+                SaveChanges();
             }
-
 
         }
 
@@ -125,38 +164,3 @@ namespace FlowersStore.Data
     }
 }
 
-/*
- 
- public SchoolDbContext()
-        {
-            this.Database.EnsureCreated();
-            if (!(Students.Any() & Groups.Any() & StudentGroupLinks.Any()))
-            {
-                //create mock data
-                var students = new Student[] 
-                {
-                    new Student() {StudentId = Guid.NewGuid(), Gender = Student.eGender.Female, Name = "Sophia",Surname = "Lopez"},
-                };
-                Students.AddRange(students);
-
-                var groups = new Group[]
-                {
-                    new Group(){GroupId = Guid.NewGuid(), Name = "Engineering"},
-                };
-
-                Groups.AddRange(groups);
-
-                Random rand = new Random();
-
-                foreach (var student in students)
-                {
-                    StudentGroupLinks.Add(new StudentGroup() { Id = Guid.NewGuid(), StudentId = student.StudentId, GroupId = groups[rand.Next(0, 1)].GroupId });
-                    StudentGroupLinks.Add(new StudentGroup() { Id = Guid.NewGuid(), StudentId = student.StudentId, GroupId = groups[rand.Next(2, 3)].GroupId });
-                    StudentGroupLinks.Add(new StudentGroup() { Id = Guid.NewGuid(), StudentId = student.StudentId, GroupId = groups[rand.Next(4, 5)].GroupId });
-                }
-
-                SaveChanges();
-
-            }
-        }
- */

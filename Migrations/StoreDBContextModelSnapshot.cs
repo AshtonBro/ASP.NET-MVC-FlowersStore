@@ -65,7 +65,6 @@ namespace FlowersStore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -83,7 +82,7 @@ namespace FlowersStore.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ProductId");
 
@@ -94,8 +93,9 @@ namespace FlowersStore.Migrations
 
             modelBuilder.Entity("FlowersStore.Models.ShopingCart", b =>
                 {
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("BasketId")
                         .HasColumnType("uniqueidentifier");

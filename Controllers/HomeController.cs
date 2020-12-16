@@ -21,7 +21,7 @@ namespace FlowersStore.Controllers
 
         public IActionResult Index()
         {
-            using ( StoreDBContext db = new StoreDBContext() )
+            using( StoreDBContext db = new StoreDBContext() )
             {
 
             }

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20201215193333_initMigrations")]
-    partial class initMigrations
+    [Migration("20201216162822_curMigration")]
+    partial class curMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -67,7 +67,6 @@ namespace FlowersStore.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Color")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("nvarchar(40)");
 
@@ -85,7 +84,7 @@ namespace FlowersStore.Migrations
                         .HasColumnType("nvarchar(40)");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(18,4)");
 
                     b.HasKey("ProductId");
 
@@ -96,8 +95,9 @@ namespace FlowersStore.Migrations
 
             modelBuilder.Entity("FlowersStore.Models.ShopingCart", b =>
                 {
-                    b.Property<string>("CartId")
-                        .HasColumnType("nvarchar(450)");
+                    b.Property<Guid>("CartId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid?>("BasketId")
                         .HasColumnType("uniqueidentifier");

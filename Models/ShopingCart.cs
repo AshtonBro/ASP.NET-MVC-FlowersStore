@@ -11,7 +11,7 @@ namespace FlowersStore.Models
     public class ShopingCart
     {
         [Key]
-        public string CartId { get; set; }
+        public Guid CartId { get; set; }
 
         [Range(0, 3000)]
         public int Quantity { get; set; } = 0;
