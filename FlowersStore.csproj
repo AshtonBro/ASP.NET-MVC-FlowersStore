@@ -18,7 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Image\" />
+    <Folder Include="wwwroot\Image\Букеты\" />
+    <Folder Include="wwwroot\Image\Растения\" />
+    <Folder Include="wwwroot\Image\Тюльпаны\" />
+    <Folder Include="wwwroot\Image\Розы\" />
   </ItemGroup>
 
 </Project>
