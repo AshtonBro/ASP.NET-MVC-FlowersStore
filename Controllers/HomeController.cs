@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using FlowersStore.Models;
 using FlowersStore.Data;
+using FlowersStore.ViewModels;
 
 namespace FlowersStore.Controllers
 {
@@ -23,9 +24,9 @@ namespace FlowersStore.Controllers
         {
             using( StoreDBContext db = new StoreDBContext() )
             {
-
+                
             }
-                return View();
+             return View();
         }
 
         public IActionResult Privacy()
@@ -37,6 +38,19 @@ namespace FlowersStore.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        public IActionResult OpenLoginDialog()
+        {
+            return View();
+            //return View("~/Views/Login/IndexDialog.cshtml", model);
+        }
+
+        [HttpPost]
+        public IActionResult UserLogin(LoginViewModel model)
+        {
+            return View(model);
+            //return View("~/Views/Login/IndexDialog.cshtml", model);
         }
     }
 }
