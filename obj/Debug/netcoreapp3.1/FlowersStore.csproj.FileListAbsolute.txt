@@ -2,7 +2,6 @@ D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\appsettin
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\appsettings.json
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\FlowersStore.exe
-D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.csprojAssemblyReference.cache
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.AssemblyInfoInputs.cache
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.AssemblyInfo.cs
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.RazorAssemblyInfo.cache
