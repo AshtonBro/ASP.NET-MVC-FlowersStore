@@ -1,7 +1,5 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using FlowersStore.ViewModels;
 
 namespace FlowersStore.Controllers
@@ -13,13 +11,13 @@ namespace FlowersStore.Controllers
             return View();
         }
 
-        public IActionResult OpenLogin(LoginViewModel model)
+        public IActionResult Login(LoginViewModel model)
         {
             if(!ModelState.IsValid)
             {
                 return View(model);
             }
-            return View();
+            return View(model);
         }
 
        
