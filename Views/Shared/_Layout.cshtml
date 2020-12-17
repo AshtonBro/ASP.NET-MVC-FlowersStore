@@ -26,22 +26,30 @@
                         </li>
                     </ul>
                 </div>
+                <div class="navbar-expand float-right">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link text-info" asp-area="" asp-controller="Login" asp-action="OpenLogin">Login</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    
 
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - FlowersStore - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

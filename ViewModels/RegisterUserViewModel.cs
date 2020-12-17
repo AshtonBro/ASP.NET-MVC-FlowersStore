@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FlowersStore.Models
 {
-    public class UserViewModel
+    public class RegisterUserViewModel
     {
         [HiddenInput(DisplayValue = false)]
         public Guid UserId { get; set; }
@@ -24,7 +24,7 @@ namespace FlowersStore.Models
         public int Phone { get; set; }
 
         [Required(ErrorMessage = "The Email field is required.")]
-        [EmailAddress(ErrorMessage = "The Email field is not a valid.")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
@@ -37,8 +37,6 @@ namespace FlowersStore.Models
         [DataType(DataType.Password)]
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
-
-        public Basket Basket { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

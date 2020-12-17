@@ -1,0 +1,30 @@
+﻿@model FlowersStore.ViewModels.LoginViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Login";
+}
+<h1>@ViewData["Title"]</h1>
+
+<div class="container">
+    <h4>Please write your information.</h4>
+    <form asp-action="OpenLogin">
+        <div asp-validation-summary="All"></div>
+        <div class="form-field">
+            <label asp-for="Name"></label>
+            <span class="input-span">
+                <input asp-for="Name" />
+            </span>
+        </div>
+        <div class="form-field">
+            <label asp-for="Password"></label>
+            <span class="input-span">
+                <input asp-for="Password" />
+            </span>
+        </div>
+        <div>
+            <input type="submit" value="Submit" />
+        </div>
+    </form>
+</div>
+
+

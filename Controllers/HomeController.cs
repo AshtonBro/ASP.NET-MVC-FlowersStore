@@ -40,17 +40,12 @@ namespace FlowersStore.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        public IActionResult OpenLoginDialog()
-        {
-            return View();
-            //return View("~/Views/Login/IndexDialog.cshtml", model);
-        }
-
-        [HttpPost]
-        public IActionResult UserLogin(LoginViewModel model)
-        {
-            return View(model);
-            //return View("~/Views/Login/IndexDialog.cshtml", model);
-        }
+       
+        //[HttpPost]
+        //public IActionResult UserLogin(LoginViewModel model)
+        //{
+        //    return View(model);
+        //    //return View("~/Views/Login/IndexDialog.cshtml", model);
+        //}
     }
 }

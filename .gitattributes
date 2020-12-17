@@ -63,3 +63,5 @@
 #*.RTF   diff=astextplain
 
 #.vs/
+#.vs
+.vs/*
