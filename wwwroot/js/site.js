@@ -2,31 +2,6 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
-
-//const modalLogin = document.getElementById('login'),
-//    btnLogin = document.querySelector('.btnClick');
-
-//const togglePopup = () => {
-
-//    modalLogin.classList.remove('fade');
-//    modalLogin.classList.add('show');
-
-//    modalLogin.addEventListener('click', (event) => {
-//        let target = event.target;
-//        if (target.classList.contains('close') ||
-//            target.classList.contains('HidebtnModal') ||
-//            target.classList.contains('modal')) {
-
-//            modalLogin.classList.add('fade');
-//            modalLogin.classList.remove('show');
-//        }
-//    });
-//};
-
-
-//btnLogin.addEventListener('click', togglePopup);
-
-
 // Methods from Max
 
 
@@ -132,18 +107,22 @@ var _checkMouseIsOver = function () {
     //console.log('target: ', target);          
     if (!target.closest("#dialogBox")) {
         hideDialog();
-    }
+    } 
 }
 
 function showDialog() {
     $('#dialogBox').css("visibility", "visible");
     startLoading();
     document.getElementById('cover').addEventListener('mousedown', _checkMouseIsOver, true);
+    document.querySelector('.close').addEventListener('click', hideDialog)
+    document.querySelector('.Hidable').addEventListener('click', hideDialog)
 }
 
 function hideDialog() {
     $('#dialogBox').css("visibility", "hidden");
     document.getElementById('cover').removeEventListener('mousedown', _checkMouseIsOver, true);
+    document.querySelector('.close').removeEventListener('click', hideDialog)
+    document.querySelector('.Hidable').removeEventListener('click', hideDialog)
     endLoading();
 }
 
@@ -159,7 +138,6 @@ function endLoading() {
     document.getElementById('cover').style.display = 'none';
     // document.getElementById('input-container').style.zIndex = 0;
 }
-
 
 function dialogPost(e, key, url) {
     e.preventDefault();
