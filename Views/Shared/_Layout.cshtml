@@ -41,7 +41,6 @@
                 <div class="navbar-expand float-right">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            @*<a class="nav-link text-info btnClick" asp-area="" asp-controller="Home" asp-action="UserLogin" type="button">Login</a>*@
                             <button class="btnClick nav-link text-info form-control btn-light border-primary m-1" type="button" onclick="openDialog('@Link.ToString(nameof(HomeController), nameof(HomeController.UserLogin))');">Login</button>
                         </li>
                     </ul>
