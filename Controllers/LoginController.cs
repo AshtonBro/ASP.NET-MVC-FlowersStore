@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.AspNetCore.Mvc;
 using FlowersStore.ViewModels;
+using System.Net;
 
 namespace FlowersStore.Controllers
 {
@@ -11,13 +12,16 @@ namespace FlowersStore.Controllers
             return View();
         }
 
+        [HttpPost]
         public IActionResult Login(LoginViewModel model)
         {
-            if(!ModelState.IsValid)
+            if(ModelState.IsValid)
             {
-                return View(model);
+                return RedirectToAction(nameof(HomeController.Index), nameof(HomeController));
             }
-            return View(model);
+            dynamic obj = new System.Dynamic.ExpandoObject();
+            obj.error = "Error from Login Controller";
+            return new JsonResult(obj, "error");
         }
 
        

@@ -2,8 +2,8 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 @using FlowersStore.Controllers
 
-
 @{
+    Layout = null;
     var key = "SubmitLoginDialog";
     var frmId = $"{key}_F";
     var msgId = $"{key}_M";
@@ -28,6 +28,8 @@
                 <span class="input-span">
                     <input asp-for="Name" class="form-control" placeholder="Name" id="nametxt" type="text" />
                 </span>
+                <span class="text-danger field-validation-valid"
+                      data-valmsg-for="Name" data-valmsg-replace="true"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Password"></label>
@@ -41,7 +43,7 @@
         </div>
     </div>
     <div class="modal-footer">
-        <button type="button" class="btn btn-primary" id="@btnId" value="Submit">Login</button>
+        <button type="submit" class="btn btn-primary" id="@btnId">Login</button>
         <button type="button" class="btn btn-primary HidebtnModal">Hide</button>
     </div>
 </div>
