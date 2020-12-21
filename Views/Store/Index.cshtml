@@ -1,0 +1,35 @@
+﻿@model FlowersStore.ViewModels.StoreViewModel
+
+
+    <div class="container">
+        <section class="store">
+            <div class="store-heading">
+                <h2 class="store-title">Flower Store</h2>
+                <label class="search">
+                    <input type="text" placeholder="Search" class="input input-search"/>
+                </label>
+            </div>
+            <div class="shoping-cards">
+                <a class="card shoping-card">
+                    @foreach (Product product in Model.Products)
+                    {
+                        var base64 = Convert.ToBase64String(product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        <img src="@imgSrc" alt="image" class="card-image">
+                        <div class="card-text">
+                            <div class="card-heading">
+                                <h3 class="card-title">@product.Name</h3>
+                                <p class="card-description">@product.Description</p>
+                            </div>
+                            <div class="card-info">
+                                <div class="color">@product.Color</div>
+                                <div class="price">@product.Price Руб.</div>
+                                <div class="category">@product.Category</div>
+                            </div>
+                        </div>
+                    }
+                </a>
+            </div>
+        </section>
+    </div>
