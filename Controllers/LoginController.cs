@@ -14,11 +14,11 @@ namespace FlowersStore.Controllers
         }
 
         [HttpPost]
-        public JsonRedirect Login(LoginViewModel model)
+        public JsonRedirect Index(LoginViewModel model)
         {
             if(ModelState.IsValid)
             {
-                return new JsonRedirect( new Link(nameof(HomeController), nameof(HomeController.Index)));
+                return new JsonRedirect( new Link(nameof(StoreController), nameof(StoreController.Index)));
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
