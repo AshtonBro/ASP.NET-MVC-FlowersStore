@@ -34,6 +34,4 @@ public class Link
         var link = new Link(controller, action);
         return link.ToString();
     }
-
-
 }

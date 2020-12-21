@@ -119,7 +119,8 @@ function showDialog() {
     document.querySelector('.loginBtn').addEventListener('click', (event) => {
         if (document.querySelector('.alert-danger').textContent !== null) {
             setTimeout(() => {
-                document.querySelector('.alert-danger').textContent = "";
+                ocument.querySelector('.alert-danger').toggle('.fade')
+                document.querySelector('.alert-danger').textContent = '';
             }, 3000);
         }
     })

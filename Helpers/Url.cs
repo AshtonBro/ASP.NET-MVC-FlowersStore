@@ -15,5 +15,4 @@
     {
         return new Url(controllerName, "Index", new { showLayout = false });
     }
-
 }

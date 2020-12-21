@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FlowersStore.Data;
+﻿using FlowersStore.Data;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +15,6 @@ namespace FlowersStore.Controllers
             }
 
             return View("~/Views/Store/Store.cshtml", model);
-
         }
     }
 }
