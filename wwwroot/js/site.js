@@ -116,6 +116,13 @@ function showDialog() {
     document.getElementById('cover').addEventListener('mousedown', _checkMouseIsOver, true);
     document.querySelector('.close').addEventListener('click', hideDialog)
     document.querySelector('.Hidable').addEventListener('click', hideDialog)
+    document.querySelector('.loginBtn').addEventListener('click', (event) => {
+        if (document.querySelector('.alert-danger').textContent !== null) {
+            setTimeout(() => {
+                document.querySelector('.alert-danger').textContent = "";
+            }, 3000);
+        }
+    })
 }
 
 function hideDialog() {
