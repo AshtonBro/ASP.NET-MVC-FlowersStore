@@ -1,6 +1,7 @@
 ﻿using FlowersStore.Data;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace FlowersStore.Controllers
 {
@@ -11,10 +12,11 @@ namespace FlowersStore.Controllers
             var model = new StoreViewModel();
             using (StoreDBContext db = new StoreDBContext())
             {
-                model.Products = db.Products;
+                model.Products = db.Products.ToArray();
+
             }
 
-            return View("~/Views/Store/Store.cshtml", model);
+            return View(model);
         }
     }
 }
