@@ -22,10 +22,6 @@ namespace FlowersStore.Controllers
 
         public IActionResult Index()
         {
-            //using( StoreDBContext db = new StoreDBContext() )
-            //{
-                
-            //}
              return View();
         }
 
@@ -43,7 +39,7 @@ namespace FlowersStore.Controllers
         public IActionResult UserLogin()
         {
             var model = new LoginViewModel();
-            return View("~/Views/Login/Login.cshtml", model);
+            return View("~/Views/Login/Index.cshtml", model);
         }
     }
 }
