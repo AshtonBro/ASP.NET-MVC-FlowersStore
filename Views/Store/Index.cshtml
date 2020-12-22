@@ -16,6 +16,9 @@
                         var base64 = Convert.ToBase64String(product.Image);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
+                        var price = @product.Price.ToString();
+                        var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
+
                         <img src="@imgSrc" alt="image" class="card-image">
                         <div class="card-text">
                             <div class="card-heading">
@@ -24,7 +27,7 @@
                             </div>
                             <div class="card-info">
                                 <div class="color">@product.Color</div>
-                                <div class="price">@product.Price Руб.</div>
+                                <div class="price"> @trimPrice ₽</div>
                                 <div class="category">@product.Category</div>
                             </div>
                         </div>
