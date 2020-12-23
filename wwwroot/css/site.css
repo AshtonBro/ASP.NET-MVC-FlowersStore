@@ -1,5 +1,20 @@
-﻿/* Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-for details on configuring this project to bundle and minify static web assets. */
+﻿
+body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* HEADER */
+
+.logoImage {
+    position: absolute;
+    overflow: visible;
+    margin-right: 6px;
+    transform: scaleX(1) scaleY(1);
+}
+
+.logo-span {
+    color: #EE1B22;
+}
 
 .btnClick {
     padding: 0;
@@ -16,6 +31,8 @@ for details on configuring this project to bundle and minify static web assets. 
     display: none;
     opacity: 0;
 }
+
+/* Modal Login */
 
 .modal-auth {
     position: fixed;
@@ -37,9 +54,17 @@ a.navbar-brand {
     word-break: break-all;
 }
 
+/* Store */
+
+.store-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
 }
 
 .btn-primary {
@@ -54,8 +79,7 @@ a {
   border-color: #1861ac;
 }
 
-/* Sticky footer styles
--------------------------------------------------- */
+/* Sticky footer styles */
 html {
   font-size: 14px;
 }
@@ -88,9 +112,6 @@ html {
   min-height: 100%;
 }
 
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 60px;
 }
 .footer {
   position: absolute;
@@ -216,3 +237,4 @@ body {
     outline: none !important;
     background: none !important;
 }
+
