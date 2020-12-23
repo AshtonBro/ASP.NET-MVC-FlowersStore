@@ -3,65 +3,6 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
-/* HEADER */
-
-.logoImage {
-    position: absolute;
-    overflow: visible;
-    margin-right: 6px;
-    transform: scaleX(1) scaleY(1);
-}
-
-.logo-span {
-    color: #EE1B22;
-}
-
-.btnClick {
-    padding: 0;
-    background-color: transparent;
-    border: none;
-}
-
-.show {
-    display: block;
-    transition: all 2s linear;
-}
-
-.fade {
-    display: none;
-    opacity: 0;
-}
-
-/* Modal Login */
-
-.modal-auth {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.4);
-    z-index: 999;
-}
-
-.modal-dialog {
-    padding-top: 10%;
-}
-
-a.navbar-brand {
-    white-space: normal;
-    text-align: center;
-    word-break: break-all;
-}
-
-/* Store */
-
-.store-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
@@ -77,6 +18,11 @@ a {
   color: #fff;
   background-color: #1b6ec2;
   border-color: #1861ac;
+}
+
+input:active:focus {
+    outline: none;
+    box-shadow: none;
 }
 
 /* Sticky footer styles */
@@ -112,9 +58,7 @@ html {
   min-height: 100%;
 }
 
-}
 .footer {
-  position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
@@ -238,3 +182,73 @@ html {
     background: none !important;
 }
 
+
+/* HEADER */
+
+.logoImage {
+    overflow: visible;
+    margin-right: 6px;
+    transform: scaleX(1) scaleY(1);
+}
+
+.logo-span {
+    color: #EE1B22;
+}
+
+.btnClick {
+    background-color: transparent;
+    color: #343a40 !important;
+    border: none;
+    border-radius: 5px;
+/*    transition-duration: 0.7s;*/    
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .btnClick:hover {
+        color: #EE1B22 !important;
+    }
+
+
+.show {
+    display: block;
+    transition: all 2s linear;
+}
+
+.fade {
+    display: none;
+    opacity: 0;
+}
+
+/* Modal Login */
+
+.modal-auth {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 999;
+}
+
+.modal-dialog {
+    padding-top: 10%;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.btnBorder {
+    border: 1px solid;
+}
+/* Store */
+
+.store-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

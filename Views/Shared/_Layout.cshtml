@@ -9,7 +9,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
@@ -23,7 +23,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <div class="logoImage" style="margin-right: 6px;">
+                <div class="logoImage">
                     <svg style="width: 30px; height: 30px;" xmlns="http://www.w3.org/2000/svg" version="1.1" xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0.4309699535369873 0.4485650062561035 4.1375932693481445 4.102435111999512">
                         <g fill="#ee1b22">
                             <path d="M1.545 1.832a.846.846 0 0 0 .092.281 1.026 1.026 0 0 0 .181.214.799.799 0 0 0 .608.217.837.837 0 0 0 .82-.58.786.786 0 0 0-.6-.878c-.3-.052-.762.07-.805.43a.43.43 0 0 0 .124.37.405.405 0 0 0 .386.09.377.377 0 0 0 .272-.283.275.275 0 0 0-.001-.116l.016.002a.631.631 0 0 1 .073.016l.009.004.048.023.03.017.026.024c-.005-.005-.022-.03.001.001l.03.044a.23.23 0 0 1 .031.102c.002.02.002.04.002.06v.004a.715.715 0 0 1-.017.079l-.01.03-.006.015c-.004.009-.032.055-.027.05-.017.023-.037.043-.056.065l-.008.008-.008.006-.027.02a.454.454 0 0 1-.135.06.705.705 0 0 1-.38.027.673.673 0 0 1-.332-.175c-.042-.046-.07-.1-.11-.148a2.466 2.466 0 0 1-.106-.136.068.068 0 0 0-.121.057z"></path>
@@ -32,7 +32,7 @@
                          </g>
                      </svg>
                 </div>
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FLOWER<span style="color: #EE1B22">STORE</span></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FLOWER<span class="logo-span">STORE</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -40,17 +40,17 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btnClick nav-link form-control" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="btnClick nav-link form-control" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
                     </ul>
                 </div>
                 <div class="navbar-expand float-right">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <button class="btnClick nav-link text-info form-control btn-light border-primary m-1" type="button" onclick="openDialog('@Link.ToString(nameof(HomeController), nameof(HomeController.UserLogin))');">Login</button>
+                            <a class="btnClick nav-link"onclick="openDialog('@Link.ToString(nameof(HomeController), nameof(HomeController.UserLogin))');">Login</a>
                         </li>
                     </ul>
                 </div>
@@ -74,7 +74,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2020 - FLOWER<span style="color: #EE1B22">STORE</span> - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2020 - FLOWER<span class="logo-span">STORE</span> - <a class="btnClick" style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
 
