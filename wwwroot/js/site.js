@@ -177,3 +177,19 @@ function dialogPost(e, key, url) {
 
     ajaxPostJsonResult(e, url, formId, successCallBack, errorCallBack);
 }
+
+// * Slider Slick jQuery path of code
+$(document).ready(function () {
+    $(".sl").slick({
+        arrows: false,
+        infinite: true,
+        speed: 500,
+        fade: true,
+        cssEase: 'linear',
+        slidesToShow: 1,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 5000,
+        speed: 1000
+    });
+});
