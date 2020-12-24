@@ -11,17 +11,20 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/slick/slick.css" />
+    <link rel="stylesheet" type="text/css" href="~/slick/slick-theme.css" />
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <script defer src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script defer type="text/javascript" src="~/slick/slick.min.js"></script>
     <script defer src="~/js/site.js" asp-append-version="true"></script>
 
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="header-bar navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
                 <div class="logoImage">
                     <svg style="width: 30px; height: 30px;" xmlns="http://www.w3.org/2000/svg" version="1.1" xlink="http://www.w3.org/1999/xlink" xmlns:svgjs="http://svgjs.com/svgjs" viewBox="0.4309699535369873 0.4485650062561035 4.1375932693481445 4.102435111999512">
@@ -62,15 +65,17 @@
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
+
     </div>
 
     <div id="cover" class="cover">
         <div id="dual-ring">
             <div class="lds-dual-ring text-center"></div>
         </div>
+        <div id="dialogBox"></div>
     </div>
 
-    <div id="dialogBox"></div>
+    
 
     <footer class="border-top footer text-muted">
         <div class="container">
