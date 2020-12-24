@@ -20,10 +20,6 @@ a {
   border-color: #1861ac;
 }
 
-input:active:focus {
-    outline: none;
-    box-shadow: none;
-}
 
 /* Sticky footer styles */
 html {
@@ -185,6 +181,12 @@ html {
 
 /* HEADER */
 
+.header-bar {
+    position: fixed;
+    width: 100%;
+    z-index: 2;
+}
+
 .logoImage {
     overflow: visible;
     margin-right: 6px;
@@ -209,6 +211,22 @@ html {
         color: #EE1B22 !important;
     }
 
+.input-form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline-color: #343a40;
+}
 
 .show {
     display: block;
@@ -221,6 +239,19 @@ html {
 }
 
 /* Modal Login */
+
+.modal-header {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    background-color: #EE1B22;
+  
+}
+
+.modal-title {
+    font-size: 20px;
+    margin-left: auto;
+    color: #FFFFFF;
+}
 
 .modal-auth {
     position: fixed;
@@ -245,8 +276,72 @@ a.navbar-brand {
 .btnBorder {
     border: 1px solid;
 }
-/* Store */
 
+.close {
+   cursor: pointer;
+}
+
+
+/* MAIN HOME PAGE*/
+
+.main-title {
+    padding-top: 8%;
+    padding-bottom: 3%;
+}
+
+.main-subtitle {
+    padding-bottom: 8%;
+}
+
+/*Slick Slider*/
+
+.reviews-slider {
+    padding-bottom: 8%;
+}
+
+.text-slide {
+    display: block;
+    position: absolute;
+    top: 45%;
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: 500;
+    margin-left: 50px;
+    color: #ffff;
+    text-shadow: 1px 1px 2px black, 0 0 1em red;
+}
+
+.reviews-blocks {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.reviews-block {
+    align-items: center;
+    text-align: center;
+    width: 27%;
+}
+
+.reviews-text {
+    text-align: center;
+    padding-bottom: 8%;
+}
+
+.reviews-img {
+    vertical-align: central;
+    margin-bottom: 40px;
+}
+
+.rev-image {
+    height: 150px;
+    width: 150px;
+}
+
+.reviews-descr {
+    font-weight: 600;
+}
+/* Store */
 .store-heading {
     display: flex;
     justify-content: space-between;
