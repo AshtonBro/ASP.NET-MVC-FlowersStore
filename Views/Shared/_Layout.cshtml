@@ -10,15 +10,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Oxygen:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
-    <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
     <link rel="stylesheet" type="text/css" href="~/slick/slick.css" />
     <link rel="stylesheet" type="text/css" href="~/slick/slick-theme.css" />
+    <link rel="stylesheet" type="text/css" href="~/css/jquery.fancybox.min.css">
+    <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <script defer src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="~/lib/bootstrap/dist/js/bootstrap.min.js"></script>
     <script defer type="text/javascript" src="~/slick/slick.min.js"></script>
+    <script defer type="text/javascript" src="~/js/jquery.fancybox.min.js"></script>
     <script defer src="~/js/site.js" asp-append-version="true"></script>
 
 </head>
@@ -79,8 +81,33 @@
         <div id="dialogBox"></div>
     </div>
 
-    
-
+    <div class="pre-footer border-top">
+        <div class="container">
+            <div class="pre-footer-block">
+                <div class="pre-footer-text">We accept for payment:</div>
+                <div class="pre-footer-payments">
+                    <ul class="payments-icons">
+                        <li class="payments-icon">
+                            <img src="~/Image/Payments/Payment-1.svg" alt="Payment-1" class="payments-icon-img" />
+                        </li>
+                        <li class="payments-icon">
+                            <img src="~/Image/Payments/Payment-2.svg" alt="Payment-2" class="payments-icon-img" />
+                        </li>
+                        <li class="payments-icon">
+                            <img src="~/Image/Payments/Payment-3.svg" alt="Payment-3" class="payments-icon-img" />
+                        </li>
+                        <li class="payments-icon">
+                            <img src="/Image/Payments/Payment-4.svg" alt="Payment-4" class="payments-icon-img" />
+                        </li>
+                        <li class="payments-icon">
+                            <img src="~/Image/Payments/Payment-5.svg" alt="Payment-5" class="payments-icon-img" />
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+   
     <footer class="border-top footer text-muted">
         <div class="container">
             &copy; 2020 - FLOWER<span class="logo-span">STORE</span> - <a class="btnClick" style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
