@@ -364,10 +364,6 @@ a.navbar-brand {
     margin-right: 20px;
 }
 
-.about-img-block {
-    margin-bottom: 15px;
-}
-
 .about-block {
     display: flex;
     justify-content: space-between;
@@ -387,6 +383,7 @@ a.navbar-brand {
     display: block;
     height: 200px;
     width: 300px;
+    margin-bottom: 15px;
 }
 
 .about-li {
@@ -402,4 +399,34 @@ a.navbar-brand {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/* Pre-footer*/
+
+.pre-footer-block {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+.pre-footer-text {
+    text-align: left;
+    font-size: 16px;
+    line-height: 32px;
+    color: #EE1B22;
+}
+
+.payments-icons {
+    display: flex;
+    flex-direction: row;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.payments-icon-img {
+    height: 50px;
+    width: 70px;
 }

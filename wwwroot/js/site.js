@@ -191,4 +191,47 @@ $(document).ready(function () {
         speed: 1000,
         infinite: true
     });
+
+    // * FancyBox
+    //$('[data-fancybox="gallery"]').fancybox({
+    //    arrows: false,
+    //    touch: false,
+    //    transitionEffect: "none",
+    //    PLAY_START: false,
+    //    loop: false,
+    //    infobar: false,
+    //    dblclickContent: false,
+    //    dblclickSlide: false,
+    //    dblclickOutside: false,
+    //    buttons: ["close"]
+    //});
+
+    $("#singl1").fancybox({
+        helpers: {
+            title: {
+                type: 'float'
+            }
+        }
+    });
+
+    $("#singl2").fancybox({
+        openEffect: 'elastic',
+        closeEffect: 'elastic',
+
+        helpers: {
+            title: {
+                type: 'inside'
+            }
+        }
+    });
+
+    $("#singl3").fancybox({
+        openEffect: 'none',
+        closeEffect: 'none',
+        helpers: {
+            title: {
+                type: 'outside'
+            }
+        }
+    });
 });
