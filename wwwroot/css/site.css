@@ -197,6 +197,22 @@ html {
     color: #EE1B22;
 }
 
+.phone-text {
+    margin-top: 5px;
+    margin-right: 20px;
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.2px;
+    color: #343a40 !important;
+    text-decoration: none;
+    vertical-align: central;
+}
+
+    .phone-text:hover {
+        color: #EE1B22 !important;
+        text-decoration: none;
+    }
+
 .btnClick {
     background-color: transparent;
     color: #343a40 !important;
@@ -243,8 +259,7 @@ html {
 .modal-header {
     padding-top: 3px;
     padding-bottom: 3px;
-    background-color: #EE1B22;
-  
+    background-color: #ff6b70;
 }
 
 .modal-title {
@@ -285,12 +300,12 @@ a.navbar-brand {
 /* MAIN HOME PAGE*/
 
 .main-title {
-    padding-top: 8%;
+    padding-top: 11%;
     padding-bottom: 3%;
 }
 
 .main-subtitle {
-    padding-bottom: 8%;
+    padding-bottom: 5%;
 }
 
 /*Slick Slider*/
@@ -321,11 +336,12 @@ a.navbar-brand {
     align-items: center;
     text-align: center;
     width: 27%;
+    padding-bottom: 8%;
 }
 
 .reviews-text {
     text-align: center;
-    padding-bottom: 8%;
+    padding-bottom: 5%;
 }
 
 .reviews-img {
@@ -341,6 +357,46 @@ a.navbar-brand {
 .reviews-descr {
     font-weight: 600;
 }
+
+/* About */
+
+.about-img-blocks {
+    margin-right: 20px;
+}
+
+.about-img-block {
+    margin-bottom: 15px;
+}
+
+.about-block {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    padding-bottom: 8%;
+}
+
+.about-text-title {
+    line-height: 32px;
+}
+
+.about-text-subtitle__descr{
+
+}
+
+.about-img {
+    display: block;
+    height: 200px;
+    width: 300px;
+}
+
+.about-li {
+    color: #EE1B22;
+}
+
+.about-span {
+    color: #343a40;
+}
+
 /* Store */
 .store-heading {
     display: flex;

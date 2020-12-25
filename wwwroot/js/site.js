@@ -182,14 +182,13 @@ function dialogPost(e, key, url) {
 $(document).ready(function () {
     $(".sl").slick({
         arrows: false,
-        infinite: true,
-        speed: 500,
         fade: true,
         cssEase: 'linear',
         slidesToShow: 1,
         slidesToScroll: 1,
         autoplay: true,
         autoplaySpeed: 5000,
-        speed: 1000
+        speed: 1000,
+        infinite: true
     });
 });
