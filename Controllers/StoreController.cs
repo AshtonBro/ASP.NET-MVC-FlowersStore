@@ -14,8 +14,12 @@ namespace FlowersStore.Controllers
             {
                 model.Products = db.Products.ToArray();
 
-            }
+                foreach (var product in model.Products)
+                {
+                    product.Category = db.Categories.FirstOrDefault(f => f.CategoryId == product.CategoryId);
+                }
 
+            }
             return View(model);
         }
     }
