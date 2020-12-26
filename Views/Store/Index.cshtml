@@ -26,12 +26,25 @@
                     <div class="card-text">
                         <div class="card-heading">
                             <div class="card-title">@product.Name</div>
-                            <div class="category">@product.Category.FlowersType</div>
+                            <div class="card-category">@product.Category.FlowersType</div>
                             <div class="card-description">@product.Description</div>
                         </div>
                         <div class="card-info">
-                            <div class="color">@product.Color</div>
-                            <div class="price"> @trimPrice€</div>
+                            <div class="card-color-box">
+                                <div class="card-color-icon"></div>
+                                <div class="card-color">@product.Color</div>
+                            </div>
+                        </div>
+                        <div class="card-payment">
+                            <div class="card-quantity">
+                                <div class="quantity-group">
+                                    <div class="plus">+</div>
+                                    <div class="count">1</div>
+                                    <div class="minus">-</div>
+                                </div>
+                                <div class="card-price"> @trimPrice€</div>
+                            </div>
+                            <button class="card-btn-add">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
