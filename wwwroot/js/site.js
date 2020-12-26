@@ -192,20 +192,6 @@ $(document).ready(function () {
         infinite: true
     });
 
-    // * FancyBox
-    //$('[data-fancybox="gallery"]').fancybox({
-    //    arrows: false,
-    //    touch: false,
-    //    transitionEffect: "none",
-    //    PLAY_START: false,
-    //    loop: false,
-    //    infobar: false,
-    //    dblclickContent: false,
-    //    dblclickSlide: false,
-    //    dblclickOutside: false,
-    //    buttons: ["close"]
-    //});
-
     $("#singl1").fancybox({
         helpers: {
             title: {
@@ -235,3 +221,4 @@ $(document).ready(function () {
         }
     });
 });
+

@@ -441,7 +441,6 @@ a.navbar-brand {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    height: 360px;
     flex-basis: 27%;
     border: 1px solid #EE1B22;
     border-radius: .25rem;
@@ -451,14 +450,15 @@ a.navbar-brand {
 }
 
     .shoping-card:hover {
-        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        box-shadow: 0 0 15px #343a40;
+        transform: translateY(-7px);
     }
 
 .card-image {
     position: relative;
     display: block;
-    height: 203px;
     flex-basis: 27%;
+    max-height: 386px;
     margin-top: 0.5px;
     border-radius: .25rem;
 }
@@ -466,7 +466,44 @@ a.navbar-brand {
 .card-shoping-image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    border-radius: .25rem;
+    object-fit: fill;
+}
+
+.card-title {
+    margin-bottom: 0;
+    font-weight: 600;
+    line-height: 32px;
+}
+
+.card-category {
+    font-style: italic;
+}
+
+.card-color-icon {
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    cursor: pointer;
+}
+
+.card-description {
+    font-size: 15px;
+    line-height: 18px;
+    margin: 0 5px 20px 5px;
+}
+
+.card-color-box {
+    display: flex;
+}
+
+.card-text {
+
+}
+
+
+.card-payment {
+
 }
 
 
