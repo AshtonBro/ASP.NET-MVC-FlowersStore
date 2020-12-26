@@ -10,29 +10,35 @@
             </label>
         </div>
         <div class="shoping-cards">
-            <a class="card shoping-card">
-                @foreach (Product product in Model.Products)
-                {
-                    var base64 = Convert.ToBase64String(product.Image);
-                    var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+            @foreach (Product product in Model.Products)
+            {
 
-                    var price = @product.Price.ToString();
-                    var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
+                var base64 = Convert.ToBase64String(product.Image);
+                var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-                    <img src="@imgSrc" alt="image" class="card-image">
+                var price = @product.Price.ToString();
+                var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
+
+                <div class="card shoping-card">
+                    <div class="card-image">
+                        <img src="@imgSrc" alt="image" class="card-shoping-image">
+                    </div>
                     <div class="card-text">
                         <div class="card-heading">
-                            <h3 class="card-title">@product.Name</h3>
-                            <p class="card-description">@product.Description</p>
+                            <div class="card-title">@product.Name</div>
+                            <div class="category">@product.Category.FlowersType</div>
+                            <div class="card-description">@product.Description</div>
                         </div>
                         <div class="card-info">
                             <div class="color">@product.Color</div>
-                            <div class="price"> @trimPrice ₽</div>
-                            <div class="category">@product.Category</div>
+                            <div class="price"> @trimPrice€</div>
                         </div>
                     </div>
-                }
-            </a>
+                </div>
+            }
         </div>
     </section>
 </div>
+
+
+
