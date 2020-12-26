@@ -3,6 +3,7 @@ body {
     font-family: 'Open Sans', sans-serif;
 }
 
+
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
@@ -109,7 +110,8 @@ html {
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
-    width: 50%
+    max-width: 45%;
+    width: 40%;
 }
 
 .lds-dual-ring {
@@ -394,21 +396,87 @@ a.navbar-brand {
     color: #343a40;
 }
 
+/* Privacy */
+.privacy {
+    padding-top: 6%;
+}
+
 /* Store */
+
+.input-search {
+    width: 100%;
+    height: calc(1.5em + .75rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    outline-color: #343a40;
+}
+
+.store {
+    padding-top: 8%;
+}
+
 .store-heading {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 15px;
 }
 
-/* Pre-footer*/
+.shoping-cards {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    flex-basis: 33%;
+}
 
+.shoping-card {
+    align-items: center;
+    text-align: center;
+    flex-direction: column;
+    height: 360px;
+    flex-basis: 27%;
+    border: 1px solid #EE1B22;
+    border-radius: .25rem;
+    margin-bottom: 22px;
+    cursor: pointer;
+    transition: all 0.6s ease 0s;
+}
+
+    .shoping-card:hover {
+        transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    }
+
+.card-image {
+    position: relative;
+    display: block;
+    height: 203px;
+    flex-basis: 27%;
+    margin-top: 0.5px;
+    border-radius: .25rem;
+}
+
+.card-shoping-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
+/* Pre-footer*/
 .pre-footer-block {
     display: flex;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
-    width: 50%;
+    width: 60%;
 }
 
 .pre-footer-text {
