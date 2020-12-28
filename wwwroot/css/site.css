@@ -441,11 +441,10 @@ a.navbar-brand {
     align-items: center;
     text-align: center;
     flex-direction: column;
-    flex-basis: 27%;
+    flex-basis: 30%;
     border: 1px solid #EE1B22;
     border-radius: .25rem;
-    margin-bottom: 22px;
-    cursor: pointer;
+    margin-bottom: 30px;
     transition: all 0.6s ease 0s;
 }
 
@@ -484,27 +483,89 @@ a.navbar-brand {
     width: 20px;
     height: 20px;
     background-color: red;
+    margin-right: 5px;
     cursor: pointer;
 }
 
 .card-description {
     font-size: 15px;
     line-height: 18px;
-    margin: 0 5px 20px 5px;
+    margin: 0 10px 0px 10px;
+    min-height: 80px;
+    text-align:justify;
 }
 
 .card-color-box {
     display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
 }
 
-.card-text {
-
+.card-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 
-.card-payment {
 
+.quantity-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 6px;
 }
+
+.quantity-count {
+    width: 33px;
+    height: 33px;
+    border: 1px solid #343a40;
+    border-radius: .25rem;
+}
+
+.quantity-count-span {
+    color: #343a40;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.16px;
+    line-height: 33px;
+}
+
+.product-count-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 30px;
+    background: transparent;
+    font-weight: normal;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 22px;
+    color: #343a40;
+    border: none;
+    outline: none;
+    cursor: pointer;
+}
+
+    .product-count-button:hover {
+        color: #EE1B22 !important;
+    }
+
+.card-btn-add {
+    margin-bottom: 10px;
+}
+
+.card-price {
+    font-size: 18px;
+    line-height: 29px;
+    margin-bottom: 5px;
+}
+
+    .card-price span {
+        color: #678568;
+    }
 
 
 /* Pre-footer*/
