@@ -34,17 +34,19 @@
                                 <div class="card-color-icon"></div>
                                 <div class="card-color">@product.Color</div>
                             </div>
-                        </div>
-                        <div class="card-payment">
-                            <div class="card-quantity">
-                                <div class="quantity-group">
-                                    <div class="plus">+</div>
-                                    <div class="count">1</div>
-                                    <div class="minus">-</div>
+                            <div class="card-payment">
+                                <div class="card-quantity">
+                                    <div class="quantity-group">
+                                        <a class="product-count-button counter-minus">-</a>
+                                        <div class="quantity-count">
+                                            <span class="quantity-count-span">15</span>
+                                        </div>
+                                        <a class="product-count-button counter-plus">+</a>
+                                    </div>
                                 </div>
-                                <div class="card-price"> @trimPrice€</div>
+                                <div class="card-price">@trimPrice <span>€</span></div>
+                                <a class="card-btn-add btnClick btn loginBtn btnBorder">В КОРЗИНУ</a>
                             </div>
-                            <button class="card-btn-add">В КОРЗИНУ</button>
                         </div>
                     </div>
                 </div>
