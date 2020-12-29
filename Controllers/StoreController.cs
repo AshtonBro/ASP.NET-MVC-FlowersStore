@@ -1,6 +1,7 @@
 ﻿using FlowersStore.Data;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace FlowersStore.Controllers
@@ -21,6 +22,12 @@ namespace FlowersStore.Controllers
 
             }
             return View(model);
+        }
+
+        [HttpPost]
+        public IActionResult AddToBasket (Guid id, string quantity)
+        {
+            throw new Exception();
         }
     }
 }
