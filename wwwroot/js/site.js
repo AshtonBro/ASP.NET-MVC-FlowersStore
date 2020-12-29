@@ -178,6 +178,32 @@ function dialogPost(e, key, url) {
     ajaxPostJsonResult(e, url, formId, successCallBack, errorCallBack);
 }
 
+//Add handlers to update text based on value changes.
+//document.querySelectorAll('[source="value"]').forEach(ctrl => {
+//    ctrl.addEventListener("input",
+//        (e) => {
+//            var data = {
+//                point: e.target.getAttribute("point"),
+//                value: e.target.value
+//            };
+//            $.ajax({
+//                url: "/Tags/UpdateText",
+//                type: "post",
+//                contentType: 'application/x-www-form-urlencoded',
+//                data: data,
+//                success: function (result) {
+//                    console.log(result);
+//                    var valueInput = document.querySelector('[point="' + result.point + '"]');
+//                    var textInput = document.getElementById(valueInput.id + "_text");
+//                    if (textInput !== null) {
+//                        textInput.value = result.text;
+//                    }
+//                }
+//            });
+//        });
+//});
+
+
 // * Slider Slick jQuery path of code
 $(document).ready(function () {
     $(".sl").slick({
@@ -223,3 +249,24 @@ $(document).ready(function () {
 });
 
 
+/* Coloration box */
+
+const colorationColorIcon = () => {
+    const cardColorIcon = document.querySelectorAll('.card-color-icon'),
+        cardColor = document.querySelectorAll('.card-color');
+    for (var i = 0; i < cardColor.length; i++) {
+        switch (cardColor[i].innerHTML) {
+            case 'Зелёный':
+             cardColorIcon[i].style.backgroundColor = 'Green';
+                continue;
+            case 'Желтый':
+                cardColorIcon[i].style.backgroundColor = 'Yellow';
+                continue;
+            case 'Красный':
+                cardColorIcon[i].style.backgroundColor = 'Red';
+                break;
+        }
+    };
+};
+
+colorationColorIcon();
