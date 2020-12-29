@@ -19,7 +19,9 @@
                 var price = @product.Price.ToString();
                 var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
 
-                <div class="card shoping-card">
+                var productId = product.ProductId;
+
+                <div class="card shoping-card" id="@productId">
                     <div class="card-image">
                         <img src="@imgSrc" alt="image" class="card-shoping-image">
                     </div>
@@ -31,26 +33,26 @@
                         </div>
                         <div class="card-info">
                             <div class="card-color-box">
-                                <div class="card-color-icon"></div>
-                                <div class="card-color">@product.Color</div>
+                                <div class="card-color-icon color-box"></div>
+                                <div class="card-color color-box">@product.Color</div>
                             </div>
                             <div class="card-payment">
                                 <div class="card-quantity">
                                     <div class="quantity-group">
                                         <a class="product-count-button counter-minus">-</a>
                                         <div class="quantity-count">
-                                            <span class="quantity-count-span">15</span>
+                                            <span class="quantity-count-span">7</span>
                                         </div>
                                         <a class="product-count-button counter-plus">+</a>
                                     </div>
                                 </div>
                                 <div class="card-price">@trimPrice <span>€</span></div>
-                                <a class="card-btn-add btnClick btn loginBtn btnBorder">В КОРЗИНУ</a>
+                                <button class="card-btn-add btnClick btn loginBtn btnBorder" onclick="location.href = '@Url.Action("AddToBasket", "Store", new {id = productId, quantity = "3"})'">В КОРЗИНУ</button>
                             </div>
                         </div>
                     </div>
                 </div>
-            }
+             }
         </div>
     </section>
 </div>
