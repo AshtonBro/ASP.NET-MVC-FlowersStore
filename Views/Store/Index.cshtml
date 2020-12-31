@@ -19,7 +19,7 @@
                 var price = @product.Price.ToString();
                 var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
 
-                var productId = product.ProductId;
+                var productId = product.ProductId.ToString();
 
                 <div class="card shoping-card" id="@productId">
                     <div class="card-image">

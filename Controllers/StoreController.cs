@@ -25,7 +25,7 @@ namespace FlowersStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddToBasket (Guid id, string quantity)
+        public IActionResult AddToBasket (string id, string quantity)
         {
             throw new Exception();
         }
