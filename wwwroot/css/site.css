@@ -515,13 +515,13 @@ a.navbar-brand {
     align-items: center;
     margin-bottom: 6px;
 }
-
+/*
 .quantity-count {
     width: 33px;
     height: 33px;
     border: 1px solid #343a40;
     border-radius: .25rem;
-}
+}*/
 
 .quantity-count-span {
     color: #343a40;
@@ -529,6 +529,17 @@ a.navbar-brand {
     font-weight: 500;
     letter-spacing: 0.16px;
     line-height: 33px;
+    width: 33px;
+    height: 33px;
+    border: 1px solid #343a40;
+    border-radius: .25rem;
+    /* display: none; <- Crashes Chrome on hover */
+    -webkit-appearance: none;
+    margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+    -moz-appearance: textfield; /* Firefox */
 }
 
 .product-count-button {
