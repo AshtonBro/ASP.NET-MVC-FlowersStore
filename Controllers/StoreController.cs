@@ -1,4 +1,5 @@
 ﻿using FlowersStore.Data;
+using FlowersStore.Models;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -24,10 +25,22 @@ namespace FlowersStore.Controllers
             return View(model);
         }
 
-        [HttpPost]
-        public IActionResult AddToBasket (string id, string quantity)
+        public IActionResult AddToBasket(Guid id, int quantity)
         {
-            throw new Exception();
+            using (StoreDBContext db = new StoreDBContext())
+            {
+                var shoppingCart = new ShopingCart();
+
+                shoppingCart.CartId = Guid.NewGuid();
+                shoppingCart.DateCreated = DateTime.Now;
+                shoppingCart.Product = db.Products.FirstOrDefault(f => f.ProductId == id);
+                shoppingCart.Quantity = quantity;
+                shoppingCart.Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
+
+                db.ShopingCarts.Add(shoppingCart);
+            }
+            
+            return JsonResult()
         }
     }
 }
