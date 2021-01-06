@@ -247,6 +247,9 @@ $(document).ready(function () {
             }
         }
     });
+
+    colorationColorIcon();
+    changeQuantity();
 });
 
 
@@ -269,7 +272,6 @@ const colorationColorIcon = () => {
     };
 };
 
-colorationColorIcon();
 
 /* Change quantity shopping card */
 const changeQuantity = () => {
@@ -295,5 +297,3 @@ const changeQuantity = () => {
         }
     }
 };
-
-changeQuantity();
