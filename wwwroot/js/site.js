@@ -251,7 +251,6 @@ $(document).ready(function () {
 
 
 /* Coloration box */
-
 const colorationColorIcon = () => {
     const cardColorIcon = document.querySelectorAll('.card-color-icon'),
         cardColor = document.querySelectorAll('.card-color');
@@ -273,7 +272,6 @@ const colorationColorIcon = () => {
 colorationColorIcon();
 
 /* Change quantity shopping card */
-
 const changeQuantity = () => {
     const plusBtnList = document.querySelectorAll('.counter-plus'),
         minusBtnList = document.querySelectorAll('.counter-minus');
