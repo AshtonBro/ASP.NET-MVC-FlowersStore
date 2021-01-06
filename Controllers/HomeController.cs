@@ -42,6 +42,5 @@ namespace FlowersStore.Controllers
             var model = new LoginViewModel();
             return View("~/Views/Login/Index.cshtml", model);
         }
-
     }
 }
