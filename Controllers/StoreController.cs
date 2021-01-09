@@ -38,9 +38,9 @@ namespace FlowersStore.Controllers
                 shoppingCart.Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
 
                 db.ShopingCarts.Add(shoppingCart);
+                db.SaveChanges();
             }
-            
-            return JsonResult()
+            return new JsonResult( new { message = "Success" });
         }
     }
 }
