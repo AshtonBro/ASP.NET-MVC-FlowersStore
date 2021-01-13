@@ -8,7 +8,6 @@ namespace FlowersStore.ViewModels
         public string Title { get; set; }
 
         // Filtration
-
         public IEnumerable<Product> Products { get; set; }
     }
 }
