@@ -29,13 +29,14 @@ namespace FlowersStore.Controllers
         {
             using (StoreDBContext db = new StoreDBContext())
             {
-                var shoppingCart = new ShopingCart();
-
-                shoppingCart.CartId = Guid.NewGuid();
-                shoppingCart.DateCreated = DateTime.Now;
-                shoppingCart.Product = db.Products.FirstOrDefault(f => f.ProductId == id);
-                shoppingCart.Quantity = quantity;
-                shoppingCart.Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
+                ShopingCart shoppingCart = new ShopingCart
+                {
+                    CartId = Guid.NewGuid(),
+                    DateCreated = DateTime.Now,
+                    Product = db.Products.FirstOrDefault(f => f.ProductId == id),
+                    Quantity = quantity,
+                    Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
+                };
 
                 db.ShopingCarts.Add(shoppingCart);
                 db.SaveChanges();
