@@ -1,0 +1,69 @@
+﻿@model FlowersStore.ViewModels.BasketViewModel
+
+
+<div class="container">
+    <section class="basket">
+        <div class="title-basket">BASKET</div>
+       
+        <form class="basket-form" action="#" method="post">
+
+            <table class="basket-table" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th class="basket-product-remove">&nbsp;</th>
+                        <th class="basket-product-thumbnail">&nbsp;</th>
+                        <th class="basket-product-name">Product</th>
+                        <th class="basket-product-price">Price</th>
+                        <th class="basket-product-quantity">Quantity</th>
+                        <th class="basket-product-subtotal">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    <tr class="basket-car-item">
+
+                        <td class="basket-product-remove">
+                            <a href="#" class="remove" aria-label="delete product">×</a>
+                        </td>
+
+                        <td class="basket-product-mini-img">
+                            <img width="300" height="300" src="#" class="basket-mini-img" alt="mini-img" loading="lazy">
+                        </td>
+
+                        <td class="basket-product-descr" data-title="Description">
+                            <a class="product-name">Роза «Дабл делайт»</a>
+                            <a class="product-category">Розы</a>
+                        </td>
+
+                        <td class="basket-product-price" data-title="Price">
+                            <span class="basket-product-amount amount">200 <span>€</span></span>
+                        </td>
+
+                        <td class="basket-product-quantity" data-title="quantity">
+                            <div class="basket-product-container">
+                                <button type="button" class="basket-product-minus">-</button>
+                                <div class="basket-product-quantity-box buttons_added">
+                                    <input type="number" id="quantity_5ffeb5f26acf3" class="basket-product-input" step="1" min="0" max="" value="6" title="Кол-во" size="4" placeholder="" inputmode="numeric">
+                                </div>
+                                <button type="button" class="basket-product-plus">+</button>
+                            </div>
+                        </td>
+
+                        <td class="basket-product-subtotal" data-title="Total">
+                            <span class="basket-price-amount amount"><bdi><span class="basket-price-currencySymbol">$</span>3.24</bdi></span>
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td colspan="6" class="actions">
+                            <button type="submit" class="basket-submit-btn button" name="update_cart" value="Checkout" aria-disabled="false">Checkout</button>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </form>
+
+    </section>
+</div>
