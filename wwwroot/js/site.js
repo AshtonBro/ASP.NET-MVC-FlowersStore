@@ -291,7 +291,7 @@ const changeQuantity = () => {
     for (let minusBtn of minusBtnList) {
         minusBtn.onclick = () => {
             let currentSpan = minusBtn.nextElementSibling;
-            if (+(currentSpan.innerHTML) > 0) {
+            if (+(currentSpan.innerHTML) > 1) {
                 currentSpan.innerHTML = +(currentSpan.innerHTML) - 1;
             }
         }
