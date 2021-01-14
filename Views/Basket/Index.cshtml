@@ -24,11 +24,15 @@
                 </thead>
                 <tbody>
 
-                    @foreach (ShopingCart cart in Model.ShopingCarts)
+
+                    @foreach (var cart in Model.ShopingCarts)
                     {
+
                         var base64 = Convert.ToBase64String(cart.Product.Image);
                         var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
+                        var price = @cart.Product.Price.ToString();
+                        var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
 
                         <tr class="basket-cart-item">
 
@@ -42,42 +46,55 @@
 
                             <td class="basket-product-descr" data-title="Description">
                                 <a class="product-name">@cart.Product.Name</a>
-                                <a class="product-category">@cart.Product.Category</a>
+                                <a class="product-category">@cart.Product.Category.FlowersType</a>
                             </td>
 
                             <td class="basket-product-price" data-title="Price">
-                                <span class="basket-product-amount amount">@cart.Product.Price <span class="span-style">€</span></span>
+                                <span class="basket-product-amount amount">@trimPrice <span class="span-style">€</span></span>
                             </td>
 
                             <td class="basket-product-quantity" data-title="quantity">
                                 <div class="basket-product-container">
-                                    <button type="button" class="basket-product-minus counter-minus">-</button>
-                                    <span class="basket-product-quantity">@cart.Quantity</span>
-                                    <button type="button" class="basket-product-plus counter-plus">+</button>
+                                    <button type="button" class="basket-product-counter counter-minus basket-minus">-</button>
+                                    <span class="span-product-quantity">@cart.Quantity</span>
+                                    <button type="button" class="basket-product-counter counter-plus basket-plus">+</button>
                                 </div>
                             </td>
 
                             <td class="basket-product-subtotal" data-title="subtotal">
-                                <span class="basket-price-amount amount"><bdi>@(cart.Quantity * @cart.Product.Price) <span class="span-style">€</span></bdi></span>
+                                <span class="basket-price-amount"><bdi class="amount">@(cart.Quantity * trimPrice)</bdi></span>
+                                <span class="span-style">€</span>
                             </td>
                         </tr>
-
                     }
 
-
-                    <tr>
-                        <td class="basket-product-total" data-title="total">
-                            <span class="basket-price-amount "><bdi>Total: 3120 <span class="span-style">€</span></bdi></span>
-
+                    <tr class="basket-cart-footer">
+                        <td colspan="6" class="basket-actions">
+                            <span class="basket-price-amount "><bdi class="basket-product-amount">Total: <span class="amount-total">3120</span> <span class="span-style">€</span></bdi></span>
                         </td>
-                        <td colspan="6" class="actions">
-                            <button type="submit" class="basket-submit-btn button" name="Checkout" value="Checkout" aria-disabled="false">Checkout</button>
+                    </tr>
+                    <tr class="basket-cart-footer">
+                        <td colspan="6" class="basket-actions">
+                            <button type="submit" class="basket-submit-btn btnClick btn loginBtn btnBorder" name="Checkout" value="Checkout" aria-disabled="false">Checkout</button>
                         </td>
                     </tr>
 
                 </tbody>
             </table>
         </form>
+
+        <script>
+            let priceAmount = document.querySelectorAll('.basket-price-amount');
+            let amountTotal = document.querySelector('.amount-total');
+
+            let total = 0;
+
+            for (var i = 0; i < priceAmount.length - 1; i++) {
+                total += parseInt(priceAmount[i].innerText);
+            }
+
+            amountTotal.innerText = total;
+        </script>
 
     </section>
 </div>

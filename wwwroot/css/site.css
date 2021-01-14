@@ -660,13 +660,95 @@ th {
 }
 
 td {
-    border-top: 1px solid #e5e5e5;
     padding: 9px 12px;
     vertical-align: middle;
     line-height: 1.5em;
+}
+
+.basket-product-remove {
+    width: 37px;
 }
 
 .basket-mini-img {
     height: 80px;
     width: 80px;
 }
+
+.basket-product-descr {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100px;
+    font-size: 17px;
+    line-height: 26px;
+}
+
+.basket-product-container {
+    display: flex;
+    justify-content: left;
+}
+
+.basket-product-counter {
+    line-height: 1;
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    height: 40px;
+    width: 40px;
+    color: black;
+    background: #e5e5e5;
+    border-color: #e5e5e5;
+    float: left;
+    vertical-align: middle;
+    font-size: 16px;
+    letter-spacing: 0;
+    border-style: solid;
+    border-width: 1px;
+    transition: none;
+}
+
+.basket-product-counter:hover {
+    color: #EE1B22 !important;
+}
+
+.basket-minus {
+    border-top-left-radius: .25rem;
+    border-bottom-left-radius: .25rem;
+}
+.basket-plus {
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.span-product-quantity {
+    background: none;
+    text-align: center;
+    box-sizing: border-box;
+    height: 40px;
+    width: 50px;
+    line-height: 38px;
+    font-size: 15px;
+    border: 1px solid #e5e5e5;
+}
+
+.basket-actions {
+    padding-right: 42px;
+}
+
+
+.basket-product-amount {
+    font-size: 18px;
+    vertical-align: middle;
+    line-height: 19px;
+}
+
+.amount-total {
+    font-size: 18px;
+    line-height: 19px;
+}
+
+.basket-cart-footer {
+    text-align: right;
+}
+
