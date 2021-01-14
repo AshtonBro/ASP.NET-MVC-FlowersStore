@@ -7,8 +7,8 @@
 
 <div class="container container-basket">
     <section class="basket">
-        <h1>@ViewData["Title"]</h1>
-
+        <h1 class="title">@ViewData["Title"]</h1>
+        <span>@Model.UserName</span>
         <form class="basket-form" action="#" method="post">
 
             <table class="basket-table" cellspacing="0">
@@ -19,116 +19,55 @@
                         <th class="basket-product-name">Product</th>
                         <th class="basket-product-price">Price</th>
                         <th class="basket-product-quantity">Quantity</th>
-                        <th class="basket-product-subtotal">Total</th>
+                        <th class="basket-product-subtotal">SubTotal</th>
                     </tr>
                 </thead>
                 <tbody>
 
-                    <tr class="basket-car-item">
+                    @foreach (ShopingCart cart in Model.ShopingCarts)
+                    {
+                        var base64 = Convert.ToBase64String(cart.Product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-                        <td class="basket-product-remove">
-                            <a href="#" class="remove" aria-label="delete product">×</a>
-                        </td>
 
-                        <td class="basket-product-mini-img">
-                            <img width="300" height="300" src="#" class="basket-mini-img" alt="mini-img" loading="lazy">
-                        </td>
+                        <tr class="basket-cart-item">
 
-                        <td class="basket-product-descr" data-title="Description">
-                            <a class="product-name">Роза «Дабл делайт»</a>
-                            <a class="product-category">Розы</a>
-                        </td>
+                            <td class="basket-product-remove">
+                                <a href="#" class="product-remove" aria-label="delete product">×</a>
+                            </td>
 
-                        <td class="basket-product-price" data-title="Price">
-                            <span class="basket-product-amount amount">200 <span>€</span></span>
-                        </td>
+                            <td class="basket-product-mini-img">
+                                <img width="300" height="300" src="@imgSrc" class="basket-mini-img" alt="mini-img" loading="lazy">
+                            </td>
 
-                        <td class="basket-product-quantity" data-title="quantity">
-                            <div class="basket-product-container">
-                                <button type="button" class="basket-product-minus">-</button>
-                                <div class="basket-product-quantity-box buttons_added">
-                                    <input type="number" id="quantity_5ffeb5f26acf3" class="basket-product-input" step="1" min="0" max="" value="6" title="Кол-во" size="4" placeholder="" inputmode="numeric">
+                            <td class="basket-product-descr" data-title="Description">
+                                <a class="product-name">@cart.Product.Name</a>
+                                <a class="product-category">@cart.Product.Category</a>
+                            </td>
+
+                            <td class="basket-product-price" data-title="Price">
+                                <span class="basket-product-amount amount">@cart.Product.Price <span class="span-style">€</span></span>
+                            </td>
+
+                            <td class="basket-product-quantity" data-title="quantity">
+                                <div class="basket-product-container">
+                                    <button type="button" class="basket-product-minus counter-minus">-</button>
+                                    <span class="basket-product-quantity">@cart.Quantity</span>
+                                    <button type="button" class="basket-product-plus counter-plus">+</button>
                                 </div>
-                                <button type="button" class="basket-product-plus">+</button>
-                            </div>
-                        </td>
+                            </td>
 
-                        <td class="basket-product-subtotal" data-title="subtotal">
-                            <span class="basket-price-amount amount"><bdi>200<span>€</span></bdi></span>
-                        </td>
-                    </tr>
+                            <td class="basket-product-subtotal" data-title="subtotal">
+                                <span class="basket-price-amount amount"><bdi>@(cart.Quantity * @cart.Product.Price) <span class="span-style">€</span></bdi></span>
+                            </td>
+                        </tr>
 
-                    <tr class="basket-car-item">
+                    }
 
-                        <td class="basket-product-remove">
-                            <a href="#" class="remove" aria-label="delete product">×</a>
-                        </td>
-
-                        <td class="basket-product-mini-img">
-                            <img width="300" height="300" src="#" class="basket-mini-img" alt="mini-img" loading="lazy">
-                        </td>
-
-                        <td class="basket-product-descr" data-title="Description">
-                            <a class="product-name">Роза «Дабл делайт»</a>
-                            <a class="product-category">Розы</a>
-                        </td>
-
-                        <td class="basket-product-price" data-title="Price">
-                            <span class="basket-product-amount amount">200 <span>€</span></span>
-                        </td>
-
-                        <td class="basket-product-quantity" data-title="quantity">
-                            <div class="basket-product-container">
-                                <button type="button" class="basket-product-minus">-</button>
-                                <div class="basket-product-quantity-box buttons_added">
-                                    <input type="number" id="quantity_5ffeb5f26acf3" class="basket-product-input" step="1" min="0" max="" value="6" title="Кол-во" size="4" placeholder="" inputmode="numeric">
-                                </div>
-                                <button type="button" class="basket-product-plus">+</button>
-                            </div>
-                        </td>
-
-                        <td class="basket-product-subtotal" data-title="subtotal">
-                            <span class="basket-price-amount amount"><bdi>200<span>€</span></bdi></span>
-                        </td>
-                    </tr>
-
-                    <tr class="basket-car-item">
-
-                        <td class="basket-product-remove">
-                            <a href="#" class="remove" aria-label="delete product">×</a>
-                        </td>
-
-                        <td class="basket-product-mini-img">
-                            <img width="300" height="300" src="#" class="basket-mini-img" alt="mini-img" loading="lazy">
-                        </td>
-
-                        <td class="basket-product-descr" data-title="Description">
-                            <a class="product-name">Роза «Дабл делайт»</a>
-                            <a class="product-category">Розы</a>
-                        </td>
-
-                        <td class="basket-product-price" data-title="Price">
-                            <span class="basket-product-amount amount">200 <span>€</span></span>
-                        </td>
-
-                        <td class="basket-product-quantity" data-title="quantity">
-                            <div class="basket-product-container">
-                                <button type="button" class="basket-product-minus">-</button>
-                                <div class="basket-product-quantity-box buttons_added">
-                                    <input type="number" id="quantity_5ffeb5f26acf3" class="basket-product-input" step="1" min="0" max="" value="6" title="Кол-во" size="4" placeholder="" inputmode="numeric">
-                                </div>
-                                <button type="button" class="basket-product-plus">+</button>
-                            </div>
-                        </td>
-
-                        <td class="basket-product-subtotal" data-title="subtotal">
-                            <span class="basket-price-amount amount"><bdi>200<span>€</span></bdi></span>
-                        </td>
-                    </tr>
 
                     <tr>
                         <td class="basket-product-total" data-title="total">
-                            <span class="basket-price-amount "><bdi>3120<span>€</span></bdi></span>
+                            <span class="basket-price-amount "><bdi>Total: 3120 <span class="span-style">€</span></bdi></span>
 
                         </td>
                         <td colspan="6" class="actions">
