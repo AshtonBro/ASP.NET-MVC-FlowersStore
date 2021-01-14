@@ -15,8 +15,11 @@ namespace FlowersStore.Controllers
             var model = new BasketViewModel();
             using (StoreDBContext db = new StoreDBContext())
             {
-                model.UserName = db.Users.FirstOrDefault(f => f.Name == "User1").ToString();
-                model.ShopingCarts = db.ShopingCarts.ToArray();
+                model.UserName = db.Users.FirstOrDefault(f => f.Name == "User1").Name;
+
+                var user = db.Users.FirstOrDefault(f => f.Name == "User1");
+                var basket = db.Baskets.FirstOrDefault(f => f.UserId == user.UserId);
+                model.ShopingCarts = db.ShopingCarts.Where(f => f.Basket.BasketId == basket.BasketId);
             }
 
             return View("~/Views/Basket/Index.cshtml", model);
