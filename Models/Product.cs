@@ -9,6 +9,7 @@ namespace FlowersStore.Models
     public class Product
     {
         [Key]
+        [ForeignKey("CartId")]
         public Guid ProductId { get; set; }
 
         [Required]
