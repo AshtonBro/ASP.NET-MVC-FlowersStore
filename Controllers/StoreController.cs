@@ -29,16 +29,25 @@ namespace FlowersStore.Controllers
         {
             using (StoreDBContext db = new StoreDBContext())
             {
-                ShopingCart shoppingCart = new ShopingCart
-                {
-                    CartId = Guid.NewGuid(),
-                    DateCreated = DateTime.Now,
-                    Product = db.Products.FirstOrDefault(f => f.ProductId == id),
-                    Quantity = quantity,
-                    Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
-                };
 
-                db.ShopingCarts.Add(shoppingCart);
+                var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
+                var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId);
+                if(existingShopingCart == null)
+                {
+                    ShopingCart shoppingCart = new ShopingCart
+                    {
+                        CartId = Guid.NewGuid(),
+                        DateCreated = DateTime.Now,
+                        Product = db.Products.FirstOrDefault(f => f.ProductId == id),
+                        Quantity = quantity,
+                        Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
+                    };
+                    db.ShopingCarts.Add(shoppingCart);
+                } else
+                {
+                    existingShopingCart.Quantity += quantity;
+                }
+
                 db.SaveChanges();
             }
             return new JsonResult( new { message = "Success" });
