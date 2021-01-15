@@ -7,11 +7,14 @@ const colorationColorIcon = () => {
             case 'Зелёный':
                 cardColorIcon[i].style.backgroundColor = 'Green';
                 continue;
-            case 'Желтый':
+            case 'Жёлтый':
                 cardColorIcon[i].style.backgroundColor = 'Yellow';
                 continue;
             case 'Красный':
                 cardColorIcon[i].style.backgroundColor = 'Red';
+                continue;
+            case 'Фиолетовый':
+                cardColorIcon[i].style.backgroundColor = '#8b00ff';
                 break;
         }
     };
