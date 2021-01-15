@@ -175,29 +175,3 @@ function dialogPost(e, key, url) {
 
     ajaxPostJsonResult(e, url, formId, successCallBack, errorCallBack);
 }
-
-//Add handlers to update text based on value changes.
-
-//document.querySelectorAll('[source="value"]').forEach(ctrl => {
-//    ctrl.addEventListener("input",
-//        (e) => {
-//            var data = {
-//                point: e.target.getAttribute("point"),
-//                value: e.target.value
-//            };
-//            $.ajax({
-//                url: "/Tags/UpdateText",
-//                type: "post",
-//                contentType: 'application/x-www-form-urlencoded',
-//                data: data,
-//                success: function (result) {
-//                    console.log(result);
-//                    var valueInput = document.querySelector('[point="' + result.point + '"]');
-//                    var textInput = document.getElementById(valueInput.id + "_text");
-//                    if (textInput !== null) {
-//                        textInput.value = result.text;
-//                    }
-//                }
-//            });
-//        });
-//});

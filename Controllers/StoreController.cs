@@ -20,7 +20,6 @@ namespace FlowersStore.Controllers
                 {
                     product.Category = db.Categories.FirstOrDefault(f => f.CategoryId == product.CategoryId);
                 }
-
             }
             return View(model);
         }
@@ -29,10 +28,10 @@ namespace FlowersStore.Controllers
         {
             using (StoreDBContext db = new StoreDBContext())
             {
-
                 var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
-                var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId);
-                if(existingShopingCart == null)
+                var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
+
+                if (existingShopingCart == null)
                 {
                     ShopingCart shoppingCart = new ShopingCart
                     {
@@ -42,6 +41,7 @@ namespace FlowersStore.Controllers
                         Quantity = quantity,
                         Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
                     };
+
                     db.ShopingCarts.Add(shoppingCart);
                 } else
                 {

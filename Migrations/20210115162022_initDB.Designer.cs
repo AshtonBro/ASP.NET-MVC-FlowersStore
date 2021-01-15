@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20210115103647_initDB")]
+    [Migration("20210115162022_initDB")]
     partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
