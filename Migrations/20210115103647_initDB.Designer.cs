@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20201226211011_initDB")]
+    [Migration("20210115103647_initDB")]
     partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -99,13 +99,13 @@ namespace FlowersStore.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("BasketId")
+                    b.Property<Guid>("BasketId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("DateCreated")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid?>("ProductId")
+                    b.Property<Guid>("ProductId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Quantity")
@@ -181,21 +181,20 @@ namespace FlowersStore.Migrations
             modelBuilder.Entity("FlowersStore.Models.ShopingCart", b =>
                 {
                     b.HasOne("FlowersStore.Models.Basket", "Basket")
-                        .WithMany("ShopingCarts")
-                        .HasForeignKey("BasketId");
+                        .WithMany()
+                        .HasForeignKey("BasketId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("FlowersStore.Models.Product", "Product")
                         .WithMany()
-                        .HasForeignKey("ProductId");
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Basket");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("FlowersStore.Models.Basket", b =>
-                {
-                    b.Navigation("ShopingCarts");
                 });
 
             modelBuilder.Entity("FlowersStore.Models.Category", b =>
