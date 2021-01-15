@@ -57,9 +57,9 @@
 
                             <td class="basket-product-quantity" data-title="quantity">
                                 <div class="basket-product-container">
-                                    <button id="@buttonId" type="button" class="basket-product-counter counter-minuss basket-minus">-</button>
+                                    <button id="@buttonId" type="button" class="basket-product-counter counter-minus basket-minus">-</button>
                                     <span id="@quantityId" class="span-product-quantity">@cart.Quantity</span>
-                                    <button id="@buttonId" type="button" class="basket-product-counter counter-pluss basket-plus">+</button>
+                                    <button id="@buttonId" type="button" class="basket-product-counter counter-plus basket-plus">+</button>
                                 </div>
                             </td>
 
@@ -84,60 +84,6 @@
                 </tbody>
             </table>
         </form>
-
-        <script>
-
-            const plusBtnList = document.querySelectorAll('.basket-plus'),
-                minusBtnList = document.querySelectorAll('.basket-minus');
-
-            for (let plusBtn of plusBtnList) {
-                plusBtn.onclick = () => {
-                    let currentSpan = plusBtn.previousElementSibling;
-                    if (+(currentSpan.innerHTML) < 101) {
-                        currentSpan.innerHTML = +(currentSpan.innerHTML) + 1;
-                    }
-                }
-            }
-
-            for (let minusBtn of minusBtnList) {
-                minusBtn.onclick = () => {
-                    let currentSpan = minusBtn.nextElementSibling;
-                    if (+(currentSpan.innerHTML) > 1) {
-                        currentSpan.innerHTML = +(currentSpan.innerHTML) - 1;
-                    }
-                }
-            }
-
-            let basketCounterArr = document.querySelectorAll(".basket-product-counter");
-
-            basketCounterArr.forEach(elem => {
-                elem.addEventListener("click", (event) => {
-                    let target = event.target;
-                    console.log(target);
-                    console.log(target.closest('.amount-prc'));
-                    if (target.classList.contains('basket-plus')) {
-                        let currentSpan = target.previousElementSibling;
-                        console.log(currentSpan.innerText)
-                    }
-                    if (target.classList.contains('basket-minus')) {
-                        let currentSpan = target.nextElementSibling;
-                        console.log(currentSpan.innerText)
-                    }
-                });
-            })
-
-
-
-            let priceAmount = document.querySelectorAll(".basket-price-amount");
-            let amountTotal = document.querySelector(".amount-total");
-
-            let total = 0;
-            for (var i = 0; i < priceAmount.length - 1; i++) {
-                total += parseInt(priceAmount[i].innerText);
-            }
-            amountTotal.innerText = total;
-
-        </script>
 
     </section>
 </div>

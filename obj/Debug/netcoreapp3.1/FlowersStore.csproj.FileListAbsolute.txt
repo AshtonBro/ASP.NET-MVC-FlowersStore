@@ -172,4 +172,3 @@ D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\zh-Hant\M
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Views\Login\Index.cshtml.g.cs
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Views\Basket\Index.cshtml.g.cs
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Views\Store\Index.cshtml.g.cs
-D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.csprojAssemblyReference.cache
