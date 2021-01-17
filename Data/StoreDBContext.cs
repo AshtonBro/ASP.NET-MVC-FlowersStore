@@ -33,39 +33,53 @@ namespace FlowersStore.Data
                 var allCategoriesDirectories = Directory.GetDirectories(@"wwwroot\Image\").Select(f => new DirectoryInfo(f));
 
                 List<Product> products = new List<Product>();
-                
-                Dictionary<string, Dictionary<string, string>> nameDescription = new Dictionary<string, Dictionary<string, string>>();
-                nameDescription.Add("Букеты", new Dictionary<string, string>()
+
+                Dictionary<string, Dictionary<string, string>> nameDescription = new Dictionary<string, Dictionary<string, string>>
+                {
+                    {
+                        "Букеты",
+                        new Dictionary<string, string>()
                 {
                     { "Пламя любви", "Свадебный букет Пламя любви -  сочный и яркий элемент Вашей незабываемой свадьбы в красных тонах."},
                     { "Альстримерия Микс", "Стойкие цветы альстримерии имеют густую листву и несколько соцветий на одной ветке"},
                     { "Букет для мамы", "Мама - самый дорогой для нас человек. И так хочется иногда порадовать её чем-то необычным"},
                     { "Сборный букет №18", "Разноцветные альстромерии напоминают цветочный фейерверк в честь весеннего настроения"}
-                });
+                }
+                    },
 
-                nameDescription.Add("Растения", new Dictionary<string, string>()
+                    {
+                        "Растения",
+                        new Dictionary<string, string>()
                 {
                     { "Гардения", "Род назван в честь Александра Гардена, американского натуралиста"},
                     { "Хамедорея", "Род цветковых растений семейства Пальмовые"},
                     { "Аизовые", "Семейство цветковых растений порядка Гвоздичноцветные"},
                     { "Немезия", "Включает в себя около 50 видов однолетних и многолетних трав,"}
-                });
+                }
+                    },
 
-                nameDescription.Add("Розы", new Dictionary<string, string>()
+                    {
+                        "Розы",
+                        new Dictionary<string, string>()
                 {
                     { "Роза Дамасская", "Многолетний кустарник; вид секции Gallicanae рода Шиповник семейства Розовые"},
                     { "Роза Столистная", "Прованская роза или капустная роза или Роза де Май"},
                     { "Роза «Дабл делайт»", "Роза 'Double Delight' - это многократный отмеченный наградой сорт гибридной чайной розы красного цвета"},
                     { "Роза «Грэм томас»", "Сорт назван в честь известного садовода Грэма Стюарта Томаса"}
-                });
+                }
+                    },
 
-                nameDescription.Add("Тюльпаны", new Dictionary<string, string>()
+                    {
+                        "Тюльпаны",
+                        new Dictionary<string, string>()
                 {
                     { "Тюльпан Остроконечный", "Занесён в Красную книгу России под названием Тюльпан Шренка"},
                     { "Тюльпан Клузиуса", "Распространён в горных районах Ирана, в Северо-Западной Индии"},
                     { "Тюльпан Льнолистный", "Многолетнее травянистое растение; вид подрода Leiostemones рода Тюльпан семейства Лилейные"},
                     { "Тюльпан Систола", "Tulipa systola, пустынный тюльпан, является разновидностью тюльпана, произрастающей на Ближнем Востоке"}
-                });
+                }
+                    }
+                };
 
 
                 foreach (DirectoryInfo category in allCategoriesDirectories)
