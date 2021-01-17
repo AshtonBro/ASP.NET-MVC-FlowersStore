@@ -2,6 +2,7 @@
 using FlowersStore.Models;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 
@@ -14,12 +15,7 @@ namespace FlowersStore.Controllers
             var model = new StoreViewModel();
             using (StoreDBContext db = new StoreDBContext())
             {
-                model.Products = db.Products.ToArray();
-
-                foreach (var product in model.Products)
-                {
-                    product.Category = db.Categories.FirstOrDefault(f => f.CategoryId == product.CategoryId);
-                }
+                model.Products = db.Products.Include(f => f.Category).ToArray();
             }
             return View(model);
         }
