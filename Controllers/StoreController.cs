@@ -46,7 +46,7 @@ namespace FlowersStore.Controllers
 
                 db.SaveChanges();
             }
-            return new JsonResult( new { message = "Success" });
+            return new JsonResult( new { message = "Thank you! Item added to basket." });
         }
     }
 }
