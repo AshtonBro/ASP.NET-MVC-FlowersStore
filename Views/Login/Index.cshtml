@@ -1,4 +1,5 @@
 ﻿@model FlowersStore.ViewModels.LoginViewModel
+
 @using FlowersStore.Controllers
 
 @{
@@ -12,41 +13,60 @@
 <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
 <script defer src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 
-
-<div class="modal-content">
-    <div class="modal-header">
-        <h4 class="modal-title">Login</h4>
-        <a class="close" data-dismiss="modal">&times;</a>
-    </div>
-    <div class="modal-body">
-        <form id="@frmId" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <label asp-for="Name"></label>
-                <span class="input-span">
-                    <input asp-for="Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
-                </span>
+<div class="container-modal">
+    <!-- Login-->
+    <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
+        <div class="form form2">
+            <h2 class="form__title">Login</h2>
+            <input asp-for="Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
+            <input asp-for="Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
+            <a href="#" class="link">Forgot your password?</a>
+            <div>
+                <label id="@msgId" class="alert-danger m-1"></label>
             </div>
-            <div class="form-group">
-                <label asp-for="Password"></label>
-                <span class="input-span">
-                    <input asp-for="Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
-                </span>
-            </div>
-        </form>
-
-        <div>
-            <label id="@msgId" class="alert-danger m-1"></label>
+            <button type="submit" class="button-btn btn-login" id="@btnId">Login</button>
         </div>
+    </form>
+    <!-- Registration -->
+    <form class="container-modal__form container-modal--signup">
+        <div class="form form1">
+            <h2 class="form__title">Registration</h2>
+            <input type="text" placeholder="Name" class="input-form-control" />
+            <input type="text" placeholder="SecondName" class="input-form-control" />
+            <input type="tel" placeholder="Phone" class="input-form-control" />
+            <input type="email" placeholder="Email" class="input-form-control" />
+            <input type="password" placeholder="Password" class="input-form-control" />
+            <input type="password" placeholder="Confirm password" class="input-form-control" />
+            <div>
+                <label id="@msgId" class="alert-danger m-1"></label>
+            </div>
+            <button type="submit" class="button-btn btn-registration" id="">Registration</button>
+        </div>
+    </form>
 
-    </div>
-    <div class="modal-footer">
-        <button type="submit" class="btnClick btn loginBtn btnBorder" id="@btnId">Login</button>
-        <button type="button" class="btnClick btn Hidable btnBorder">Hide</button>
+    <!-- Overlay -->
+    <div class="container-modal__overlay">
+        <div class="overlay">
+            <div class="overlay__panel overlay--left">
+                <button class="button-btn" id="Login">Login</button>
+            </div>
+            <div class="overlay__panel overlay--right">
+                <button class="button-btn" id="Registration">Registration</button>
+            </div>
+        </div>
     </div>
 </div>
 
 <script>
-        $('#@btnId').on('click', function (e) {
-            dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.Index)).ToString())');
-        });
+    document.getElementById('@btnId').addEventListener('click', (e) => {
+        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.Index)).ToString())');
+    });
+
+    document.getElementById("Login").addEventListener("click", () => {
+        document.querySelector(".container-modal").classList.remove("right-panel-active");
+    });
+
+    document.getElementById("Registration").addEventListener("click", () => {
+        document.querySelector(".container-modal").classList.add("right-panel-active");
+    });
 </script>
