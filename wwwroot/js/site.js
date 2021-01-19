@@ -6,8 +6,18 @@ import slickSlider from './slickSlider.js';
 import countTotal from './countTotal.js';
 import { changeMinus } from './changeMinus.js';
 import { changePlus } from './changePlus.js';
-import { ajaxPost, ajaxGet, ajaxPostJsonResult, ajaxDefaultPost } from './ajaxHelper.js';
-import { dialogPost, endLoading, hideDialog, openDialog, showDialog, startLoading} from './openDialog.js';
+import {
+    ajaxPost,
+    ajaxGet,
+    ajaxPostJsonResult,
+    ajaxDefaultPost,
+    dialogPost,
+    endLoading,
+    hideDialog,
+    openDialog,
+    showDialog,
+    startLoading
+} from './ajaxDialogPosts.js';
 
 slickSlider();
 colorationColorIcon();

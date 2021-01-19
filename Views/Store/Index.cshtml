@@ -48,14 +48,19 @@
                                 </div>
                                 <div class="card-price">@trimPrice <span class="span-style">€</span></div>
                                 
-                                <button id="@button" class="card-btn-add btnClick btn loginBtn btnBorder">В КОРЗИНУ</button>
+                                <button id="@button" class="card-btn-add button-btn">В КОРЗИНУ</button>
 
                                 <script>
                                     document.getElementById("@button").addEventListener("click", (e) => {
-                                        e.preventDefault();
+                                        let target = e.target;
                                         let quantity = document.getElementById("@quantityid").innerText;
                                         ajaxPost("/Store/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, () => {
                                         });
+                                        let infoBox = document.querySelector('.popup-add-box');
+                                        infoBox.classList.add("box-show");
+                                        setTimeout(() => {
+                                            infoBox.classList.remove("box-show");
+                                        }, 1000);
                                     });
                                 </script>
                             </div>
