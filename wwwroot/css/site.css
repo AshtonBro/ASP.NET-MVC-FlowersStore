@@ -1,6 +1,7 @@
 ﻿
 body {
     font-family: 'Open Sans', sans-serif;
+    background-color: #d9adad;
     background: url("../Image/background.jpeg");
     background-position: center;
     background-repeat: no-repeat;
@@ -10,7 +11,7 @@ body {
 .semiopacity {
     background: #fff; /* Цвет фона */
     padding: 5px; /* Поля вокруг текста */
-    /*opacity: 0.7;*/ /* Полупрозрачный фон */
+    opacity: 0.85; /* Полупрозрачный фон */
 }
 
 /* Provide sufficient contrast against white background */
@@ -53,7 +54,7 @@ html {
 }
 
 .box-shadow {
-  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+  box-shadow: 0 .25rem .75rem gray;
 }
 
 button.accept-policy {
@@ -68,11 +69,20 @@ html {
 }
 
 .footer {
-    bottom: 0;
     width: 100%;
     white-space: nowrap;
     line-height: 60px; /* Vertically center the text there */
     background: #Ffffff;
+    position: fixed; /* Фиксированное положение */
+    left: 0;
+    bottom: 0; /* Левый нижний угол */
+}
+
+.footer-box {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .TagRow {
@@ -377,7 +387,7 @@ a.navbar-brand {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    padding-bottom: 8%;
+    padding-bottom: 12%;
 }
 
 .about-text-title {
@@ -423,6 +433,7 @@ a.navbar-brand {
 
 .store {
     padding-top: 8%;
+    padding-bottom: 11%;
 }
 
 .store-heading {
@@ -444,7 +455,7 @@ a.navbar-brand {
     text-align: center;
     flex-direction: column;
     flex-basis: 30%;
-    border: 1px solid #EE1B22;
+    border: 1.4px solid #EE1B22;
     border-radius: .25rem;
     margin-bottom: 30px;
     transition: all 0.6s ease 0s;
@@ -518,6 +529,7 @@ a.navbar-brand {
     align-items: center;
     margin-bottom: 6px;
 }
+
 /*
 .quantity-count {
     width: 33px;
@@ -580,8 +592,8 @@ input[type=number] {
     color: #678568;
 }
 
-
 /* Pre-footer*/
+
 .pre-footer-block {
     display: flex;
     align-items: center;
@@ -613,6 +625,7 @@ input[type=number] {
 /* Basket */
 .basket {
     padding-top: 8%;
+    padding-bottom: 11%;
 }
 
 .container-basket {
@@ -631,7 +644,12 @@ input[type=number] {
 .basket-cart-item {
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
+    transition: all 0.6s ease 0s;
 }
+
+    .basket-cart-item:hover {
+        box-shadow: 0 .25rem .75rem gray;
+    }
 
 .basket-header {
     border-bottom: 1px solid #e5e5e5;
@@ -769,13 +787,13 @@ td {
     padding: 20px;
     background: #fff;
     border-radius: 5px;
-    width: 30%;
+    max-width: 30%;
     border: 1px solid rgba(0,0,0,.2);
     border-radius: .3rem;
     outline: 0;
     text-align: center;
     color: green;
-    margin-left: 15px;
+    margin-left: 1%;
     z-index: 5;
     box-shadow: 5px 7px 18px 4px rgba(0,0,0,0.73);
     transition: all 1s ease 0s;
@@ -805,7 +823,9 @@ td {
     border-radius: 0.7rem;
     box-shadow: 0 0.9rem 1.7rem rgba(0, 0, 0, 0.25), 0 0.7rem 0.7rem rgba(0, 0, 0, 0.22);
     height: 420px;
-    /*max-width: 758px;*/
+    max-width: 758px;
+    margin-left: auto;
+    margin-right: auto;
     overflow: hidden;
     position: relative;
     width: 100%;
