@@ -6,6 +6,7 @@ import slickSlider from './slickSlider.js';
 import countTotal from './countTotal.js';
 import { changeMinus } from './changeMinus.js';
 import { changePlus } from './changePlus.js';
+import { showInfoBox } from './showInfoBox.js'
 import {
     ajaxPost,
     ajaxGet,
@@ -32,6 +33,7 @@ window.hideDialog = hideDialog;
 window.openDialog = openDialog;
 window.showDialog = showDialog;
 window.startLoading = startLoading;
+window.showInfoBox = showInfoBox;
 
 if (window.location.pathname == '/Basket/Index') {
     countTotal();

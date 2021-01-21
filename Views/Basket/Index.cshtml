@@ -73,23 +73,15 @@
                                         document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
                                             e.preventDefault();
                                             ajaxPost("/Basket/DeleteFromBasket?id=" + "@cartId", null, (callback) => {
-                                                let msg = JSON.parse(callback);
                                                 let cart = document.getElementById("@cartId");
                                                 cart.classList.add('box-hide');
-                                                document.querySelector('.popup-content').style.color = "Red";
-                                                document.querySelector('.popup-content').innerHTML = msg.message;
-                                                let infoBox = document.querySelector('.popup-add-box');
-                                                infoBox.classList.add("box-show");
-
+                                                
                                                 let subTot = document.getElementById("@subTotal");
                                                 let total = document.getElementById("SumTotalBasket");
 
                                                 total.innerText = parseInt(total.innerText) - parseInt(subTot.innerText);
-
+                                                showInfoBox(callback);
                                                 cart.remove();
-                                                setTimeout(() => {
-                                                    infoBox.classList.remove("box-show");
-                                                }, 1000);
                                             });
                                         });
                                     </script>
