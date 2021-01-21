@@ -52,15 +52,21 @@
 
                                 <script>
                                     document.getElementById("@button").addEventListener("click", (e) => {
-                                        let target = e.target;
                                         let quantity = document.getElementById("@quantityid").innerText;
-                                        ajaxPost("/Store/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, () => {
+                                        ajaxPost("/Store/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, (callback) => {
+                                            let msg = JSON.parse(callback);
+                                            if (msg.message != undefined) {
+                                                document.querySelector('.popup-content').innerHTML = msg.message;
+                                            } else {
+                                                document.querySelector('.popup-content').style.color = "Red";
+                                                document.querySelector('.popup-content').innerHTML = msg.error;
+                                            }
+                                            let infoBox = document.querySelector('.popup-add-box');
+                                            infoBox.classList.add("box-show");
+                                            setTimeout(() => {
+                                                infoBox.classList.remove("box-show");
+                                            }, 1000);
                                         });
-                                        let infoBox = document.querySelector('.popup-add-box');
-                                        infoBox.classList.add("box-show");
-                                        setTimeout(() => {
-                                            infoBox.classList.remove("box-show");
-                                        }, 1000);
                                     });
                                 </script>
                             </div>
