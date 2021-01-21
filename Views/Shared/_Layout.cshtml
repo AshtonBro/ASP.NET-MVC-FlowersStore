@@ -62,10 +62,10 @@
                             <a class="btnClick nav-link" onclick="openDialog('@Link.ToString(nameof(HomeController), nameof(HomeController.UserLogin))');">Login</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(BasketController), nameof(BasketController.Index))'">Basket</a>
+                            <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(StoreController), nameof(StoreController.Index))'">Store</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(StoreController), nameof(StoreController.Index))'">Store</a>
+                            <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(BasketController), nameof(BasketController.Index))'">Basket</a>
                         </li>
                     </ul>
                 </div>
@@ -78,9 +78,7 @@
 
         <div id="popup-add" class="overlay-add">
             <div class="popup-add-box">
-                <div class="content">
-                    Thank you! Item added to basket.
-                </div>
+                <div class="popup-content"></div>
             </div>
         </div>
 
