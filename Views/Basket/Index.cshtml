@@ -22,7 +22,6 @@
                     </tr>
                 </thead>
                 <tbody>
-
                     @foreach (var cart in Model.ShopingCarts)
                     {
 
@@ -34,6 +33,8 @@
 
                         var buttonId = cart.ProductId;
                         var quantityId = cart.ProductId;
+                        var buttonDeleteId = "button_" + buttonId;
+                        var cartId = cart.CartId.ToString();
 
                         var minusBtn = buttonId + "_M";
                         var quantityBasket = buttonId + "_Q";
@@ -41,10 +42,12 @@
                         var productPrice = buttonId + "_Pr";
                         var subTotal = buttonId + "_St";
 
-                        <tr class="basket-cart-item">
+                        var amount = cart.Quantity * trimPrice;
+
+                        <tr class="basket-cart-item" id="@cartId">
 
                             <td class="basket-product-remove">
-                                <a href="#" class="product-remove" aria-label="delete product">×</a>
+                                <button class="product-remove" id="@buttonDeleteId" style="outline: none;" aria-label="delete product">×</button>
                             </td>
 
                             <td class="basket-product-mini-img">
@@ -65,11 +68,36 @@
                                     <button id="@minusBtn" onclick="changeMinus(this)" type="button" class="basket-product-counter basket-minus">-</button>
                                     <span id="@quantityBasket" name="@quantityId" class="span-product-quantity">@cart.Quantity</span>
                                     <button id="@plusBtn" onclick="changePlus(this)"  type="button" class="basket-product-counter basket-plus">+</button>
+
+                                    <script>
+                                        document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
+                                            e.preventDefault();
+                                            ajaxPost("/Basket/DeleteFromBasket?id=" + "@cartId", null, (callback) => {
+                                                let msg = JSON.parse(callback);
+                                                let cart = document.getElementById("@cartId");
+                                                cart.classList.add('box-hide');
+                                                document.querySelector('.popup-content').style.color = "Red";
+                                                document.querySelector('.popup-content').innerHTML = msg.message;
+                                                let infoBox = document.querySelector('.popup-add-box');
+                                                infoBox.classList.add("box-show");
+
+                                                let subTot = document.getElementById("@subTotal");
+                                                let total = document.getElementById("SumTotalBasket");
+
+                                                total.innerText = parseInt(total.innerText) - parseInt(subTot.innerText);
+
+                                                cart.remove();
+                                                setTimeout(() => {
+                                                    infoBox.classList.remove("box-show");
+                                                }, 1000);
+                                            });
+                                        });
+                                    </script>
                                 </div>
                             </td>
 
                             <td class="basket-product-subtotal" data-title="subtotal">
-                                <span class="basket-price-amount"><bdi id="@subTotal" class="amount">@(cart.Quantity * trimPrice)</bdi></span>
+                                <span class="basket-price-amount"><bdi id="@subTotal" class="amount">@amount</bdi></span>
                                 <span class="span-style">€</span>
                             </td>
                         </tr>

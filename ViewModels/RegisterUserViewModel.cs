@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace FlowersStore.Models
+namespace FlowersStore.ViewModels
 {
     public class RegisterUserViewModel
     {
