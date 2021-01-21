@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using FlowersStore.Data;
 using FlowersStore.Helpers;
 using FlowersStore.ViewModels;
@@ -27,5 +25,23 @@ namespace FlowersStore.Controllers
                 return View("~/Views/Basket/Index.cshtml", model);
         }
 
+        public JsonResult DeleteFromBasket(Guid id)
+        {
+            using (StoreDBContext db = new StoreDBContext())
+            {
+                var currentCart = db.ShopingCarts.FirstOrDefault(f => f.CartId == id);
+                if (currentCart != null)
+                {
+                    db.ShopingCarts.Remove(currentCart);
+                }
+                else
+                {
+                    return new JsonRedirect("Cart is not found!");
+                }
+                db.SaveChanges();
+            }
+                return new JsonResult(new { message = "Success deleted item from basket." });
+           
+        }
     }
 }
