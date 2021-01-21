@@ -644,7 +644,7 @@ input[type=number] {
 .basket-cart-item {
     border-top: 1px solid #e5e5e5;
     border-bottom: 1px solid #e5e5e5;
-    transition: all 0.6s ease 0s;
+    transition: all 0.4s ease 0s;
 }
 
     .basket-cart-item:hover {
@@ -676,10 +676,15 @@ input[type=number] {
     font-weight: 700;
     border: 0;
     text-decoration: none !important;
+    background: #FFFFFF;
 }
 
     .product-remove:hover {
-       color: #EE1B22 !important;
+        color: #EE1B22 !important;
+    }
+
+    .product-remove:active {
+        outline: none;
     }
 
 th {
@@ -801,6 +806,10 @@ td {
 
 .box-show {
     opacity: 1;
+}
+
+.box-hide {
+    opacity: 0;
 }
 
 /* MODAL WINDOW*/
