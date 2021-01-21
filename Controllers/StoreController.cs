@@ -1,4 +1,5 @@
 ﻿using FlowersStore.Data;
+using FlowersStore.Helpers;
 using FlowersStore.Models;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -20,33 +21,38 @@ namespace FlowersStore.Controllers
             return View(model);
         }
 
-        public IActionResult AddToBasket(Guid id, int quantity)
+        public JsonResult AddToBasket(Guid id, int quantity)
         {
-            using (StoreDBContext db = new StoreDBContext())
+            if(id != Guid.Empty)
             {
-                var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
-                var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
-
-                if (existingShopingCart == null)
+                using (StoreDBContext db = new StoreDBContext())
                 {
-                    ShopingCart shoppingCart = new ShopingCart
+                    var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
+                    var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
+
+                    if (existingShopingCart == null)
                     {
-                        CartId = Guid.NewGuid(),
-                        DateCreated = DateTime.Now,
-                        Product = db.Products.FirstOrDefault(f => f.ProductId == id),
-                        Quantity = quantity,
-                        Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
-                    };
+                        ShopingCart shoppingCart = new ShopingCart
+                        {
+                            CartId = Guid.NewGuid(),
+                            DateCreated = DateTime.Now,
+                            Product = db.Products.FirstOrDefault(f => f.ProductId == id),
+                            Quantity = quantity,
+                            Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
+                        };
 
-                    db.ShopingCarts.Add(shoppingCart);
-                } else
-                {
-                    existingShopingCart.Quantity += quantity;
+                        db.ShopingCarts.Add(shoppingCart);
+                    }
+                    else
+                    {
+                        existingShopingCart.Quantity += quantity;
+                    }
+
+                    db.SaveChanges();
                 }
-
-                db.SaveChanges();
+                return new JsonResult(new { message = "Thank you! Item added to basket." });
             }
-            return new JsonResult( new { message = "Thank you! Item added to basket." });
+            return new JsonResult(new { error = "Error while adding product!" });
         }
     }
 }
