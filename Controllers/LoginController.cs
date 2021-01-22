@@ -23,7 +23,5 @@ namespace FlowersStore.Controllers
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
         }
-
-       
     }
 }
