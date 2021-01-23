@@ -18,7 +18,7 @@
     <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
         <div class="form form2">
             <h2 class="form__title">Login</h2>
-            <input asp-for="Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
+            <input asp-for="@model.LoginName" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
             <input asp-for="Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
             <a href="#" class="link">Forgot your password?</a>
             <div>
@@ -34,7 +34,7 @@
             <input type="text" placeholder="Name" class="input-form-control" />
             <input type="text" placeholder="SecondName" class="input-form-control" />
             <input type="tel" placeholder="Phone" class="input-form-control" />
-            <input type="email" placeholder="Email" class="input-form-control" />
+            <input asp-for="Email" type="email" placeholder="Email" class="input-form-control" />
             <input type="password" placeholder="Password" class="input-form-control" />
             <input type="password" placeholder="Confirm password" class="input-form-control" />
             <div>
