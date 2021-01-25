@@ -27,7 +27,7 @@ namespace FlowersStore.Controllers
             {
                 using (StoreDBContext db = new StoreDBContext())
                 {
-                    var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId));
+                    var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId));
                     var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
 
                     if (existingShopingCart == null)
@@ -38,7 +38,7 @@ namespace FlowersStore.Controllers
                             DateCreated = DateTime.Now,
                             Product = db.Products.FirstOrDefault(f => f.ProductId == id),
                             Quantity = quantity,
-                            Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "User1").UserId))
+                            Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId))
                         };
 
                         db.ShopingCarts.Add(shoppingCart);
