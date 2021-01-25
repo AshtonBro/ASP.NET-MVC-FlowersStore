@@ -15,9 +15,9 @@ namespace FlowersStore.Controllers
             var model = new BasketViewModel();
             using (StoreDBContext db = new StoreDBContext())
             {
-                model.UserName = db.Users.FirstOrDefault(f => f.Name == "User1").Name;
+                model.UserName = db.Users.FirstOrDefault(f => f.Name == "UserOne").Name;
 
-                var user = db.Users.FirstOrDefault(f => f.Name == "User1");
+                var user = db.Users.FirstOrDefault(f => f.Name == "UserOne");
                 var basket = db.Baskets.FirstOrDefault(f => f.UserId == user.UserId);
                
                 model.ShopingCarts = db.ShopingCarts.Include(f => f.Product.Category).Where(f => f.Basket.BasketId == basket.BasketId).ToArray();
