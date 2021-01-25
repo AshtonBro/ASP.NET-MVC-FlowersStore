@@ -1,6 +1,5 @@
-﻿@using FlowersStore.Controllers
+﻿@using FlowersStore.Controllers;
 @model FlowersStore.ViewModels.LoginViewModel
-
 
 @{
     Layout = null;
@@ -15,32 +14,32 @@
 
 <div class="container-modal">
     <!-- Login-->
-    <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
-        <div class="form form2">
-            <h2 class="form__title">Login</h2>
-            <input asp-for="@model.LoginName" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
-            <input asp-for="Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
-            <a href="#" class="link">Forgot your password?</a>
-            <div>
-                <label id="@msgId" class="alert-danger m-1"></label>
+        <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
+            <div class="form form2">
+                <h2 class="form__title">Login</h2>
+                <input asp-for="LoginUser.Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
+                <input asp-for="LoginUser.Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
+                <a href="#" class="link">Forgot your password?</a>
+                <div>
+                    <label id="@msgId" class="alert-danger m-1"></label>
+                </div>
+                <button type="submit" class="button-btn btn-login" id="@btnId">Login</button>
             </div>
-            <button type="submit" class="button-btn btn-login" id="@btnId">Login</button>
-        </div>
-    </form>
+        </form>
     <!-- Registration -->
-    <form class="container-modal__form container-modal--signup">
+    <form class="container-modal__form container-modal--signup" id="R_@frmId" method="post" enctype="multipart/form-data">
         <div class="form form1">
             <h2 class="form__title">Registration</h2>
-            <input type="text" placeholder="Name" class="input-form-control" />
-            <input type="text" placeholder="SecondName" class="input-form-control" />
-            <input type="tel" placeholder="Phone" class="input-form-control" />
-            <input asp-for="Email" type="email" placeholder="Email" class="input-form-control" />
-            <input type="password" placeholder="Password" class="input-form-control" />
-            <input type="password" placeholder="Confirm password" class="input-form-control" />
+            <input asp-for="RegistrationUser.Password" type="text" placeholder="Name" class="input-form-control" />
+            <input asp-for="RegistrationUser.SecondName" type="text" placeholder="SecondName" class="input-form-control" />
+            <input asp-for="RegistrationUser.Phone" type="tel" placeholder="Phone" class="input-form-control" />
+            <input asp-for="RegistrationUser.Email" type="email" placeholder="Email" class="input-form-control" />
+            <input asp-for="RegistrationUser.Password" type="password" placeholder="Password" class="input-form-control" />
+            <input asp-for="RegistrationUser.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control" />
             <div>
-                <label id="@msgId" class="alert-danger m-1"></label>
+                <label id="R_@msgId" class="alert-danger m-1"></label>
             </div>
-            <button type="submit" class="button-btn btn-registration" id="">Registration</button>
+            <button type="submit" class="button-btn btn-registration" id="R_@btnId">Registration</button>
         </div>
     </form>
 
@@ -59,7 +58,11 @@
 
 <script>
     document.getElementById('@btnId').addEventListener('click', (e) => {
-        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.Index)).ToString())');
+        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.LoginUser)).ToString())');
+    });
+
+    document.getElementById('R_@btnId').addEventListener('click', (e) => {
+        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
     });
 
     document.getElementById("Login").addEventListener("click", () => {
