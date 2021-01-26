@@ -107,12 +107,23 @@ export function showDialog() {
     $('#dialogBox').css("visibility", "visible");
     startLoading();
     document.getElementById('cover').addEventListener('mousedown', _checkMouseIsOver, true);
-    document.querySelector('.btn-login').addEventListener('click', (event) => {
-        if (document.querySelector('.alert-danger').textContent !== null) {
-            setTimeout(() => {
-                document.querySelector('.alert-danger').textContent = '';
-            }, 3000);
-        }
+  
+    let authBtns = document.querySelectorAll('.auth');
+    authBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            let alertDanger = document.querySelectorAll('.alert-danger');
+            alertDanger[0].textContent = '';
+            alertDanger[1].textContent = '';
+            //setTimeout(() => {
+            //    clearTimeout(timerDeleteText);
+            //    
+            //    if (alertDanger[0].textContent !== null || alertDanger[1].textContent !== null) {
+            //        var timerDeleteText = setTimeout(() => {
+                        
+            //        }, 3000);
+            //    }
+            //}, 100);
+        })
     })
 }
 

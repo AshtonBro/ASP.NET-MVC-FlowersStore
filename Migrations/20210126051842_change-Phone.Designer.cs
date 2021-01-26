@@ -4,14 +4,16 @@ using FlowersStore.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    partial class StoreDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210126051842_change-Phone")]
+    partial class changePhone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,7 +144,6 @@ namespace FlowersStore.Migrations
                         .HasColumnType("nvarchar(255)");
 
                     b.Property<long?>("Phone")
-                        .IsRequired()
                         .HasColumnType("bigint");
 
                     b.Property<string>("SecondName")
