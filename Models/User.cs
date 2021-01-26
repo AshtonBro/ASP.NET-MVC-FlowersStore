@@ -20,6 +20,7 @@ namespace FlowersStore.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "SecondName should not contain special character,numbers or space")]
         public string SecondName { get; set; }
 
+        [DataType(DataType.PhoneNumber)]
         [Phone(ErrorMessage = "Please enter valid phone number.")]
         public long? Phone { get; set; }
 
