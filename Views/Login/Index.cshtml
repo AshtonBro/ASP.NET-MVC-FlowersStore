@@ -7,6 +7,11 @@
     var frmId = $"{key}_F";
     var msgId = $"{key}_M";
     var btnId = $"{key}_B";
+
+    var keyR = "RegistrationLoginDialog";
+    var frmIdR = $"{keyR}_F";
+    var msgIdR = $"{keyR}_M";
+    var btnIdR = $"{keyR}_B";
 }
 
 <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -19,27 +24,26 @@
                 <h2 class="form__title">Login</h2>
                 <input asp-for="LoginUser.Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
                 <input asp-for="LoginUser.Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
-                <a href="#" class="link">Forgot your password?</a>
                 <div>
                     <label id="@msgId" class="alert-danger m-1"></label>
                 </div>
-                <button type="submit" class="button-btn btn-login" id="@btnId">Login</button>
+                <button type="submit" class="button-btn btn-login auth" id="@btnId">Login</button>
             </div>
         </form>
     <!-- Registration -->
-    <form class="container-modal__form container-modal--signup" id="R_@frmId" method="post" enctype="multipart/form-data">
+    <form class="container-modal__form container-modal--signup" id="@frmIdR" method="post" enctype="multipart/form-data">
         <div class="form form1">
             <h2 class="form__title">Registration</h2>
-            <input asp-for="RegistrationUser.Password" type="text" placeholder="Name" class="input-form-control" />
+            <input asp-for="RegistrationUser.Name" type="text" placeholder="Name" class="input-form-control" />
             <input asp-for="RegistrationUser.SecondName" type="text" placeholder="SecondName" class="input-form-control" />
             <input asp-for="RegistrationUser.Phone" type="tel" placeholder="Phone" class="input-form-control" />
             <input asp-for="RegistrationUser.Email" type="email" placeholder="Email" class="input-form-control" />
             <input asp-for="RegistrationUser.Password" type="password" placeholder="Password" class="input-form-control" />
             <input asp-for="RegistrationUser.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control" />
             <div>
-                <label id="R_@msgId" class="alert-danger m-1"></label>
+                <label id="@msgIdR" class="alert-danger m-1"></label>
             </div>
-            <button type="submit" class="button-btn btn-registration" id="R_@btnId">Registration</button>
+            <button type="submit" class="button-btn btn-registration auth" id="@btnIdR">Registration</button>
         </div>
     </form>
 
@@ -61,9 +65,18 @@
         dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.LoginUser)).ToString())');
     });
 
-    document.getElementById('R_@btnId').addEventListener('click', (e) => {
-        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
+    document.getElementById('@btnIdR').addEventListener('click', (e) => {
+        dialogPost(e, '@keyR', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
+        setTimeout(() => {
+            if (document.getElementById('@msgIdR').innerText.includes('registered')) {
+                document.getElementById('@msgIdR').style.backgroundColor = '#58c455';
+            } else {
+                document.getElementById('@msgIdR').style.backgroundColor = '#f8d7da';
+            }
+        }, 300);
     });
+
+
 
     document.getElementById("Login").addEventListener("click", () => {
         document.querySelector(".container-modal").classList.remove("right-panel-active");
