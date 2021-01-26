@@ -116,7 +116,7 @@ namespace FlowersStore.Data
                  new User() 
                  {
                      UserId = userId0,
-                     Name = "User1",
+                     Name = "UserOne",
                      SecondName = "SecondName1", 
                      Email = "111@gmail.com", 
                      Password = "admin", 
@@ -126,7 +126,7 @@ namespace FlowersStore.Data
                  new User()
                  {
                      UserId = userId1,
-                     Name = "User2",
+                     Name = "UserTwo",
                      SecondName = "SecondName2",
                      Email = "222@gmail.com",
                      Password = "admin",
@@ -136,7 +136,7 @@ namespace FlowersStore.Data
                  new User()
                  {
                      UserId = userId2,
-                     Name = "User3",
+                     Name = "UserTree",
                      SecondName = "SecondName3",
                      Email = "333@gmail.com",
                      Password = "admin",
