@@ -111,9 +111,10 @@ namespace FlowersStore.Migrations
 
                     b.HasKey("CartId");
 
-                    b.HasIndex("BasketId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("BasketId", "ProductId")
+                        .IsUnique();
 
                     b.ToTable("ShopingCart");
                 });
@@ -141,9 +142,8 @@ namespace FlowersStore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long?>("Phone")
-                        .IsRequired()
-                        .HasColumnType("bigint");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
                         .IsRequired()

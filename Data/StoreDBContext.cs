@@ -131,7 +131,7 @@ namespace FlowersStore.Data
                      Email = "111@gmail.com", 
                      Password = "admin", 
                      DateCreated = DateTime.Now,
-                     Phone = 11111111111
+                     Phone = "+792255555"
                  },
                  new User()
                  {
@@ -141,7 +141,7 @@ namespace FlowersStore.Data
                      Email = "222@gmail.com",
                      Password = "admin",
                      DateCreated = DateTime.Now,
-                     Phone = 22222222222
+                     Phone = "+792255555"
                  },
                  new User()
                  {
@@ -151,7 +151,7 @@ namespace FlowersStore.Data
                      Email = "333@gmail.com",
                      Password = "admin",
                      DateCreated = DateTime.Now,
-                     Phone = 33333333333
+                     Phone = "+792255555"
                  }
                
                 };

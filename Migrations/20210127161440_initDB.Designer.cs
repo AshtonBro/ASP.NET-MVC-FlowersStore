@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20210115162022_initDB")]
+    [Migration("20210127161440_initDB")]
     partial class initDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -113,9 +113,10 @@ namespace FlowersStore.Migrations
 
                     b.HasKey("CartId");
 
-                    b.HasIndex("BasketId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("BasketId", "ProductId")
+                        .IsUnique();
 
                     b.ToTable("ShopingCart");
                 });

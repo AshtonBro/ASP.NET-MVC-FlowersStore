@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
-    [Migration("20210126051842_change-Phone")]
-    partial class changePhone
+    [Migration("20210127162644_change-phone-model")]
+    partial class changephonemodel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -113,9 +113,10 @@ namespace FlowersStore.Migrations
 
                     b.HasKey("CartId");
 
-                    b.HasIndex("BasketId");
-
                     b.HasIndex("ProductId");
+
+                    b.HasIndex("BasketId", "ProductId")
+                        .IsUnique();
 
                     b.ToTable("ShopingCart");
                 });
@@ -143,8 +144,8 @@ namespace FlowersStore.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("nvarchar(255)");
 
-                    b.Property<long?>("Phone")
-                        .HasColumnType("bigint");
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecondName")
                         .IsRequired()

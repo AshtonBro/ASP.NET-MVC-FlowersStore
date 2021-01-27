@@ -22,7 +22,7 @@ namespace FlowersStore.Models
 
         [DataType(DataType.PhoneNumber)]
         [Phone(ErrorMessage = "Please enter valid phone number.")]
-        public long? Phone { get; set; }
+        public string Phone { get; set; }
 
         [Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid.")]

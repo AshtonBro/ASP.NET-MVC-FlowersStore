@@ -67,11 +67,10 @@
 
     document.getElementById('@btnIdR').addEventListener('click', (e) => {
         dialogPost(e, '@keyR', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
+        document.getElementById('@msgIdR').style.backgroundColor = '#f8d7da';
         setTimeout(() => {
-            if (document.getElementById('@msgIdR').innerText.includes('registered')) {
+            if (document.getElementById('@msgIdR').innerText.includes('successfully')) {
                 document.getElementById('@msgIdR').style.backgroundColor = '#58c455';
-            } else {
-                document.getElementById('@msgIdR').style.backgroundColor = '#f8d7da';
             }
         }, 300);
     });

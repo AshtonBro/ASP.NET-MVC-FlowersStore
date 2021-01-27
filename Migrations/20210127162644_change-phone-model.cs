@@ -2,16 +2,15 @@
 
 namespace FlowersStore.Migrations
 {
-    public partial class changeRegex : Migration
+    public partial class changephonemodel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<long>(
+            migrationBuilder.AlterColumn<string>(
                 name: "Phone",
                 table: "User",
-                type: "bigint",
-                nullable: false,
-                defaultValue: 0L,
+                type: "nvarchar(max)",
+                nullable: true,
                 oldClrType: typeof(long),
                 oldType: "bigint",
                 oldNullable: true);
@@ -24,8 +23,9 @@ namespace FlowersStore.Migrations
                 table: "User",
                 type: "bigint",
                 nullable: true,
-                oldClrType: typeof(long),
-                oldType: "bigint");
+                oldClrType: typeof(string),
+                oldType: "nvarchar(max)",
+                oldNullable: true);
         }
     }
 }

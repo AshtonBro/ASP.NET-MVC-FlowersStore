@@ -12,7 +12,7 @@ body {
 .semiopacity {
     background: #fff; /* Цвет фона */
     padding: 5px; /* Поля вокруг текста */
-    opacity: 0.85; /* Полупрозрачный фон */
+    opacity: 0.90; /* Полупрозрачный фон */
 }
 
 

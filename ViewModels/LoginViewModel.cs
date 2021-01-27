@@ -43,9 +43,8 @@ namespace FlowersStore.ViewModels
             public string SecondName { get; set; }
 
             [Required(ErrorMessage = "You must provide a phone number")]
-            [DataType(DataType.PhoneNumber)]
-            [RegularExpression(@"^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$", ErrorMessage = "Not a valid phone number")]
-            public long? Phone { get; set; }
+            [RegularExpression(@"^\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})?", ErrorMessage = "Invalid Phone number")]
+            public string Phone { get; set; }
 
             [Required(ErrorMessage = "The Email field is required.")]
             [DataType(DataType.EmailAddress)]
