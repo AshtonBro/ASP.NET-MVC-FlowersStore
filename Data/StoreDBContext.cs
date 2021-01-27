@@ -14,6 +14,16 @@ namespace FlowersStore.Data
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ShopingCart> ShopingCarts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<ShopingCart>()
+                .HasIndex(p => new { p.BasketId, p.ProductId})
+                .IsUnique();
+        }
+
         public StoreDBContext()
         {
             this.Database.EnsureCreated();
@@ -162,6 +172,8 @@ namespace FlowersStore.Data
             }
 
         }
+
+       
 
         public StoreDBContext(DbContextOptions<StoreDBContext> options)
            : base(options) { }
