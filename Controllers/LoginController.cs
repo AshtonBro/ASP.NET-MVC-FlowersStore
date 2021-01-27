@@ -30,7 +30,7 @@ namespace FlowersStore.Controllers
                     {
                         return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
                     }
-                    return new JsonRedirect("Invalid password");
+                    return new JsonRedirect("Invalid login or password.");
                 }
 
             }
@@ -45,7 +45,8 @@ namespace FlowersStore.Controllers
             {
                 using (StoreDBContext db = new StoreDBContext())
                 {
-                    var user = db.Users.FirstOrDefault(f => (f.Name == model.RegistrationUser.Name) || (f.Email == model.RegistrationUser.Email));
+                    var user = db.Users.FirstOrDefault(f => (f.Name == model.RegistrationUser.Name) 
+                    || (f.Email == model.RegistrationUser.Email));
                     if (user == null)
                     {
                         User userRegistration = new User()
@@ -61,9 +62,9 @@ namespace FlowersStore.Controllers
 
                         db.Users.Add(userRegistration);
                         db.SaveChanges();
-                        return new JsonRedirect("You successfully registered");
+                        return new JsonRedirect("You successfully registered.");
                     }
-                    return new JsonRedirect("Such user is registered.");
+                    return new JsonRedirect("Such User or Email is registered.");
                 }
 
             }
