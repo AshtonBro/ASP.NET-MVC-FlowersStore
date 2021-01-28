@@ -15,6 +15,5 @@ namespace FlowersStore.Models
 
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
-        //public virtual IEnumerable<ShopingCart> ShopingCarts { get; set; } 
     }
 }

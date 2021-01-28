@@ -11,6 +11,8 @@ namespace FlowersStore.Models
         [Key]
         [ForeignKey("CartId")]
         public Guid ProductId { get; set; }
+        [Required]
+        public Guid CategoryId { get; set; }
 
         [Required]
         [Range(1,8000)]
@@ -28,13 +30,9 @@ namespace FlowersStore.Models
         
         [Required]
         [Range(0, 9999999999999999.99, ErrorMessage = "Invalid Price, Max 18 digits")]
-        [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Invalid Price, Maximum Two Decimal Points.")]
-
         [Column(TypeName = "decimal(18,4)")]
         public decimal Price { get; set; }
 
-        [Required]
-        public Guid CategoryId { get; set; }
         [Required]
         public virtual Category Category { get; set; }
 
