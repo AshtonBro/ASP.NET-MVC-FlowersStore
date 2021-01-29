@@ -2,6 +2,8 @@
 using System.Linq;
 using FlowersStore.Data;
 using FlowersStore.Helpers;
+using FlowersStore.Models;
+using FlowersStore.Services;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -10,38 +12,31 @@ namespace FlowersStore.Controllers
 {
     public class BasketController : Controller
     {
+        private ICRUDService<ShopingCart> _service;
+        public BasketController(ICRUDService<ShopingCart> service)
+        {
+            this._service = service;
+        }
+
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                model.UserName = db.Users.FirstOrDefault(f => f.Name == "UserOne").Name;
-
-                var user = db.Users.FirstOrDefault(f => f.Name == "UserOne");
-                var basket = db.Baskets.FirstOrDefault(f => f.UserId == user.UserId);
-               
-                model.ShopingCarts = db.ShopingCarts.Include(f => f.Product.Category).Where(f => f.Basket.BasketId == basket.BasketId).ToArray();
-            }
-                return View("~/Views/Basket/Index.cshtml", model);
+            Guid userId = Guid.Parse("63115EDA-142D-40CC-8C39-9CF543D02354");
+            model.ShopingCarts = _service.Get(userId);
+            return View("~/Views/Basket/Index.cshtml", model);
         }
 
         public JsonResult DeleteFromBasket(Guid id)
         {
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                var currentCart = db.ShopingCarts.FirstOrDefault(f => f.CartId == id);
-                if (currentCart != null)
-                {
-                    db.ShopingCarts.Remove(currentCart);
-                }
-                else
-                {
-                    return new JsonRedirect("Cart is not found!");
-                }
-                db.SaveChanges();
-            }
-                return new JsonResult(new { message = "Success deleted item from basket." });
-           
+            var result = _service.Delete(id);
+            if (result) return new JsonResult(new { message = "Success deleted item from basket." });
+
+            return new JsonRedirect("Shoping cart not deleted.");
+        }
+
+        public IActionResult Checkout(BasketViewModel model)
+        {
+            return View();
         }
     }
 }
