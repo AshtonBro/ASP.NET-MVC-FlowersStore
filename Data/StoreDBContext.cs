@@ -20,7 +20,7 @@ namespace FlowersStore.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<ShopingCart>()
-                .HasIndex(p => new { p.BasketId, p.ProductId})
+                .HasIndex(p => new { p.BasketId, p.ProductId })
                 .IsUnique();
         }
 

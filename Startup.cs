@@ -5,6 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using FlowersStore.Services;
+using FlowersStore.Models;
 
 namespace FlowersStore
 {
@@ -25,6 +27,10 @@ namespace FlowersStore
 
             services.AddDbContext<StoreDBContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+
+            services.AddScoped<ICRUDService<ShopingCart>, ShopingCartService>();
+           
+                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

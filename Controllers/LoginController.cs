@@ -32,13 +32,13 @@ namespace FlowersStore.Controllers
                     }
                     return new JsonRedirect("Invalid login or password.");
                 }
-
             }
 
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
         }
 
+        [HttpPost]
         public JsonRedirect RegistrationUser(LoginViewModel model)
         {
             if (ModelState.IsValid)
@@ -62,7 +62,7 @@ namespace FlowersStore.Controllers
 
                         db.Users.Add(userRegistration);
                         db.SaveChanges();
-                        return new JsonRedirect("You successfully registered.");
+                        return new JsonRedirect("You successfully registered. Try to login");
                     }
                     return new JsonRedirect("Such User or Email is registered.");
                 }
