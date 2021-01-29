@@ -7,6 +7,5 @@ namespace FlowersStore.ViewModels
     {
         public string UserName { get; set; }
         public IEnumerable<ShopingCart> ShopingCarts { get; set; }
-
     }
 }
