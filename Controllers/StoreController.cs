@@ -11,6 +11,7 @@ namespace FlowersStore.Controllers
 {
     public class StoreController : Controller
     {
+       
         public IActionResult Index()
         {
             var model = new StoreViewModel();
@@ -21,38 +22,39 @@ namespace FlowersStore.Controllers
             return View(model);
         }
 
-        public JsonResult AddToBasket(Guid id, int quantity)
-        {
-            if(id != Guid.Empty)
-            {
-                using (StoreDBContext db = new StoreDBContext())
-                {
-                    var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId));
-                    var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
+        //public JsonResult AddToBasket(Guid id, int quantity)
+        //{
+        //    if(id != Guid.Empty)
+        //    {
 
-                    if (existingShopingCart == null)
-                    {
-                        ShopingCart shoppingCart = new ShopingCart
-                        {
-                            CartId = Guid.NewGuid(),
-                            DateCreated = DateTime.Now,
-                            Product = db.Products.FirstOrDefault(f => f.ProductId == id),
-                            Quantity = quantity,
-                            Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId))
-                        };
+        //        using (StoreDBContext db = new StoreDBContext())
+        //        {
+        //            var basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId));
+        //            var existingShopingCart = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == id);
 
-                        db.ShopingCarts.Add(shoppingCart);
-                    }
-                    else
-                    {
-                        existingShopingCart.Quantity += quantity;
-                    }
+        //            if (existingShopingCart == null)
+        //            {
+        //                ShopingCart shoppingCart = new ShopingCart
+        //                {
+        //                    CartId = Guid.NewGuid(),
+        //                    DateCreated = DateTime.Now,
+        //                    Product = db.Products.FirstOrDefault(f => f.ProductId == id),
+        //                    Quantity = quantity,
+        //                    Basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.Name == "UserOne").UserId))
+        //                };
 
-                    db.SaveChanges();
-                }
-                return new JsonResult(new { message = "Thank you! Item added to basket." });
-            }
-            return new JsonResult(new { error = "Error while adding product!" });
-        }
+        //                db.ShopingCarts.Add(shoppingCart);
+        //            }
+        //            else
+        //            {
+        //                existingShopingCart.Quantity += quantity;
+        //            }
+
+        //            db.SaveChanges();
+        //        }
+        //        return new JsonResult(new { message = "Thank you! Item added to basket." });
+        //    }
+        //    return new JsonResult(new { error = "Error while adding product!" });
+        //}
     }
 }
