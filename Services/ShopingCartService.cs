@@ -9,12 +9,12 @@ namespace FlowersStore.Services
 {
     public class ShopingCartService : ICRUDService<ShopingCart>
     {
-        public IEnumerable<ShopingCart> Get(Guid userId)
+        public IEnumerable<ShopingCart> Get(Guid id)
         {
-            if (userId == Guid.Empty) return null;
+            if (id == Guid.Empty) return null;
             using (StoreDBContext db = new StoreDBContext())
             {
-                var basket = db.Baskets.FirstOrDefault(basket => basket.UserId == userId);
+                var basket = db.Baskets.FirstOrDefault(basket => basket.UserId == id);
                 if (basket == null) return null;
 
                 return db.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
@@ -60,33 +60,13 @@ namespace FlowersStore.Services
             }
         }
 
-        public bool Create(Guid productId, int quantity, Guid userId)
+        public bool Create(ShopingCart model)
         {
             using (StoreDBContext db = new StoreDBContext())
             {
-                var basket = db.Baskets.FirstOrDefault(b => b.UserId == userId);
-                if (basket == null) return false;
-
-                var isShopingCartExist = db.ShopingCarts.FirstOrDefault(f => f.BasketId == basket.BasketId && f.ProductId == productId);
-
-                if (isShopingCartExist == null)
-                {
-                    ShopingCart shoppingCart = new ShopingCart
-                    {
-                        CartId = Guid.NewGuid(),
-                        DateCreated = DateTime.Now,
-                        Product = db.Products.FirstOrDefault(f => f.ProductId == productId),
-                        Quantity = quantity,
-                        Basket = basket
-                    };
-
-                    db.ShopingCarts.Add(shoppingCart);
-                }
-                else
-                {
-                    isShopingCartExist.Quantity += quantity;
-                   return Update(isShopingCartExist);
-                }
+                model.CartId = Guid.NewGuid();
+                model.DateCreated = DateTime.Now;
+                db.ShopingCarts.Add(model);            
 
                 return db.SaveChanges() >= 1;
             }

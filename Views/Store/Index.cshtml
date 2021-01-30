@@ -53,7 +53,7 @@
                                 <script>
                                     document.getElementById("@button").addEventListener("click", (e) => {
                                         let quantity = document.getElementById("@quantityid").innerText;
-                                        ajaxPost("/Store/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, (callback) => {
+                                        ajaxPost("/Basket/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, (callback) => {
                                             showInfoBox(callback);
                                         });
                                     });
