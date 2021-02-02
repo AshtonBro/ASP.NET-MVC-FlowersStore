@@ -28,6 +28,7 @@ namespace FlowersStore
             services.AddDbContext<StoreDBContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
+
             services.AddScoped<ICRUDService<ShopingCart>, ShopingCartService>();
            
                 

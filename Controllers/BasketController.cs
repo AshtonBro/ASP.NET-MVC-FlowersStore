@@ -50,7 +50,10 @@ namespace FlowersStore.Controllers
                          basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.UserId == userId).UserId));
                     }
 
-                    var newModel = new ShopingCart() { Quantity = quantity, ProductId = id, BasketId = basket.BasketId };
+                    var newModel = new ShopingCart() { 
+                        Quantity = quantity,
+                        ProductId = id, 
+                        BasketId = basket.BasketId };
                      succes = _service.Create(newModel);
                 }
                 else

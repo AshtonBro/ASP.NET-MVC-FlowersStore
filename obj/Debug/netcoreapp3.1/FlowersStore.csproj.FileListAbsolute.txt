@@ -95,8 +95,6 @@ D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\runtimes\
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\runtimes\win-arm64\native\e_sqlite3.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\runtimes\win-x64\native\e_sqlite3.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\runtimes\win-x86\native\e_sqlite3.dll
-D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.csproj.CoreCompileInputs.cache
-D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.MvcApplicationPartsAssemblyInfo.cache
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.CodeAnalysis.CSharp.dll
