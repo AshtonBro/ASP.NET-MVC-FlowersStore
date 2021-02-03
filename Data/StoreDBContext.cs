@@ -24,6 +24,12 @@ namespace FlowersStore.Data
                 .IsUnique();
         }
 
+        public StoreDBContext(DbContextOptions<StoreDBContext> options)
+           : base(options)
+        {
+
+        }
+
         public StoreDBContext()
         {
             this.Database.EnsureCreated();
@@ -172,12 +178,6 @@ namespace FlowersStore.Data
             }
 
         }
-
-       
-
-        public StoreDBContext(DbContextOptions<StoreDBContext> options)
-           : base(options) { }
-
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
