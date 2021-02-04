@@ -1,10 +1,7 @@
 ﻿using FlowersStore.Data;
-using FlowersStore.Helpers;
-using FlowersStore.Models;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Linq;
 
 namespace FlowersStore.Controllers
