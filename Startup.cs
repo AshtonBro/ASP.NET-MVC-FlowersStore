@@ -23,11 +23,16 @@ namespace FlowersStore
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            //services.AddControllers();
 
             services.AddDbContext<StoreDBContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
+            services.AddAuthentication("Cookie")
+                .AddCookie("Cookie", config =>
+                {
+                    config.LoginPath = "/Home/UserLogin";
+                });
+            services.AddAuthorization();
 
             services.AddScoped<ICRUDService<ShopingCart>, ShopingCartService>();
            
@@ -52,6 +57,7 @@ namespace FlowersStore
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
