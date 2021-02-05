@@ -5,11 +5,12 @@ using FlowersStore.Helpers;
 using FlowersStore.Models;
 using FlowersStore.Services;
 using FlowersStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace FlowersStore.Controllers
 {
+    [Authorize]
     public class BasketController : Controller
     {
         private ICRUDService<ShopingCart> _service;
