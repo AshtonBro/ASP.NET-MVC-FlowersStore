@@ -7,6 +7,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FlowersStore.Services;
 using FlowersStore.Models;
+using Microsoft.AspNetCore.Identity;
+using FlowersStore.Helpers;
 
 namespace FlowersStore
 {
@@ -24,19 +26,20 @@ namespace FlowersStore
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<StoreDBContext>(
-                options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            services.AddDbContext<StoreDBContext>(options => 
+                options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
 
             services.AddAuthentication("Cookie")
                 .AddCookie("Cookie", config =>
                 {
-                    config.LoginPath = "/Home/UserLogin";
+                    config.LoginPath = "/Home/Index";
+
                 });
+
             services.AddAuthorization();
 
             services.AddScoped<ICRUDService<ShopingCart>, ShopingCartService>();
            
-                
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
