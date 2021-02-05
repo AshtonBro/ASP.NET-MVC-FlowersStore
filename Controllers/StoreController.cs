@@ -1,14 +1,15 @@
 ﻿using FlowersStore.Data;
 using FlowersStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace FlowersStore.Controllers
 {
+    [Authorize]
     public class StoreController : Controller
     {
-       
         public IActionResult Index()
         {
             var model = new StoreViewModel();
