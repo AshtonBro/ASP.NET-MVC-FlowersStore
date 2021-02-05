@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Identity;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -39,4 +40,5 @@ namespace FlowersStore.Models
         [DataType(DataType.DateTime)]
         public DateTime DateCreated { get; set; }
     }
+
 }

@@ -114,15 +114,6 @@ export function showDialog() {
             let alertDanger = document.querySelectorAll('.alert-danger');
             alertDanger[0].textContent = '';
             alertDanger[1].textContent = '';
-            //setTimeout(() => {
-            //    clearTimeout(timerDeleteText);
-            //    
-            //    if (alertDanger[0].textContent !== null || alertDanger[1].textContent !== null) {
-            //        var timerDeleteText = setTimeout(() => {
-                        
-            //        }, 3000);
-            //    }
-            //}, 100);
         })
     })
 }

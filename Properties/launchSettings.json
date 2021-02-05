@@ -17,7 +17,6 @@
     },
     "FlowersStore": {
       "commandName": "Project",
-      "launchBrowser": true,
       "launchUrl": "Home/Index",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

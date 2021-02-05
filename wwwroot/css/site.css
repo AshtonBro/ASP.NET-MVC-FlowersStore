@@ -15,7 +15,6 @@ body {
     opacity: 0.90; /* Полупрозрачный фон */
 }
 
-
 /* Provide sufficient contrast against white background */
 a {
     color: #0366d6;
@@ -481,8 +480,7 @@ a.navbar-brand {
     position: relative;
     display: block;
     flex-basis: 27%;
-    min-height: 386px;
-    margin-top: 0.5px;
+    max-height: 386px;
     border-radius: .25rem;
 }
 

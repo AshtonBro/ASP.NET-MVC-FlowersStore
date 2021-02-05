@@ -1,6 +1,4 @@
-﻿using FlowersStore.Controllers;
-using System.ComponentModel.DataAnnotations;
-using FlowersStore.Helpers;
+﻿using System.ComponentModel.DataAnnotations;
 using System;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,7 +11,6 @@ namespace FlowersStore.ViewModels
 
         public class LoginUserModel
         {
-            
             [Display(Name = "Enter your Name:")]
             [Required(ErrorMessage = "Name isn't be empty")]
             [StringLength(20, ErrorMessage = "Name can't be more than 20 characters")]

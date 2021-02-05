@@ -71,8 +71,15 @@
         setTimeout(() => {
             if (document.getElementById('@msgIdR').innerText.includes('successfully')) {
                 document.getElementById('@msgIdR').style.backgroundColor = '#58c455';
+                if (document.getElementById('@msgIdR').style.backgroundColor = '#58c455')
+                {
+                    let inputs = document.querySelectorAll('.input-form-control');
+                    for (let i = 0; i < inputs.length; i++) {
+                        inputs[i].value = "";
+                    }
+                }
             }
-        }, 300);
+        }, 500);
     });
 
 

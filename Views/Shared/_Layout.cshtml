@@ -62,10 +62,16 @@
                             <a class="btnClick nav-link" onclick="openDialog('@Link.ToString(nameof(HomeController), nameof(HomeController.UserLogin))');">Login</a>
                         </li>
                         <li class="nav-item">
+                            <a class="btnClick nav-link" asp-controller="Login" asp-action="Logout">Logout</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(StoreController), nameof(StoreController.Index))'">Store</a>
                         </li>
                         <li class="nav-item">
                             <a class="btnClick nav-link" onclick="window.location.href='@Link.ToString(nameof(BasketController), nameof(BasketController.Index))'">Basket</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btnClick nav-link"></a>
                         </li>
                     </ul>
                 </div>
