@@ -17,6 +17,7 @@ namespace FlowersStore.Controllers
             {
                 model.Products = db.Products.Include(f => f.Category).ToArray();
             }
+            model.UserName = HttpContext.User.Identity.Name;
             return View(model);
         }
     }

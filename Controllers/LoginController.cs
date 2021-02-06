@@ -21,6 +21,13 @@ namespace FlowersStore.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Administrator")]
+        public IActionResult Administrator()
+        {
+            return View();
+        }
+
+
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonRedirect> LoginUser(LoginViewModel model)

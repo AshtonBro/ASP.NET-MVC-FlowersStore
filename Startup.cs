@@ -9,11 +9,15 @@ using FlowersStore.Services;
 using FlowersStore.Models;
 using Microsoft.AspNetCore.Identity;
 using FlowersStore.Helpers;
+using System.Security.Claims;
 
 namespace FlowersStore
 {
     public class Startup
     {
+        private const string ADMIN = "Administrator";
+        private const string USER = "User";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,11 +36,21 @@ namespace FlowersStore
             services.AddAuthentication("Cookie")
                 .AddCookie("Cookie", config =>
                 {
-                    config.LoginPath = "/Home/Index";
-
+                    config.LoginPath = "/Home/AccessDenied";
+                    config.AccessDeniedPath = "/Home/AccessDenied";
                 });
 
-            services.AddAuthorization();
+            services.AddAuthorization(options => 
+            {
+                options.AddPolicy(ADMIN, builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, ADMIN);
+                });
+                options.AddPolicy(USER, builder =>
+                {
+                    builder.RequireClaim(ClaimTypes.Role, USER);
+                });
+            });
 
             services.AddScoped<ICRUDService<ShopingCart>, ShopingCartService>();
            

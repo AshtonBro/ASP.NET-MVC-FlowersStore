@@ -178,3 +178,5 @@ D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Core.dll
 D:\Web-developer\3. С#\VS_source\FlowersStore\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Identity.Stores.dll
+D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Views\Checkout\Index.cshtml.g.cs
+D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Views\Home\AccessDenied.cshtml.g.cs

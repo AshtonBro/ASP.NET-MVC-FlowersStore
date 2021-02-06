@@ -1,9 +1,13 @@
 ﻿@model FlowersStore.ViewModels.StoreViewModel
 
+@{
+    ViewData["Title"] = "PRODUCTS";
+}
+
 <div class="container">
     <section class="store">
         <div class="store-heading">
-            <h2 class="store-title">Products</h2>
+            <h2 class="store-title">@ViewData["Title"]</h2>
             <label class="search">
                 <input type="text" placeholder="Search" class="input input-search" />
             </label>
@@ -46,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="card-price">@trimPrice <span class="span-style">€</span></div>
-                                
+
                                 <button id="@button" class="card-btn-add button-btn">В КОРЗИНУ</button>
 
                                 <script>
@@ -61,7 +65,7 @@
                         </div>
                     </div>
                 </div>
-             }
+            }
         </div>
     </section>
 </div>

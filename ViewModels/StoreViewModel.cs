@@ -6,8 +6,8 @@ namespace FlowersStore.ViewModels
     public class StoreViewModel
     {
         public string Title { get; set; }
-
         // Filtration
         public IEnumerable<Product> Products { get; set; }
+        public string UserName { get; set; }
     }
 }
