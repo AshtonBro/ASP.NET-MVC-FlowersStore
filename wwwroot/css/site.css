@@ -1000,3 +1000,74 @@ td {
         z-index: 5;
     }
 }
+
+.accessdenied {
+    padding-top: 8%;
+}
+
+.accessdenied-block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.accessdenied-title {
+    font-size: 34px;
+    font-weight: 600;
+    color: #383d41;
+    margin-bottom: 1%;
+}
+
+.accessdenied-image {
+    height: 30%;
+    width: 30%;
+    margin-bottom: 2%;
+}
+
+.accessdenied-subtitle {
+    font-size: 15px;
+    text-align: center;
+}
+
+.accessdenied-error-span {
+    font-weight: 600;
+    color: #383d41;
+}
+
+.accessdenied-popup {
+    display: flex;
+    align-items: center;
+}
+
+.accessdenied-popup-content {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    margin-right: 5%;
+    margin-top: 0px;
+    animation-timing-function: linear;
+    animation: slideDown 1s alternate infinite;
+}
+
+.accessdenied-popup-img {
+    height: 53px;
+    width: 53px;
+    margin-right: 15px;
+}
+
+.accessdenied-popup-text {
+    font-size: 15px;
+}
+
+@keyframes slideDown {
+    from {
+        margin-top: 0px;
+    }
+
+    to {
+        margin-top: 40px;
+    }
+}
