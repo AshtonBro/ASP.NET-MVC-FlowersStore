@@ -4,14 +4,13 @@ using System.Security.Cryptography;
 
 public class Crypto
 {
-    private const int PBKDF2IterCount = 1000; // default for Rfc2898DeriveBytes
-    private const int PBKDF2SubkeyLength = 256 / 8; // 256 bits
-    private const int SaltSize = 128 / 8; // 128 bits
+    private const int PBKDF2IterCount = 1000;
+    private const int PBKDF2SubkeyLength = 256 / 8;
+    private const int SaltSize = 128 / 8;
 
     /* =======================
      * HASHED PASSWORD FORMATS
      * =======================
-     * 
      */
 
     public string HashPassword(string password)
