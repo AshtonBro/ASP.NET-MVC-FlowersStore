@@ -6,6 +6,7 @@ using FlowersStore.Models;
 using FlowersStore.Services;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlowersStore.Controllers
@@ -19,11 +20,14 @@ namespace FlowersStore.Controllers
             this._service = service;
         }
 
+        GetId getUserIdbyName = new GetId();
+       
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            Guid userId = Guid.Parse("63115EDA-142D-40CC-8C39-9CF543D02354");
+            Guid userId = getUserIdbyName.GetIdUser(HttpContext.User.Identity.Name);
             model.ShopingCarts = _service.Get(userId);
+            model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
         }
 
@@ -40,9 +44,8 @@ namespace FlowersStore.Controllers
             if (id != Guid.Empty)
             {
                 var succes = false;
-                Guid userId = Guid.Parse("63115EDA-142D-40CC-8C39-9CF543D02354");
-                var exisingShopingCart = _service.Get(userId).FirstOrDefault(f => f.ProductId == id);                             
-
+                Guid userId = getUserIdbyName.GetIdUser(HttpContext.User.Identity.Name);
+                var exisingShopingCart = _service.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {
                     Basket basket; 
