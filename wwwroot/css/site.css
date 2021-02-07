@@ -898,12 +898,12 @@ td {
 
 .overlay {
     background-color: #EE1B22;
-    background: url("../Image/background.jpeg");
+   /* background: url("../Image/background.jpeg");
     background-position: center;
     background-repeat: no-repeat;
-    background-size: cover;
-    /*    background: rgb(242,156,119);
-    background: linear-gradient(90deg, rgba(242,156,119,1) 0%, rgba(242,91,165,1) 51%, rgba(219,90,90,1) 100%);*/
+    background-size: cover;*/
+    background: rgb(242,156,119);
+    background: linear-gradient(90deg, rgba(242,156,119,1) 0%, rgba(242,91,165,1) 51%, rgba(219,90,90,1) 100%);
     height: 100%;
     left: -100%;
     position: relative;
@@ -1029,6 +1029,11 @@ td {
 .accessdenied-subtitle {
     font-size: 15px;
     text-align: center;
+    line-height: 31px;
+}
+
+.accessdenied-subtitle-enter {
+    text-decoration: underline;
 }
 
 .accessdenied-error-span {

@@ -16,6 +16,7 @@ namespace FlowersStore.Controllers
     [Authorize]
     public class LoginController : Controller
     {
+        Crypto myCryptoHasher = new Crypto();
         public IActionResult Index()
         {
             return View();
@@ -26,7 +27,6 @@ namespace FlowersStore.Controllers
         {
             return View();
         }
-
 
         [HttpPost]
         [AllowAnonymous]
@@ -46,8 +46,7 @@ namespace FlowersStore.Controllers
                     var user = db.Users.FirstOrDefault(f => f.Name == model.LoginUser.Name);
                     if (user == null) return new JsonRedirect("A such user isn't registered.");
 
-                    var myHasher = new Crypto();
-                    var isPasswordValid = myHasher.VerifyHashedPassword(user.Password, model.LoginUser.Password);
+                    var isPasswordValid = myCryptoHasher.VerifyHashedPassword(user.Password, model.LoginUser.Password);
                     if (isPasswordValid)
                     {
                         await HttpContext.SignInAsync("Cookie", claimPrincial);
@@ -75,12 +74,11 @@ namespace FlowersStore.Controllers
 
                     if (user == null)
                     {
-                        var myHasher = new Crypto();
-                        var passwordHashed = myHasher.HashPassword(model.RegistrationUser.Password);
-
+                        var passwordHashed = myCryptoHasher.HashPassword(model.RegistrationUser.Password);
+                        var userId = Guid.NewGuid();
                         User userRegistration = new User()
                         {
-                            UserId = Guid.NewGuid(),
+                            UserId = userId,
                             Name = model.RegistrationUser.Name,
                             SecondName = model.RegistrationUser.SecondName,
                             Phone = model.RegistrationUser.Phone,
@@ -89,6 +87,15 @@ namespace FlowersStore.Controllers
                             DateCreated = DateTime.Now
                         };
 
+                        Basket newBasketForUser = new Basket()
+                        {
+                            BasketId = Guid.NewGuid(),
+                            UserId = userId,
+                            DateCreated = DateTime.Now
+
+                        };
+
+                        db.Baskets.Add(newBasketForUser);
                         db.Users.Add(userRegistration);
                         db.SaveChanges();
                         return new JsonRedirect("You successfully registered. Try to login");
