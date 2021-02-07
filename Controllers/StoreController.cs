@@ -8,6 +8,7 @@ using System.Linq;
 namespace FlowersStore.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "User")]
     public class StoreController : Controller
     {
         public IActionResult Index()

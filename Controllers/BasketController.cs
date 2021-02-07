@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlowersStore.Controllers
 {
     [Authorize]
+    [Authorize(Policy = "User")]
     public class BasketController : Controller
     {
         private ICRUDService<ShopingCart> _service;
@@ -20,12 +21,10 @@ namespace FlowersStore.Controllers
             this._service = service;
         }
 
-        GetId getUserIdbyName = new GetId();
-       
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            Guid userId = getUserIdbyName.GetIdUser(HttpContext.User.Identity.Name);
+            Guid userId = GetIdUser(HttpContext.User.Identity.Name);
             model.ShopingCarts = _service.Get(userId);
             model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
@@ -44,7 +43,7 @@ namespace FlowersStore.Controllers
             if (id != Guid.Empty)
             {
                 var succes = false;
-                Guid userId = getUserIdbyName.GetIdUser(HttpContext.User.Identity.Name);
+                Guid userId = GetIdUser(HttpContext.User.Identity.Name);
                 var exisingShopingCart = _service.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {
@@ -76,5 +75,17 @@ namespace FlowersStore.Controllers
         {
             return View();
         }
+
+        public Guid GetIdUser(string userName)
+        {
+            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("UserName can't be empty.");
+            using (StoreDBContext db = new StoreDBContext())
+            {
+                return db.Users.FirstOrDefault(f => f.Name == userName).UserId;
+            }
+        }
     }
+
+
 }
+

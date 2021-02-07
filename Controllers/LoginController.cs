@@ -22,22 +22,29 @@ namespace FlowersStore.Controllers
             return View();
         }
 
-        [Authorize(Roles = "Administrator")]
-        public IActionResult Administrator()
-        {
-            return View();
-        }
-
         [HttpPost]
         [AllowAnonymous]
         public async Task<JsonRedirect> LoginUser(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var claims = new List<Claim>
+                var claims = new List<Claim>();
+                if (model.LoginUser.Name == "Admin")
                 {
-                    new Claim(ClaimTypes.Name, model.LoginUser.Name)
-                };
+                    claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, model.LoginUser.Name),
+                        new Claim(ClaimTypes.Role, "Administrator")
+                    };
+                } else
+                {
+                    claims = new List<Claim>
+                    {
+                        new Claim(ClaimTypes.Name, model.LoginUser.Name),
+                        new Claim(ClaimTypes.Role, "User")
+                    };
+                }
+                
                 var claimIdentity = new ClaimsIdentity(claims, "Cookie");
                 var claimPrincial = new ClaimsPrincipal(claimIdentity);
 

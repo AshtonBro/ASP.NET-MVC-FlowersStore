@@ -795,7 +795,7 @@ td {
 }
 
 .popup-add-box {
-    display: block;
+    display: none;
     opacity: 0;
     position: fixed;
     margin: 70px auto;
@@ -1075,4 +1075,8 @@ td {
     to {
         margin-top: 40px;
     }
+}
+
+.admin {
+    padding-top: 8%;
 }

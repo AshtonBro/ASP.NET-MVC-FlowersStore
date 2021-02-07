@@ -50,6 +50,9 @@
                         <li class="nav-item">
                             <a class="btnClick nav-link form-control" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="btnClick nav-link form-control" asp-area="" asp-controller="Admin" asp-action="Index">AdminPanel</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -147,3 +150,9 @@
 
 </body>
 </html>
+
+<script>
+    setTimeout(() => {
+        document.querySelector('.popup-add-box').style.display = 'block';
+    }, 1000);
+</script>

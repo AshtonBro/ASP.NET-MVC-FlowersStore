@@ -7,8 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using FlowersStore.Services;
 using FlowersStore.Models;
-using Microsoft.AspNetCore.Identity;
-using FlowersStore.Helpers;
 using System.Security.Claims;
 
 namespace FlowersStore
@@ -46,9 +44,11 @@ namespace FlowersStore
                 {
                     builder.RequireClaim(ClaimTypes.Role, ADMIN);
                 });
+
                 options.AddPolicy(USER, builder =>
                 {
-                    builder.RequireClaim(ClaimTypes.Role, USER);
+                    builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, USER) 
+                                                || x.User.HasClaim(ClaimTypes.Role, ADMIN));
                 });
             });
 
