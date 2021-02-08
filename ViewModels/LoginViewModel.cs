@@ -28,7 +28,7 @@ namespace FlowersStore.ViewModels
         public class RegistrationUserModel 
         {
             [HiddenInput(DisplayValue = false)]
-            public Guid UserId { get; set; }
+            public Guid Id { get; set; }
 
             [Required(ErrorMessage = "Name isn't be empty")]
             [StringLength(20, ErrorMessage = "Name can't be more than 20 characters")]

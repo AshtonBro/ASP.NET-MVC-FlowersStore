@@ -14,7 +14,7 @@ namespace FlowersStore.Services
             if (id == Guid.Empty) return null;
             using (StoreDBContext db = new StoreDBContext())
             {
-                var basket = db.Baskets.FirstOrDefault(basket => basket.UserId == id);
+                var basket = db.Baskets.FirstOrDefault(basket => basket.Id == id);
                 if (basket == null) return null;
 
                 return db.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();

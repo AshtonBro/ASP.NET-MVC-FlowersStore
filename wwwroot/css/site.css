@@ -342,6 +342,7 @@ a.navbar-brand {
 
 .slick-list {
     border-radius: .25rem;
+    box-shadow: 0 .25rem .75rem gray;
 }
 
 .text-slide {
@@ -1021,9 +1022,14 @@ td {
 }
 
 .accessdenied-image {
-    height: 30%;
-    width: 30%;
+    height: 256px;
+    width: 256px;
     margin-bottom: 2%;
+}
+
+.access-img {
+    height: 256px;
+    width: 256px;
 }
 
 .accessdenied-subtitle {
@@ -1077,6 +1083,31 @@ td {
     }
 }
 
+@keyframes rotate-animation {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 .admin {
     padding-top: 8%;
+}
+
+.developer-box {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.developer-box-img {
+    animation: rotate-animation 10s linear infinite;
+}
+
+.developer-box-desc {
+    margin-left: 15px;
+    margin-bottom: 0;
 }
