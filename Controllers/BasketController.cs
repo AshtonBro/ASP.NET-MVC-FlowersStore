@@ -50,7 +50,7 @@ namespace FlowersStore.Controllers
                     Basket basket; 
                     using (StoreDBContext db = new StoreDBContext())
                     {
-                         basket = db.Baskets.FirstOrDefault(b => b.UserId == (db.Users.FirstOrDefault(f => f.UserId == userId).UserId));
+                         basket = db.Baskets.FirstOrDefault(b => b.Id == (db.Users.FirstOrDefault(f => f.Id == userId).Id));
                     }
 
                     var newModel = new ShopingCart() { 
@@ -81,7 +81,7 @@ namespace FlowersStore.Controllers
             if (string.IsNullOrEmpty(userName)) throw new ArgumentException("UserName can't be empty.");
             using (StoreDBContext db = new StoreDBContext())
             {
-                return db.Users.FirstOrDefault(f => f.Name == userName).UserId;
+                return db.Users.FirstOrDefault(f => f.Name == userName).Id;
             }
         }
     }
