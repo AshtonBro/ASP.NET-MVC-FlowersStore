@@ -6,10 +6,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace FlowersStore.Models
 {
     [Table("User")]
-    public class User
+    public class User: IdentityUser<Guid>
     {
-        [Key]
-        public Guid UserId { get; set; }
+        public override Guid Id { get; set; }
 
         [Required(ErrorMessage = "Name isn't be empty")]
         [StringLength(20, ErrorMessage = "Name can't be more than 20 characters")]
@@ -21,13 +20,9 @@ namespace FlowersStore.Models
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "SecondName should not contain special character,numbers or space")]
         public string SecondName { get; set; }
 
-        [DataType(DataType.PhoneNumber)]
-        [Phone(ErrorMessage = "Please enter valid phone number.")]
-        public string Phone { get; set; }
-
         [Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid.")]
-        public string Email { get; set; }
+        public override string Email { get; set; }
 
         [Required(ErrorMessage = "Password is required")]
         [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
