@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using FlowersStore.Services;
 using FlowersStore.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using FlowersStore.Entities;
 
 namespace FlowersStore
 {
@@ -28,15 +30,23 @@ namespace FlowersStore
         {
             services.AddControllersWithViews();
 
-            services.AddDbContext<StoreDBContext>(options => 
-                options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
+            services.AddDbContext<StoreDBContext>(options =>
+            {
+                options.UseSqlServer("name=ConnectionStrings:DefaultConnection");
+            }).AddIdentity<User, UserRole>(config => 
+            {
+                config.Password.RequireLowercase = false;
+                config.Password.RequireNonAlphanumeric = false;
 
-            services.AddAuthentication("Cookie")
-                .AddCookie("Cookie", config =>
-                {
-                    config.LoginPath = "/Home/AccessDenied";
-                    config.AccessDeniedPath = "/Home/AccessDenied";
-                });
+            })
+            .AddEntityFrameworkStores<StoreDBContext>()
+            .AddDefaultTokenProviders();
+
+            services.ConfigureApplicationCookie(config =>
+            {
+                config.LoginPath = "/Home/AccessDenied";
+                config.AccessDeniedPath = "/Home/AccessDenied";
+            });
 
             services.AddAuthorization(options => 
             {
