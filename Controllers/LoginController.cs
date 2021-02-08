@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlowersStore.Controllers
 {
@@ -17,9 +18,18 @@ namespace FlowersStore.Controllers
     public class LoginController : Controller
     {
         Crypto myCryptoHasher = new Crypto();
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private static readonly StoreDBContext _context = new StoreDBContext();
         public IActionResult Index()
         {
             return View();
+        }
+
+        public LoginController(UserManager<User> userManager, SignInManager<User> signInManager)
+        {
+            _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost]
@@ -28,40 +38,16 @@ namespace FlowersStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var claims = new List<Claim>();
-                if (model.LoginUser.Name == "Admin")
+                var user = await _userManager.FindByNameAsync(model.LoginUser.Name);
+                if (user == null) return new JsonRedirect("A such user isn't registered.");
+
+                var result = await _signInManager.PasswordSignInAsync(user, model.LoginUser.Password, false, false);
+
+                if (result.Succeeded)
                 {
-                    claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, model.LoginUser.Name),
-                        new Claim(ClaimTypes.Role, "Administrator")
-                    };
-                } else
-                {
-                    claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name, model.LoginUser.Name),
-                        new Claim(ClaimTypes.Role, "User")
-                    };
+                    return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
                 }
-                
-                var claimIdentity = new ClaimsIdentity(claims, "Cookie");
-                var claimPrincial = new ClaimsPrincipal(claimIdentity);
-
-                using (StoreDBContext db = new StoreDBContext())
-                {
-                    var user = db.Users.FirstOrDefault(f => f.Name == model.LoginUser.Name);
-                    if (user == null) return new JsonRedirect("A such user isn't registered.");
-
-                    var isPasswordValid = myCryptoHasher.VerifyHashedPassword(user.Password, model.LoginUser.Password);
-                    if (isPasswordValid)
-                    {
-                        await HttpContext.SignInAsync("Cookie", claimPrincial);
-
-                        return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
-                    }
-                    return new JsonRedirect("Invalid login or password.");
-                }
+                return new JsonRedirect("Invalid login or password.");
             }
 
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
@@ -70,57 +56,62 @@ namespace FlowersStore.Controllers
 
         [HttpPost]
         [AllowAnonymous]
-        public JsonRedirect RegistrationUser(LoginViewModel model)
+        public async Task<JsonRedirect> RegistrationUser(LoginViewModel model)
         {
             if (ModelState.IsValid)
             {
-                using (StoreDBContext db = new StoreDBContext())
+                var user = await _userManager.FindByNameAsync(model.RegistrationUser.Name);
+                var userId = Guid.NewGuid();
+                if (user == null)
                 {
-                    var user = db.Users.FirstOrDefault(f => (f.Name == model.RegistrationUser.Name) 
-                    || (f.Email == model.RegistrationUser.Email));
-
-                    if (user == null)
+                    User userRegistration = new User()
                     {
-                        var passwordHashed = myCryptoHasher.HashPassword(model.RegistrationUser.Password);
-                        var userId = Guid.NewGuid();
-                        User userRegistration = new User()
-                        {
-                            UserId = userId,
-                            Name = model.RegistrationUser.Name,
-                            SecondName = model.RegistrationUser.SecondName,
-                            Phone = model.RegistrationUser.Phone,
-                            Email = model.RegistrationUser.Email,
-                            Password = passwordHashed,
-                            DateCreated = DateTime.Now
-                        };
+                        Id = userId,
+                        UserName = model.RegistrationUser.Name,
+                        Name = model.RegistrationUser.Name,
+                        SecondName = model.RegistrationUser.SecondName,
+                        PhoneNumber = model.RegistrationUser.Phone,
+                        Email = model.RegistrationUser.Email,
+                        Password = model.RegistrationUser.Password,
+                        DateCreated = DateTime.Now
+                    };
 
-                        Basket newBasketForUser = new Basket()
-                        {
-                            BasketId = Guid.NewGuid(),
-                            UserId = userId,
-                            DateCreated = DateTime.Now
+                    Basket newBasketForUser = new Basket()
+                    {
+                        BasketId = Guid.NewGuid(),
+                        Id = userId,
+                        DateCreated = DateTime.Now
 
-                        };
+                    };
 
-                        db.Baskets.Add(newBasketForUser);
-                        db.Users.Add(userRegistration);
-                        db.SaveChanges();
+                    var result = _userManager.CreateAsync(userRegistration, model.RegistrationUser.Password)
+                        .GetAwaiter()
+                        .GetResult();
+
+                    if (result.Succeeded)
+                    {
+                        _userManager.AddClaimAsync(userRegistration, new Claim(ClaimTypes.Role, "User"))
+                           .GetAwaiter()
+                           .GetResult();
+
+                        _context.Baskets.Add(newBasketForUser);
+                        _context.SaveChanges();
                         return new JsonRedirect("You successfully registered. Try to login");
                     }
-                    return new JsonRedirect("Such User or Email is registered.");
+                    return new JsonRedirect(result.Errors.FirstOrDefault().Code);
                 }
+                return new JsonRedirect("Such User or Email is registered.");
 
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
         }
 
-        public IActionResult Logout()
+        public async Task<IActionResult> LogoutAsync()
         {
-            HttpContext.SignOutAsync("Cookie");
+            await _signInManager.SignOutAsync();
             return View("~/Views/Home/Index.cshtml");
         }
 
-      
     }
 }
