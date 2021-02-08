@@ -10,7 +10,7 @@ namespace FlowersStore.Models
     {
         [Key]
         public Guid BasketId { get; set; }
-        public Guid UserId { get; set; }
+        public Guid Id { get; set; }
         public User User { get; set; }
 
         [DataType(DataType.DateTime)]
