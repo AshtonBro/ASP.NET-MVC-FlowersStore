@@ -5,10 +5,8 @@ using FlowersStore.Helpers;
 using System.Linq;
 using FlowersStore.Data;
 using FlowersStore.Models;
-using Microsoft.AspNetCore.Authentication;
 using System.Threading.Tasks;
 using System.Security.Claims;
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,7 +15,6 @@ namespace FlowersStore.Controllers
     [Authorize]
     public class LoginController : Controller
     {
-        Crypto myCryptoHasher = new Crypto();
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private static readonly StoreDBContext _context = new StoreDBContext();
@@ -42,7 +39,6 @@ namespace FlowersStore.Controllers
                 if (user == null) return new JsonRedirect("A such user isn't registered.");
 
                 var result = await _signInManager.PasswordSignInAsync(user, model.LoginUser.Password, false, false);
-
                 if (result.Succeeded)
                 {
                     return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
@@ -72,7 +68,7 @@ namespace FlowersStore.Controllers
                         SecondName = model.RegistrationUser.SecondName,
                         PhoneNumber = model.RegistrationUser.Phone,
                         Email = model.RegistrationUser.Email,
-                        Password = model.RegistrationUser.Password,
+                        PasswordHash = model.RegistrationUser.Password,
                         DateCreated = DateTime.Now
                     };
 
@@ -107,10 +103,10 @@ namespace FlowersStore.Controllers
             return new JsonRedirect(error.ErrorMessage);
         }
 
-        public async Task<IActionResult> LogoutAsync()
+        public async Task<RedirectResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return View("~/Views/Home/Index.cshtml");
+            return Redirect("/Home/Index");
         }
 
     }
