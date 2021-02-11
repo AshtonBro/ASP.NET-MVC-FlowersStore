@@ -1,4 +1,5 @@
 ﻿using FlowersStore.Data;
+using FlowersStore.Services;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -11,14 +12,18 @@ namespace FlowersStore.Controllers
     [Authorize(Policy = "User")]
     public class StoreController : Controller
     {
-        public IActionResult Index()
+        private readonly IStoreService _storeService;
+
+        public StoreController(IStoreService storeService)
         {
-            var model = new StoreViewModel();
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                model.Products = db.Products.Include(f => f.Category).ToArray();
-            }
+            _storeService = storeService;
+        }
+
+        public IActionResult Index(StoreViewModel model)
+        {
+            model.Products = _storeService.GetProducts();
             model.UserName = HttpContext.User.Identity.Name;
+
             return View(model);
         }
     }

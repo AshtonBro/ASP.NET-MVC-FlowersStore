@@ -1,6 +1,15 @@
 ﻿/*Change quantity and Collect all prices in basket page and count total sum*/
 export function showInfoBox(jsonMessage) {
-    let msg = JSON.parse(jsonMessage);
+    let msg;
+    if (jsonMessage === null) {
+        msg = "null";
+    }
+    if (jsonMessage === undefined) {
+        msg = "undefined";
+    }
+    if (jsonMessage.constructor === "string".constructor) {
+        msg = JSON.parse(jsonMessage);
+    }
     if (msg.message != undefined) {
         document.querySelector('.popup-content').innerHTML = msg.message;
     } else {

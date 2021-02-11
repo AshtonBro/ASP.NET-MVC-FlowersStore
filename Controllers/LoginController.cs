@@ -90,9 +90,11 @@ namespace FlowersStore.Controllers
                            .GetAwaiter()
                            .GetResult();
 
+                        await _signInManager.PasswordSignInAsync(userRegistration, model.RegistrationUser.Password, false, false);
                         _context.Baskets.Add(newBasketForUser);
                         _context.SaveChanges();
-                        return new JsonRedirect("You successfully registered. Try to login");
+                      
+                        return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
                     }
                     return new JsonRedirect(result.Errors.FirstOrDefault().Code);
                 }

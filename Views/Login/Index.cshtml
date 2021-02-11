@@ -13,7 +13,6 @@
     var msgIdR = $"{keyR}_M";
     var btnIdR = $"{keyR}_B";
 
-    
 }
 
 <script defer src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -42,9 +41,11 @@
             <input asp-for="RegistrationUser.Email" type="email" placeholder="Email" class="input-form-control" />
             <input asp-for="RegistrationUser.Password" type="password" placeholder="Password" class="input-form-control" />
             <input asp-for="RegistrationUser.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control" />
+                            
             <div>
                 <label id="@msgIdR" class="alert-danger m-1"></label>
             </div>
+            
             <button type="submit" class="button-btn btn-registration auth" id="@btnIdR">Registration</button>
         </div>
     </form>
@@ -67,24 +68,9 @@
         dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.LoginUser)).ToString())');
     });
 
-    document.getElementById('@btnIdR').addEventListener('click', (e) => {
+   document.getElementById('@btnIdR').addEventListener('click', (e) => {
         dialogPost(e, '@keyR', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
-        document.getElementById('@msgIdR').style.backgroundColor = '#f8d7da';
-        setTimeout(() => {
-            if (document.getElementById('@msgIdR').innerText.includes('successfully')) {
-                document.getElementById('@msgIdR').style.backgroundColor = '#58c455';
-                if (document.getElementById('@msgIdR').style.backgroundColor = '#58c455')
-                {
-                    let inputs = document.querySelectorAll('.input-form-control');
-                    for (let i = 0; i < inputs.length; i++) {
-                        inputs[i].value = "";
-                    }
-                }
-            }
-        }, 1000);
-    });
-
-
+   });
 
     document.getElementById("Login").addEventListener("click", () => {
         document.querySelector(".container-modal").classList.remove("right-panel-active");

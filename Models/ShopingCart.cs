@@ -22,6 +22,4 @@ namespace FlowersStore.Models
         public virtual Basket Basket { get; set; }
         public virtual Product Product { get; set; }
     }
-  
-   
 }

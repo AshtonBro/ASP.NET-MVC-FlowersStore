@@ -15,24 +15,27 @@ namespace FlowersStore.Controllers
     [Authorize(Policy = "User")]
     public class BasketController : Controller
     {
-        private ICRUDService<ShopingCart> _service;
-        public BasketController(ICRUDService<ShopingCart> service)
+        private readonly IShopingCartCRUDService<ShopingCart> _shopingCartservice;
+        private readonly IBasketService _basketService;
+
+        public BasketController(IShopingCartCRUDService<ShopingCart> shopingCartservice, IBasketService basketService)
         {
-            this._service = service;
+            this._shopingCartservice = shopingCartservice;
+            this._basketService = basketService;
         }
 
         public IActionResult Index()
         {
             var model = new BasketViewModel();
             Guid userId = GetIdUser(HttpContext.User.Identity.Name);
-            model.ShopingCarts = _service.Get(userId);
+            model.ShopingCarts = _shopingCartservice.Get(userId);
             model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
         }
 
         public JsonResult DeleteFromBasket(Guid id)
         {
-            var result = _service.Delete(id);
+            var result = _shopingCartservice.Delete(id);
             if (result) return new JsonResult(new { message = "Success deleted item from basket." });
 
             return new JsonRedirect("ShopingCart isn't deleted.");
@@ -42,30 +45,27 @@ namespace FlowersStore.Controllers
         {
             if (id != Guid.Empty)
             {
-                var succes = false;
+                var success = false;
                 Guid userId = GetIdUser(HttpContext.User.Identity.Name);
-                var exisingShopingCart = _service.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
+                var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {
-                    Basket basket; 
-                    using (StoreDBContext db = new StoreDBContext())
-                    {
-                         basket = db.Baskets.FirstOrDefault(b => b.Id == (db.Users.FirstOrDefault(f => f.Id == userId).Id));
-                    }
-
-                    var newModel = new ShopingCart() { 
+                    Basket basket = _basketService.GetBasket(userId);
+                    var newModel = new ShopingCart() 
+                    { 
                         Quantity = quantity,
                         ProductId = id, 
-                        BasketId = basket.BasketId };
-                     succes = _service.Create(newModel);
+                        BasketId = basket.BasketId 
+                    };
+                     success = _shopingCartservice.Create(newModel);
                 }
                 else
                 {
                      exisingShopingCart.Quantity += quantity;
-                     succes = _service.Update(exisingShopingCart);
+                     success = _shopingCartservice.Update(exisingShopingCart);
                 }
                     
-                if (!succes) return new JsonResult(new { error = "Error while adding product!" });
+                if (!success) return new JsonResult(new { error = "Error while adding product!" });
                 return new JsonResult(new { message = "Thank you! Item added to basket." });
             }
             return new JsonResult(new { error = "Error while adding product!" });
@@ -78,11 +78,9 @@ namespace FlowersStore.Controllers
 
         public Guid GetIdUser(string userName)
         {
-            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("UserName can't be empty.");
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                return db.Users.FirstOrDefault(f => f.Name == userName).Id;
-            }
+            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
+            using StoreDBContext db = new StoreDBContext();
+            return db.Users.FirstOrDefault(f => f.Name == userName).Id;
         }
     }
 

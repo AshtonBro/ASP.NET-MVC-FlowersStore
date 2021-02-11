@@ -187,6 +187,8 @@
 <script>
     setTimeout(() => {
         document.querySelector('.popup-add-box').style.display = 'block';
-        document.querySelector('.nav-dropdown-items').style.display = 'block';
+        if (document.querySelector('.nav-dropdown-items') != null) {
+            document.querySelector('.nav-dropdown-items').style.display = 'block';
+        }
     }, 1000);
 </script>

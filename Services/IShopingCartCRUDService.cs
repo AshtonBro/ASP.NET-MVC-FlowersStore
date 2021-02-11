@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FlowersStore.Services
 {
-    public interface ICRUDService<T> where T : class
+    public interface IShopingCartCRUDService<T> where T : class
     {
         IEnumerable<T> Get(Guid id);
         T GetById(Guid id);
