@@ -9,80 +9,66 @@ namespace FlowersStore.Services
 {
     public class ShopingCartService : ICRUDService<ShopingCart>
     {
+        public static readonly StoreDBContext _context = new StoreDBContext();
         public IEnumerable<ShopingCart> Get(Guid id)
         {
             if (id == Guid.Empty) return null;
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                var basket = db.Baskets.FirstOrDefault(basket => basket.Id == id);
-                if (basket == null) return null;
+            
+            var basket = _context.Baskets.FirstOrDefault(basket => basket.Id == id);
+            if (basket == null) return null;
 
-                return db.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
-            }
+            return _context.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
+            
         }
 
         public ShopingCart GetById(Guid id)
         {
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                return db.ShopingCarts.Include(f => f.Product.Category).FirstOrDefault(cart => cart.CartId == id);
-            }
+            return _context.ShopingCarts.Include(f => f.Product.Category).FirstOrDefault(cart => cart.CartId == id);
         }
 
         public bool Update(ShopingCart model)
         {
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                var oldModel = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
-                if (oldModel == null) return false;
+            var oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
+            if (oldModel == null) return false;
 
-                oldModel.DateCreated = model.DateCreated;
-                oldModel.Quantity = model.Quantity;
+            oldModel.DateCreated = model.DateCreated;
+            oldModel.Quantity = model.Quantity;
 
-                return db.SaveChanges() >= 1;
-            }
+            return _context.SaveChanges() >= 1;
         }
 
         public bool Update(IEnumerable<ShopingCart> collection)
         {
-            using (StoreDBContext db = new StoreDBContext())
+            foreach (var model in collection)
             {
-                foreach(var model in collection)
-                {
-                    var oldModel = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
-                    if (oldModel == null) continue;
+                var oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
+                if (oldModel == null) continue;
 
-                    oldModel.DateCreated = model.DateCreated;
-                    oldModel.Quantity = model.Quantity;
-                }
-               
-                return db.SaveChanges() >= 1;
+                oldModel.DateCreated = model.DateCreated;
+                oldModel.Quantity = model.Quantity;
             }
+
+            return _context.SaveChanges() >= 1;
         }
 
         public bool Create(ShopingCart model)
         {
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                model.CartId = Guid.NewGuid();
-                model.DateCreated = DateTime.Now;
-                db.ShopingCarts.Add(model);            
+            model.CartId = Guid.NewGuid();
+            model.DateCreated = DateTime.Now;
+            _context.ShopingCarts.Add(model);
 
-                return db.SaveChanges() >= 1;
-            }
+            return _context.SaveChanges() >= 1;
         }
 
         public bool Delete(Guid id)
         {
-            using (StoreDBContext db = new StoreDBContext())
-            {
-                var modelToDelete = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == id);
-                if (modelToDelete == null) return false;
+            var modelToDelete = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == id);
+            if (modelToDelete == null) return false;
 
-                db.Remove(modelToDelete);
+            _context.Remove(modelToDelete);
 
-                return db.SaveChanges() >= 1;           
-            }
+            return _context.SaveChanges() >= 1;
         }
     }
 }
+
