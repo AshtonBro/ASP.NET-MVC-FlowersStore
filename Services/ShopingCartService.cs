@@ -7,67 +7,73 @@ using System.Linq;
 
 namespace FlowersStore.Services
 {
-    public class ShopingCartService : ICRUDService<ShopingCart>
+    public class ShopingCartService : IShopingCartCRUDService<ShopingCart>
     {
-        public static readonly StoreDBContext _context = new StoreDBContext();
         public IEnumerable<ShopingCart> Get(Guid id)
         {
-            if (id == Guid.Empty) return null;
-            
-            var basket = _context.Baskets.FirstOrDefault(basket => basket.Id == id);
-            if (basket == null) return null;
+            if (id == Guid.Empty) throw new ArgumentException("User id is empty.");
+            using StoreDBContext db = new StoreDBContext();
+            Basket basket = db.Baskets.FirstOrDefault(basket => basket.Id == id);
 
-            return _context.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
-            
+            if (basket == null) throw new ArgumentException("Basket is empty.");
+
+            return db.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
         }
 
         public ShopingCart GetById(Guid id)
         {
-            return _context.ShopingCarts.Include(f => f.Product.Category).FirstOrDefault(cart => cart.CartId == id);
+            if (id == Guid.Empty) throw new ArgumentException("ShopingCart id is empty.");
+            using StoreDBContext db = new StoreDBContext();
+            return db.ShopingCarts.Include(f => f.Product.Category).FirstOrDefault(cart => cart.CartId == id);
         }
 
         public bool Update(ShopingCart model)
         {
-            var oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
+            using StoreDBContext db = new StoreDBContext();
+            ShopingCart oldModel = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
             if (oldModel == null) return false;
 
             oldModel.DateCreated = model.DateCreated;
             oldModel.Quantity = model.Quantity;
 
-            return _context.SaveChanges() >= 1;
+            return db.SaveChanges() >= 1;
         }
 
         public bool Update(IEnumerable<ShopingCart> collection)
         {
+            using StoreDBContext db = new StoreDBContext();
             foreach (var model in collection)
             {
-                var oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
+                var oldModel = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
                 if (oldModel == null) continue;
 
                 oldModel.DateCreated = model.DateCreated;
                 oldModel.Quantity = model.Quantity;
             }
 
-            return _context.SaveChanges() >= 1;
+            return db.SaveChanges() >= 1;
         }
 
         public bool Create(ShopingCart model)
         {
+            using StoreDBContext db = new StoreDBContext();
             model.CartId = Guid.NewGuid();
             model.DateCreated = DateTime.Now;
-            _context.ShopingCarts.Add(model);
+            db.ShopingCarts.Add(model);
 
-            return _context.SaveChanges() >= 1;
+            return db.SaveChanges() >= 1;
         }
 
         public bool Delete(Guid id)
         {
-            var modelToDelete = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == id);
+            if (id == Guid.Empty) return false;
+            using StoreDBContext db = new StoreDBContext();
+            ShopingCart modelToDelete = db.ShopingCarts.FirstOrDefault(cart => cart.CartId == id);
             if (modelToDelete == null) return false;
 
-            _context.Remove(modelToDelete);
+            db.Remove(modelToDelete);
 
-            return _context.SaveChanges() >= 1;
+            return db.SaveChanges() >= 1;
         }
     }
 }
