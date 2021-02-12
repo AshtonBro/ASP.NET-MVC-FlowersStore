@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FlowersStore.Services
+namespace FlowersStore.Services.ServicesInterfaces
 {
     public interface IShopingCartCRUDService<T> where T : class
     {

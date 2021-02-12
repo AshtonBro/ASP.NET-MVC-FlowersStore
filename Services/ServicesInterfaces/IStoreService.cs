@@ -1,7 +1,7 @@
 ﻿using FlowersStore.Models;
 using System.Collections.Generic;
 
-namespace FlowersStore.Services
+namespace FlowersStore.Services.ServicesInterfaces
 {
     public interface IStoreService
     {

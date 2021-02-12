@@ -4,6 +4,7 @@ using FlowersStore.Data;
 using FlowersStore.Helpers;
 using FlowersStore.Models;
 using FlowersStore.Services;
+using FlowersStore.Services.ServicesInterfaces;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -29,7 +30,7 @@ namespace FlowersStore.Controllers
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            var userId = _userService.GetUser(HttpContext.User.Identity.Name);
+            var userId = _userService.GetUser(HttpContext.User.Identity.Name).Id;
             model.ShopingCarts = _shopingCartservice.Get(userId);
             model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
@@ -48,7 +49,7 @@ namespace FlowersStore.Controllers
             if (id != Guid.Empty)
             {
                 var success = false;
-                var userId = _userService.GetUser(HttpContext.User.Identity.Name);
+                var userId = _userService.GetUser(HttpContext.User.Identity.Name).Id;
                 var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {

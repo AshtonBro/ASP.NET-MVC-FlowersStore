@@ -1,5 +1,6 @@
 ﻿using FlowersStore.Data;
 using FlowersStore.Models;
+using FlowersStore.Services.ServicesInterfaces;
 using System;
 using System.Linq;
 
@@ -9,10 +10,10 @@ namespace FlowersStore.Services
     {
         public static readonly StoreDBContext _context = new StoreDBContext();
 
-        public Guid GetUser(string userName)
+        public User GetUser(string userName)
         {
             if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
-            return _context.Users.FirstOrDefault(f => f.Name == userName).Id;
+            return _context.Users.FirstOrDefault(f => f.Name == userName);
         }
     }
 }
