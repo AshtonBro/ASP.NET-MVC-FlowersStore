@@ -14,5 +14,19 @@ namespace FlowersStore.Services
             
             return _context.Baskets.FirstOrDefault(b => b.User.Id == userId);
         }
+
+        public bool CreateBasket(Guid userId)
+        {
+            if (userId == Guid.Empty) throw new ArgumentException("User id is Empty.");
+            Basket newBasket = new Basket()
+            {
+                Id = userId,
+                BasketId = Guid.NewGuid(),
+                DateCreated = DateTime.Now
+            };
+           
+            _context.Baskets.Add(newBasket);
+            return _context.SaveChanges() >= 1;
+        }
     }
 }

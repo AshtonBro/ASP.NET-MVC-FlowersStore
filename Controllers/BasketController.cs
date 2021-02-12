@@ -29,7 +29,7 @@ namespace FlowersStore.Controllers
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            Guid userId = _userService.GetUser(HttpContext.User.Identity.Name);
+            var userId = _userService.GetUser(HttpContext.User.Identity.Name);
             model.ShopingCarts = _shopingCartservice.Get(userId);
             model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
@@ -48,11 +48,11 @@ namespace FlowersStore.Controllers
             if (id != Guid.Empty)
             {
                 var success = false;
-                Guid userId = _userService.GetUser(HttpContext.User.Identity.Name);
+                var userId = _userService.GetUser(HttpContext.User.Identity.Name);
                 var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {
-                    Basket basket = _basketService.GetBasket(userId);
+                    var basket = _basketService.GetBasket(userId);
                     var newModel = new ShopingCart() 
                     { 
                         Quantity = quantity,

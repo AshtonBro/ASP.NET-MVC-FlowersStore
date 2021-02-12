@@ -6,5 +6,6 @@ namespace FlowersStore.Services
     public interface IBasketService
     {
         Basket GetBasket(Guid userId);
+        bool CreateBasket(Guid userId);
     }
 }

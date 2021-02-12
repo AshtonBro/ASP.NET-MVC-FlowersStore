@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using FlowersStore.Services;
 
 namespace FlowersStore.Controllers
 {
@@ -17,16 +18,18 @@ namespace FlowersStore.Controllers
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IBasketService _basketService;
         private static readonly StoreDBContext _context = new StoreDBContext();
         public IActionResult Index()
         {
             return View();
         }
 
-        public LoginController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public LoginController(UserManager<User> userManager, SignInManager<User> signInManager, IBasketService basketService)
         {
-            _userManager = userManager;
-            _signInManager = signInManager;
+            this._userManager = userManager;
+            this._signInManager = signInManager;
+            this._basketService = basketService;
         }
 
         [HttpPost]
@@ -72,14 +75,6 @@ namespace FlowersStore.Controllers
                         DateCreated = DateTime.Now
                     };
 
-                    Basket newBasketForUser = new Basket()
-                    {
-                        BasketId = Guid.NewGuid(),
-                        Id = userId,
-                        DateCreated = DateTime.Now
-
-                    };
-
                     var result = _userManager.CreateAsync(userRegistration, model.RegistrationUser.Password)
                         .GetAwaiter()
                         .GetResult();
@@ -91,7 +86,8 @@ namespace FlowersStore.Controllers
                            .GetResult();
 
                         await _signInManager.PasswordSignInAsync(userRegistration, model.RegistrationUser.Password, false, false);
-                        _context.Baskets.Add(newBasketForUser);
+
+                        _basketService.CreateBasket(userId);
                         _context.SaveChanges();
                       
                         return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
