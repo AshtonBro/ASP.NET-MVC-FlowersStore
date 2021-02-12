@@ -17,17 +17,19 @@ namespace FlowersStore.Controllers
     {
         private readonly IShopingCartCRUDService<ShopingCart> _shopingCartservice;
         private readonly IBasketService _basketService;
+        private readonly IUserService _userService;
 
-        public BasketController(IShopingCartCRUDService<ShopingCart> shopingCartservice, IBasketService basketService)
+        public BasketController(IShopingCartCRUDService<ShopingCart> shopingCartservice, IBasketService basketService, IUserService userService)
         {
             this._shopingCartservice = shopingCartservice;
             this._basketService = basketService;
+            this._userService = userService;
         }
 
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            Guid userId = GetIdUser(HttpContext.User.Identity.Name);
+            Guid userId = _userService.GetUser(HttpContext.User.Identity.Name);
             model.ShopingCarts = _shopingCartservice.Get(userId);
             model.UserName = HttpContext.User.Identity.Name;
             return View("~/Views/Basket/Index.cshtml", model);
@@ -46,7 +48,7 @@ namespace FlowersStore.Controllers
             if (id != Guid.Empty)
             {
                 var success = false;
-                Guid userId = GetIdUser(HttpContext.User.Identity.Name);
+                Guid userId = _userService.GetUser(HttpContext.User.Identity.Name);
                 var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
                 if (exisingShopingCart == null)
                 {
@@ -75,15 +77,6 @@ namespace FlowersStore.Controllers
         {
             return View();
         }
-
-        public Guid GetIdUser(string userName)
-        {
-            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
-            using StoreDBContext db = new StoreDBContext();
-            return db.Users.FirstOrDefault(f => f.Name == userName).Id;
-        }
     }
-
-
 }
 

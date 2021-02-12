@@ -72,6 +72,7 @@
                                     <script>
                                         document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
                                             e.preventDefault();
+                                            document.getElementById("@buttonDeleteId").setAttribute("disabled", true);
                                             ajaxPost("/Basket/DeleteFromBasket?id=" + "@cartId", null, (callback) => {
                                                 let shoppingCart = document.getElementById("@cartId");
                                                 shoppingCart.classList.add('box-hide');
