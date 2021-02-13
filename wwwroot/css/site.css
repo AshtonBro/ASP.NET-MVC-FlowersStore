@@ -9,6 +9,12 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;*/
+    padding-bottom: 12%;
+}
+
+.main-box {
+    border-bottom-left-radius: 1.25rem;
+    border-bottom-right-radius: 1.25rem;
 }
 
 .semiopacity {
@@ -451,7 +457,6 @@ a.navbar-brand {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
-    padding-bottom: 12%;
 }
 
 .about-text-title {
@@ -478,6 +483,32 @@ a.navbar-brand {
     padding-top: 8%;
 }
 
+.policy-box-img {
+    width: 78px;
+    height: 78px;
+    margin-right: 10px;
+}
+
+.policy-box {
+    display: flex;
+    justify-content: flex-start;
+    vertical-align: middle;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.policy-trap-box {
+    height: 80px;
+}
+
+.policy-trap {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+    background-position: center;
+    background-repeat: repeat;
+    background-size: cover;
+}
 /* Store */
 .input-search {
     width: 100%;
@@ -497,7 +528,6 @@ a.navbar-brand {
 
 .store {
     padding-top: 8%;
-    padding-bottom: 11%;
 }
 
 .store-heading {
@@ -680,7 +710,6 @@ input[type=number] {
 /* Basket */
 .basket {
     padding-top: 8%;
-    padding-bottom: 11%;
 }
 
 .container-basket {

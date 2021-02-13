@@ -11,6 +11,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using FlowersStore.Entities;
 using FlowersStore.Services.ServicesInterfaces;
+using System;
 
 namespace FlowersStore
 {
@@ -86,7 +87,6 @@ namespace FlowersStore
             app.UseStaticFiles();
 
             app.UseRouting();
-
             app.UseAuthentication();
             app.UseAuthorization();
 
