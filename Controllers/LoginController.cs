@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using FlowersStore.Services;
 using FlowersStore.Services.ServicesInterfaces;
 
 namespace FlowersStore.Controllers
@@ -90,7 +89,7 @@ namespace FlowersStore.Controllers
 
                         _basketService.CreateBasket(userId);
                         _context.SaveChanges();
-                      
+                     
                         return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
                     }
                     return new JsonRedirect(result.Errors.FirstOrDefault().Code);

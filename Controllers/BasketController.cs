@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Linq;
-using FlowersStore.Data;
 using FlowersStore.Helpers;
 using FlowersStore.Models;
-using FlowersStore.Services;
 using FlowersStore.Services.ServicesInterfaces;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
