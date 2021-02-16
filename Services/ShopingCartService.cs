@@ -76,6 +76,18 @@ namespace FlowersStore.Services
 
             return db.SaveChanges() >= 1;
         }
+
+        public bool DeleteAll(Guid id)
+        {
+            if (id == null) return false;
+            using StoreDBContext db = new StoreDBContext();
+            var shoppingCarts = Get(id);
+            foreach (var cart in shoppingCarts)
+            {
+                db.ShopingCarts.Remove(cart);
+            }
+            return db.SaveChanges() >= 1;
+        }
     }
 }
 

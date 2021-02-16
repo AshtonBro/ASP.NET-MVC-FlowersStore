@@ -866,6 +866,11 @@ td {
     padding-right: 42px;
 }
 
+.basket-actions-left {
+    color: #FFFFFF;
+    text-align: left !important;
+}
+
 .basket-product-amount {
     font-size: 18px;
     vertical-align: middle;
@@ -885,7 +890,7 @@ td {
     display: none;
     opacity: 0;
     position: fixed;
-    margin: 70px auto;
+    margin: 78px 0 auto;
     padding: 20px;
     background: #fff;
     border-radius: 5px;
@@ -900,6 +905,23 @@ td {
     box-shadow: 5px 7px 18px 4px rgba(0,0,0,0.73);
     transition: all 1s ease 0s;
 }
+
+    .popup-add-box:before {
+        content: "";
+        width: 0px;
+        height: 0px;
+        position: absolute;
+        border-left: 10px solid #FFFFFF;
+        border-right: 10px solid transparent;
+        border-top: 10px solid #FFFFFF;
+        border-bottom: 10px solid transparent;
+        left: 20px;
+        top: -17px;
+        transform: rotate( 273deg );
+    }
+
+   
+
 
 .box-show {
     opacity: 1;
