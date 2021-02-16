@@ -72,6 +72,15 @@ namespace FlowersStore.Controllers
             return new JsonResult(new { error = "Error while adding product!" });
         }
 
+        public JsonResult CleanBasket(string userName)
+        {
+            if (String.IsNullOrEmpty(userName)) new JsonResult(new { error = "User name is empty or null" });
+            User user = _userService.GetUser(userName);
+            if(user.Id == Guid.Empty) new JsonResult(new { error = "UserId is null" });
+            _shopingCartservice.DeleteAll(user.Id);
+            return new JsonResult(new { message = "You successfully deleted all items." });
+        }
+
         public IActionResult Checkout(BasketViewModel model)
         {
             return View();
