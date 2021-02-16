@@ -1,4 +1,5 @@
 ﻿using System;
+using FlowersStore.Models;
 using System.Collections.Generic;
 
 namespace FlowersStore.Services.ServicesInterfaces
@@ -11,5 +12,6 @@ namespace FlowersStore.Services.ServicesInterfaces
         bool Update(T model);
         bool Update(IEnumerable<T> collection);
         bool Delete(Guid id);
+        bool DeleteAll(Guid id);
     }
 }
