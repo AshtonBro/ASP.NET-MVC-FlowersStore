@@ -8,17 +8,17 @@ namespace FlowersStore.Services
 {
     public class BasketService : IBasketService
     {
-        public static readonly StoreDBContext _context = new StoreDBContext();
         public Basket GetBasket(Guid userId)
         {
             if (userId == Guid.Empty) throw new ArgumentException("User id is Empty.");
-            
+            using StoreDBContext _context = new StoreDBContext();
             return _context.Baskets.FirstOrDefault(b => b.User.Id == userId);
         }
 
         public bool CreateBasket(Guid userId)
         {
             if (userId == Guid.Empty) throw new ArgumentException("User id is Empty.");
+            using StoreDBContext _context = new StoreDBContext();
             Basket newBasket = new Basket()
             {
                 Id = userId,

@@ -48,17 +48,17 @@ namespace FlowersStore.Controllers
             {
                 var success = false;
                 var userId = _userService.GetUser(HttpContext.User.Identity.Name).Id;
-                var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);                       
+                var exisingShopingCart = _shopingCartservice.Get(userId).FirstOrDefault(f => f.ProductId == id);
                 if (exisingShopingCart == null)
                 {
                     var basket = _basketService.GetBasket(userId);
-                    var newModel = new ShopingCart() 
-                    { 
+                    var newModel = new ShopingCart()
+                    {
                         Quantity = quantity,
                         ProductId = id, 
                         BasketId = basket.BasketId 
                     };
-                     success = _shopingCartservice.Create(newModel);
+                    success = _shopingCartservice.Create(newModel);
                 }
                 else
                 {
@@ -81,7 +81,7 @@ namespace FlowersStore.Controllers
             return new JsonResult(new { message = "You successfully deleted all items." });
         }
 
-        public IActionResult Checkout(BasketViewModel model)
+        public IActionResult Checkout()
         {
             return View();
         }

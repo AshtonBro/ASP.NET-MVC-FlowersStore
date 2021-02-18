@@ -6,7 +6,7 @@ import slickSlider from './slickSlider.js';
 import countTotal from './countTotal.js';
 import { changeMinus } from './changeMinus.js';
 import { changePlus } from './changePlus.js';
-import { showInfoBox } from './showInfoBox.js'
+import { showInfoBox } from './showInfoBox.js';
 import {
     ajaxPost,
     ajaxGet,

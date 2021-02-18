@@ -1,8 +1,8 @@
 ﻿@model FlowersStore.ViewModels.BasketViewModel
-@using FlowersStore.Controllers
 
 @{
     ViewData["Title"] = "BASKET";
+    var checkoutBtn = "Checkout_" + Guid.NewGuid();
 }
 
 <div class="container container-basket">
@@ -84,6 +84,11 @@
                                                 setTimeout(() => {
                                                     total.innerText = parseInt(total.innerText) - parseInt(subTot.innerText);
                                                     shoppingCart.remove();
+                                                    let shoppingCarts = document.querySelectorAll(".basket-cart-item");
+                                                    if (shoppingCarts.length == 0) {
+                                                        document.querySelector('.clear-btn').disabled = true;
+                                                        document.querySelector('.checkout-btn').disabled = true;
+                                                    };
                                                 }, 500);
                                             });
                                         });
@@ -105,11 +110,11 @@
                     </tr>
                     <tr class="basket-cart-footer">
                         <td colspan="3" class="basket-actions-left">
-                            <button class="basket-submit-btn button-btn store-btn" name="Store"  asp-controller="Store" asp-action="Index">Back to the Store</button>
-                            <button class="basket-submit-btn button-btn clear-btn" name="Clear" >Clear basket</button>
+                            <button class="basket-submit-btn button-btn store-btn" name="Store" asp-controller="Store" asp-action="Index">Back to the Store</button>
+                            <button class="basket-submit-btn button-btn clear-btn" name="Clear">Clear basket</button>
                         </td>
                         <td colspan="6" class="basket-actions">
-                            <button type="submit" class="basket-submit-btn button-btn" name="Checkout" value="Checkout" aria-disabled="false">Checkout</button>
+                            <button id="@checkoutBtn" class="basket-submit-btn button-btn checkout-btn" name="Checkout" asp-controller="Checkout" asp-action="Index">Checkout</button>
                         </td>
                     </tr>
 
@@ -117,14 +122,24 @@
             </table>
         </form>
         <script>
-            document.querySelector('.clear-btn').addEventListener("click", (e) => {
-                e.preventDefault();
-                ajaxPost("/Basket/CleanBasket?userName=" + "@Model.UserName", null, (callback) => {
-                    let shoppingCarts = document.querySelectorAll(".basket-cart-item");
-                    shoppingCarts.forEach(cart => cart.remove())
-                    document.getElementById("SumTotalBasket").innerText = 0;
-                });
-            });
+             let shoppingCarts = document.querySelectorAll(".basket-cart-item");
+             if (shoppingCarts.length != 0) {
+                    document.querySelector('.clear-btn').disabled = false;
+                    document.querySelector('.checkout-btn').disabled = false;
+                    document.querySelector('.clear-btn').addEventListener("click", (e) => {
+                    e.preventDefault();
+                    ajaxPost("/Basket/CleanBasket?userName=" + "@Model.UserName", null, (callback) => {
+                        showInfoBox(callback);
+                        shoppingCarts.forEach(cart => cart.remove());
+                        document.getElementById("SumTotalBasket").innerText = 0;
+                        document.querySelector('.clear-btn').disabled = true;
+                        document.querySelector('.checkout-btn').disabled = true;
+                    });
+                 });
+             } else {
+                    document.querySelector('.clear-btn').disabled = true;
+                    document.querySelector('.checkout-btn').disabled = true;
+             }
         </script>
     </section>
 </div>

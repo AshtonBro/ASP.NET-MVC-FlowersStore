@@ -756,6 +756,26 @@ input[type=number] {
     -webkit-text-fill-color: transparent;
 }
 
+.basket-btn {
+    position: relative;
+}
+
+.basket-counter {
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    min-width: 14px;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: red;
+    border: 1px solid black;
+    border-radius: 50%;
+    overflow: hidden;
+    line-height: 13px;
+    right: -7px;
+}
+
+/* PRODUCT */
 .product-remove {
     display: block;
     font-size: 1.5em;
@@ -1071,20 +1091,25 @@ td {
     letter-spacing: 0.1rem;
     padding: 0.6rem 3rem;
     text-transform: uppercase;
-    transition: transform 80ms ease-in;
+    transition: all 0.2s ease;
 }
 
-.button-btn:hover {
-    color: #EE1B22 !important;
-}
+    .button-btn:hover {
+        color: #EE1B22 !important;
+    }
 
-.button-btn:active {
-    transform: scale(0.95);
-}
+    .button-btn:active {
+        transform: scale(0.95);
+    }
 
-.button-btn:focus {
-    outline: none;
-}
+    .button-btn:focus {
+        outline: none;
+    }
+
+    .button-btn:disabled {
+        background-image: linear-gradient( 90deg, #f29c7787 0%, #db5a5a7d 74%);
+        color: #FFFFFF !important;
+    }
 
 .btn-registration {
     margin-bottom: 0.8rem;
@@ -1216,6 +1241,7 @@ td {
     }
 }
 
+/* ADMIN *//
 .admin {
     padding-top: 8%;
 }
@@ -1235,6 +1261,8 @@ td {
     margin-bottom: 0;
 }
 
+/* PROFILE */
+
 .profile {
     padding-top: 8%;
 }
@@ -1252,4 +1280,11 @@ td {
 .profile-box-desc {
     margin-left: 15px;
     margin-bottom: 0;
+}
+
+
+/* CHECKOUT */
+
+.checkout {
+    padding-top: 8%;
 }

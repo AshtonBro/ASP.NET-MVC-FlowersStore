@@ -5,9 +5,8 @@
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
     var httpContextName = HttpContextUser == null ? "User" : HttpContextUser;
     var isAuthentication = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+
 }
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -105,7 +104,8 @@
                         <li class="nav-item">
                             <a class="btnClick nav-btn form-control" onclick="window.location.href='@Link.ToString(nameof(StoreController), nameof(StoreController.Index))'">Store</a>
                         </li>
-                        <li class="nav-item">
+                        <li class="nav-item basket-btn">
+                            <div class="basket-counter">0</div>
                             <a class="btnClick nav-btn form-control" onclick="window.location.href='@Link.ToString(nameof(BasketController), nameof(BasketController.Index))'">Basket</a>
                         </li>
                     </ul>
