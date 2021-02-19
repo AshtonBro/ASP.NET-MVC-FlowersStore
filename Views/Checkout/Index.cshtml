@@ -1,13 +1,76 @@
 ﻿@model FlowersStore.ViewModels.BasketViewModel
 
 @{
-    ViewData["Title"] = "CHECKOUT";
+    ViewData["Title"] = "CHECKOUT FORM";
 }
 
 <div class="container container-checkout">
     <section class="checkout">
-        <h2 class="title">@ViewData["Title"]</h2>
-
-        
+        <div class="checkout-info">
+            <div class="cart" id="msCart">
+                <h2 class="checkout-group__title">@ViewData["Title"]</h2>
+                <div class="cart-positions">
+                    <div class="cart-item" id="cartId">
+                        <div class="cart-item__photo">
+                            <img src="~/Image/Растения/Растение-1.jpg" alt="Flower-img">
+                        </div>
+                        <div class="cart-item__body">
+                            <div class="cart-item__name">
+                                Роза Столистная
+                            </div>
+                            <p class="cart-item__name"></p>
+                            <div class="cart-item-counter">
+                                <div class="cart-item-counter__value" type="number" name="count">4</div>
+                            </div>
+                            <div class="cart-item-price">
+                                <span class="cart-item-price__value">2 170</span>
+                            </div>
+                            <div class="cart-product-remove">
+                                <button class="product-remove" id="buttonId" style="outline: none;" aria-label="delete product">×</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+        </div>
+        <aside class="checkout-status">
+            <div class="checkout-status__wrap">
+                <div class="checkout-total">
+                    <div class="checkout-rows">
+                        <div class="form-row form-row_centered checkout-total__row">
+                            <span class="checkout-total__title">Order</span>
+                            <span class="checkout-total__value"><span class="ms2_order_cart_cost">11 840</span></span>
+                        </div>
+                        <div class="form-row form-row_centered checkout-total__row">
+                            <span class="checkout-total__title">Discount</span>
+                            <span class="checkout-total__value"><span class="ms2_order_discount_cost">0</span></span>
+                        </div>
+                        <div class="form-row form-row_centered checkout-total__row">
+                            <span class="checkout-total__title">Delivery</span>
+                            <span class="checkout-total__value"><span class="ms2_order_delivery_cost">250</span></span>
+                        </div>
+                    </div>
+                    <div class="checkout-total__footer">
+                        <div class="form-row form-row_centered checkout-total__row">
+                            <span class="checkout-total__title">Total</span>
+                            <span class="checkout-total__value checkout-total__value_bold"><span class="ms2_order_cost rouble">12 090</span></span>
+                        </div>
+                    </div>
+                    <div class="form-field coupon_field">
+                        <input type="text" name="coupon_code" id="coupon_code" value="" autocomplete="off" placeholder="Coupon code">
+                    </div>
+                    <div class="checkout-group">
+                        <div class="checkbox-field">
+                            <input type="checkbox" name="agree" id="agree" checked="">
+                            <label for="agree">I agree to processing <a href="Home/Privacy" target="_blank">personal data</a></label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="form-row form-row_centered checkout-total__row">
+            <button class="basket-submit-btn button-btn" type="button">Pay</button>
+        </div>
     </section>
 </div>
