@@ -18,7 +18,7 @@
                             <div class="cart-item__name">Роза Столистная</div>
                             <div class="cart-item-counter">
                                 <div class="cart-item__counter">100 <span class="span-style">€</span></div>
-                                <div class="cart-item-counter__value" type="number" name="count"> x 4</div>
+                                <div class="cart-item-counter__value" type="number" name="count"> <span class="multi">x</span> 4</div>
                             </div>
                             <div class="cart-item-price">
                                 <div class="cart-item__price">SubTotal: </div>
@@ -92,6 +92,49 @@
                 </div>
             </div>
             <hr>
+
+            <div class="cart-contact">
+                <h3 class="checkout-group__title">Contact details</h3>
+                <div class="cart-contact__block">
+                    <input type="text" class="block-input" value="Admin" disabled/>
+                    <label class="block-label">Your Name*</label>
+                </div>
+                <div class="cart-contact__block">
+                    <input type="tel" class="block-input"  value="Phone" disabled/>
+                    <label class="block-label">Your Phone*</label>
+                </div>
+                <div class="cart-contact__block">
+                    <input type="email" class="block-input" value="Email@gmai.com" disabled/>
+                    <label class="block-label">Your Email*</label>
+                </div>
+            </div>
+
+            <div class="cart-delivery">
+                <h3 class="checkout-group__title">Delivery</h3>
+                <div class="checkbox-delivery">
+                    <input type="checkbox" data="myt" name="checkout-delivery" class="checkout-delivery" data-groupswitch="contacts" data-validate-switch="address">
+                    <label for="checkout-delivery">Self-Pickup</label>
+                </div>
+                <div class="address-delivery">
+                    <div class="address-delivery__blocks">
+                        <div class="address-delivery__block">
+                            <input type="text" class="delivery-input" required />
+                            <label class="delivery-label">Your City*</label>
+                        </div>
+                        <div class="address-delivery__block">
+                            <input type="text" class="delivery-input" required />
+                            <label class="delivery-label">Your Address*</label>
+                        </div>
+                        <div class="address-delivery__block">
+                            <input type="email" class="delivery-input" required />
+                            <label class="delivery-label">Your Apartment*</label>
+                        </div>
+                    </div>
+                    <div class="address-delivery__comment">
+                        <textarea name="comment" class="delivery__comment" cols="30" row="4" placeholder="Write your comment" value="" style="padding-top:13px"></textarea>
+                    </div>
+                </div>
+            </div>
         </div>
         <aside class="checkout-status">
             <div class="checkout-status__wrap">
