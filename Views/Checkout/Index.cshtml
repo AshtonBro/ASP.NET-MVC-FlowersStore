@@ -97,37 +97,40 @@
                 <h3 class="checkout-group__title">Contact details</h3>
                 <div class="cart-contact__block">
                     <input type="text" class="block-input" value="Admin" disabled/>
-                    <label class="block-label">Your Name*</label>
+                    <label class="block-label">Your Name *</label>
                 </div>
                 <div class="cart-contact__block">
                     <input type="tel" class="block-input"  value="Phone" disabled/>
-                    <label class="block-label">Your Phone*</label>
+                    <label class="block-label">Your Phone *</label>
                 </div>
                 <div class="cart-contact__block">
                     <input type="email" class="block-input" value="Email@gmai.com" disabled/>
-                    <label class="block-label">Your Email*</label>
+                    <label class="block-label">Your Email *</label>
                 </div>
             </div>
 
             <div class="cart-delivery">
                 <h3 class="checkout-group__title">Delivery</h3>
                 <div class="checkbox-delivery">
-                    <input type="checkbox" data="myt" name="checkout-delivery" class="checkout-delivery" data-groupswitch="contacts" data-validate-switch="address">
+                    <input type="checkbox" data="myt" name="checkout-delivery" class="checkout-delivery" data-groupswitch="contacts" data-validate-switch="address" value="off">
                     <label for="checkout-delivery">Self-Pickup</label>
                 </div>
                 <div class="address-delivery">
                     <div class="address-delivery__blocks">
                         <div class="address-delivery__block">
-                            <input type="text" class="delivery-input" required />
-                            <label class="delivery-label">Your City*</label>
+                            <input type="text" name="city" class="delivery-input" required />
+                            <label class="delivery-label">Your City *</label>
+                            <span class="validation-text required error" name="city">This field is required</span>
                         </div>
                         <div class="address-delivery__block">
-                            <input type="text" class="delivery-input" required />
-                            <label class="delivery-label">Your Address*</label>
+                            <input type="text" name="address" class="delivery-input" required />
+                            <label class="delivery-label">Your Address *</label>
+                            <span class="validation-text required error" name="address">This field is required</span>
                         </div>
                         <div class="address-delivery__block">
-                            <input type="email" class="delivery-input" required />
-                            <label class="delivery-label">Your Apartment*</label>
+                            <input type="text" name="apartment" class="delivery-input" required />
+                            <label class="delivery-label">Your Apartment *</label>
+                            <span class="validation-text required error" name="apartment">This field is required</span>
                         </div>
                     </div>
                     <div class="address-delivery__comment">
@@ -135,6 +138,24 @@
                     </div>
                 </div>
             </div>
+
+            <div class="checkout-date-calendar">
+                <h3 class="checkout-group__title">Date and Time</h3>
+                <div class="checkout-date__blocks" data-hidden="true">
+                    <div class="checkout-block__calendar">
+
+                        <input type="text" name="date" id="checkout-date" class="calendar-input" autocomplete="off" required="" value="" data-required="true">
+                        <label for="checkout-date">Date</label>
+                        <label for="checkout-date" class="form-calendar__date-icn">
+                            <svg for="checkout-date" width="18" height="18">
+                                <use xlink:href="#icn-calendar"></use>
+                            </svg>
+                        </label>
+                    </div>
+                    <span class="validation-text" name="date">This field is required</span>
+                </div>
+            </div>
+
         </div>
         <aside class="checkout-status">
             <div class="checkout-status__wrap">

@@ -1628,12 +1628,30 @@ td {
     transition: .3s;
 }
 
+.checkbox-delivery {
+    padding-left: 4px;
+}
+
 .address-delivery__blocks {
     display: flex;
-    justify-content: space-between;
-    flex-wrap:nowrap;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
     flex-direction: row;
-    flex-basis: 23%;
+}
+
+.address-delivery {
+    max-height: 1000px;
+    margin: 0;
+    padding: 0 0 15px 0;
+    overflow: auto;
+    border: none;
+    transition: all .8s linear;
+}
+
+.address-delivery_hidden {
+    max-height: 0;
+    margin: 0;
+    padding: 0;
 }
 
 .address-delivery__block {
@@ -1644,7 +1662,8 @@ td {
 
 .delivery-input {
     height: 40px;
-    margin: 10px 5px 10px 5px;
+    margin: 10px 3px 10px 3px;
+    padding-left: 15px;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.5;
@@ -1660,14 +1679,14 @@ td {
 .delivery-label {
     position: absolute;
     pointer-events: none;
-    left: 15px;
+    left: 19px;
     right: 15px;
     top: 11px;
     font-size: 12px;
     white-space: nowrap;
     overflow: hidden;
     line-height: 40px;
-    transition: .3s;
+    transition: .7s;
 }
 
 .delivery-input:focus ~ .delivery-label,
@@ -1677,8 +1696,9 @@ td {
 }
 
 .delivery__comment {
-    height: 100px;
-    width: 100%;
+    min-height: 150px;
+    max-height: 250px;
+    width: 98%;
     padding: 5px 15px;
     margin: 10px 5px 10px 5px;
     font-size: 1rem;
@@ -1691,4 +1711,10 @@ td {
     border-radius: .25rem;
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
     outline-color: #343a40;
+}
+
+.validation-text {
+    display: none;
+    color: brown;
+    border: none !important;
 }
