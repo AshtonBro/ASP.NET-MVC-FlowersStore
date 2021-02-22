@@ -96,15 +96,15 @@
             <div class="cart-contact">
                 <h3 class="checkout-group__title">Contact details</h3>
                 <div class="cart-contact__block">
-                    <input type="text" class="block-input" value="Admin" disabled />
+                    <input type="text" class="block-input" value="Admin" disabled/>
                     <label class="block-label">Your Name *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="tel" class="block-input" value="Phone" disabled />
+                    <input type="tel" class="block-input"  value="Phone" disabled/>
                     <label class="block-label">Your Phone *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="email" class="block-input" value="Email@gmai.com" disabled />
+                    <input type="email" class="block-input" value="Email@gmai.com" disabled/>
                     <label class="block-label">Your Email *</label>
                 </div>
             </div>
@@ -139,73 +139,24 @@
                 </div>
             </div>
 
-            @*<div class="checkout-date-calendar">
+            <div class="checkout-date-calendar">
                 <h3 class="checkout-group__title">Date and Time</h3>
-                <div class="checkout-date__blocks" data-hidden="true">
-                    <div class="checkout-block__calendar">
-
-                        <input type="text" name="date" id="checkout-date" class="calendar-input" autocomplete="off" required="" value="" data-required="true">
-                        <label for="checkout-date">Date</label>
-                        <label for="checkout-date" class="form-calendar__date-icn">
-                            <svg for="checkout-date" width="18" height="18">
-                                <use xlink:href="#icn-calendar"></use>
-                            </svg>
-                        </label>
+                <form class="form-checkout-date">
+                    <div class="checkout-calendar">
+                        <input class="calendar-input" type="date" id="date" name="date" />
+                        <label class="calendar-label" for="date">Date</label>
+                    </div>
+                    <div class="checkout-number-block">
+                        <div class="checkout-number-min">
+                            <input class="checkout-number-input" autocomplete="off" id="time-start" type="text" name="time_start" placeholder="9:00" required="" value="08:06" data-required="true">
+                        </div>
+                        <div class="checkout-number-max">
+                            <input class="checkout-number-input" autocomplete="off" id="time-end" type="text" name="time_end" placeholder="18:00" required="" value="11:00" data-required="true">
+                        </div>
                     </div>
                     <span class="validation-text" name="date">This field is required</span>
-                </div>
-            </div>*@
-
-            <fieldset class="checkout-group" data-group-name="date">
-                <span class="checkout-group__title">Дата и время</span>
-                <div class="form-row">
-
-
-
-                    <div class="checkbox-field">
-                        <input type="checkbox" name="checkout_reciever" id="checkout-reciever" data-validate-switch="date">
-                        <label for="checkout-reciever">Уточнить у получателя</label>
-
-                    </div>
-                </div>
-                <div class="form-row form-row_start form-row_centered  form-flex_display" data-hidden="true">
-                    <div class="form-calendar form-field checkout-field checkout-field_small">
-
-
-                        <input type="text" name="date" id="checkout-date" class="required datepick" autocomplete="off" required="" value="10.02.2021" data-required="true">
-
-
-                        <label for="checkout-date">Дата</label>
-                        <label for="checkout-date" class="form-calendar__date-icn">
-                            <svg for="checkout-date" width="18" height="18">
-                                <use xlink:href="#icn-calendar"></use>
-                            </svg>
-                        </label>
-                    </div>
-                    <span class="validation-text " name="date">Это поле обязательно</span>
-
-
-                    <div class="presets presets-date">
-                        <!--button class="link-btn preset" type="button" data-day="today" tabindex="-1">Сегодня</button>
-                <button class="link-btn preset" type="button" data-day="tomorrow" tabindex="-1">Завтра</button>
-                <button class="link-btn preset" type="button" data-day="aftertomorrow" tabindex="-1">Послезавтра</button-->
-                    </div>
-                </div>
-                <div class="form-row form-row_start form-row_centered  form-row_two" data-hidden="true">
-                    <div class="number-min">
-                        <input autocomplete="off" id="time-start" type="text" name="time_start" placeholder="9:00" required="" value="" data-required="true">
-                    </div>
-                    <div class="number-max">
-                        <input autocomplete="off" id="time-end" type="text" name="time_end" placeholder="18:00" required="" value="" data-required="true">
-                    </div>
-                    <div class="presets presets-time">
-                        <!--button class="link-btn preset" type="button" data-time-start="8:00" data-time-end="12:00" tabindex="-1">Утро 8:00–12:00</button>
-                <button class="link-btn preset" type="button" data-time-start="12:00" data-time-end="18:00" tabindex="-1">День 12:00–18:00</button>
-                <button class="link-btn preset" type="button" data-time-start="18:00" data-time-end="22:00" tabindex="-1">Вечер 18:00–22:00</button>
-                <button class="link-btn preset" type="button" data-time-start="22:00" data-time-end="2:00" tabindex="-1">Ночь 22:00–2:00</button-->
-                    </div>
-                </div>
-            </fieldset>
+                </form>
+            </div>
 
         </div>
         <aside class="checkout-status">

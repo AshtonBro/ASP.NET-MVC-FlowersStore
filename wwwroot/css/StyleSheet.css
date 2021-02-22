@@ -6543,10 +6543,26 @@ label {
 
     .checkout-group .number-min::before {
         content: "с";
+        position: absolute;
+        top: 17px;
+        left: 16px;
+        font-size: 1em;
+        width: 100px;
+        padding: 12px 20px 12px 40px;
+        font-size: 1em;
+        line-height: 1;
     }
 
 .checkout-group .number-max::before {
+    position: absolute;
     content: "по";
+    top: 17px;
+    left: 16px;
+    font-size: 1em;
+    width: 100px;
+    padding: 12px 20px 12px 40px;
+    font-size: 1em;
+    line-height: 1;
 }
 
 .checkout-field {
