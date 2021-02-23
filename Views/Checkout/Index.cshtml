@@ -96,15 +96,15 @@
             <div class="cart-contact">
                 <h3 class="checkout-group__title">Contact details</h3>
                 <div class="cart-contact__block">
-                    <input type="text" class="block-input" value="Admin" disabled/>
+                    <input type="text" class="block-input" value="Admin" disabled />
                     <label class="block-label">Your Name *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="tel" class="block-input"  value="Phone" disabled/>
+                    <input type="tel" class="block-input" value="Phone" disabled />
                     <label class="block-label">Your Phone *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="email" class="block-input" value="Email@gmai.com" disabled/>
+                    <input type="email" class="block-input" value="Email@gmai.com" disabled />
                     <label class="block-label">Your Email *</label>
                 </div>
             </div>
@@ -143,20 +143,52 @@
                 <h3 class="checkout-group__title">Date and Time</h3>
                 <form class="form-checkout-date">
                     <div class="checkout-calendar">
-                        <input class="calendar-input" type="date" id="date" name="date" />
-                        <label class="calendar-label" for="date">Date</label>
+                        <input class="calendar-input" type="datetime-local" id="date" name="date" />
+                        <label class="calendar-label" for="date">Delivery date and time</label>
                     </div>
-                    <div class="checkout-number-block">
-                        <div class="checkout-number-min">
-                            <input class="checkout-number-input" autocomplete="off" id="time-start" type="text" name="time_start" placeholder="9:00" required="" value="08:06" data-required="true">
-                        </div>
-                        <div class="checkout-number-max">
-                            <input class="checkout-number-input" autocomplete="off" id="time-end" type="text" name="time_end" placeholder="18:00" required="" value="11:00" data-required="true">
-                        </div>
+                    @*<div class="checkout-number-block">
+                    <div class="checkout-number-min">
+                        <input class="checkout-number-input" autocomplete="off" id="time-start" type="text" name="time_start" placeholder="9:00" required="" value="08:06" data-required="true">
                     </div>
+                    <div class="checkout-number-max">
+                        <input class="checkout-number-input" autocomplete="off" id="time-end" type="text" name="time_end" placeholder="18:00" required="" value="11:00" data-required="true">
+                    </div>
+                </div>*@
                     <span class="validation-text" name="date">This field is required</span>
                 </form>
             </div>
+
+            <div class="checkout-payments-block">
+                <h3 class="checkout-group__title">Payment method</h3>
+                <div class="checkout-container">
+                    <div id="payment-block-1" class="checkout-block-visa">
+                        <div class="block-visa_label">
+                            <input id="input-payment-1" class="box-block-visa" type="radio" value="15" data-caption="Payment method" name="payment" required="" checked="checked">
+                            <label class="block-visa-label" for="input-payment-1">&nbsp;Bank card, Google Pay&nbsp;</label>
+                            <div class="fs_tooltip">
+                                <sup class="dotted">?</sup>
+                                <div class="tooltip_text">
+                                    <p>Payments using Google Pay are secured by the payment system PayOnlineSystem.</p>
+                                    <p>The transfer of your bank card data to the authorization server of the processing center is carried out through a secure channel in compliance with all necessary security measures. Information is stored only on a specialized server of the payment system.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="block-visa_field">
+                            <label for="input-payment-1">
+                                <span class="checkout-payments">
+                                    <span class="ico visa">Visa</span>
+                                    <span class="ico mastercard">EuroCard/MasterCard</span>
+                                    <span class="ico google-pay">Google Pay</span>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
 
         </div>
         <aside class="checkout-status">
