@@ -100,7 +100,7 @@
                     <label class="block-label">Your Name *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="tel" class="block-input" value="Phone" disabled />
+                    <input type="tel" class="block-input" value="+72256574411" disabled />
                     <label class="block-label">Your Phone *</label>
                 </div>
                 <div class="cart-contact__block">
@@ -112,7 +112,7 @@
             <div class="cart-delivery">
                 <h3 class="checkout-group__title">Delivery</h3>
                 <div class="checkbox-delivery">
-                    <input type="checkbox" data="myt" name="checkout-delivery" class="checkout-delivery" data-groupswitch="contacts" data-validate-switch="address" value="off">
+                    <input type="checkbox" name="checkout-delivery" id="checkout-delivery" class="checkout-delivery" @*data-groupswitch="contacts" data-validate-switch="address" value="off"*@>
                     <label for="checkout-delivery">Self-Pickup</label>
                 </div>
                 <div class="address-delivery">
@@ -138,6 +138,12 @@
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.querySelector('.checkout-delivery').addEventListener('click', () => {
+                        document.querySelector('.address-delivery').classList.toggle('address-delivery_hidden');
+                });
+            </script>
 
             <div class="checkout-date-calendar">
                 <h3 class="checkout-group__title">Date and Time</h3>
@@ -165,32 +171,55 @@
                         <div class="block-visa_label">
                             <input id="input-payment-1" class="box-block-visa" type="radio" value="15" data-caption="Payment method" name="payment" required="" checked="checked">
                             <label class="block-visa-label" for="input-payment-1">&nbsp;Bank card, Google Pay&nbsp;</label>
-                            <div class="fs_tooltip">
-                                <sup class="dotted">?</sup>
-                                <div class="tooltip_text">
-                                    <p>Payments using Google Pay are secured by the payment system PayOnlineSystem.</p>
-                                    <p>The transfer of your bank card data to the authorization server of the processing center is carried out through a secure channel in compliance with all necessary security measures. Information is stored only on a specialized server of the payment system.</p>
-                                </div>
-                            </div>
+                            <p data-tooltip="Payments using Google Pay are secured by the payment system PayOnlineSystem.
+                                The transfer of your bank card data to the authorization server of the processing center is carried out through a secure channel in compliance with all necessary security measures. Information is stored only on a specialized server of the payment system.">?</p>
                         </div>
-                        <div class="block-visa_field">
-                            <label for="input-payment-1">
-                                <span class="checkout-payments">
-                                    <span class="ico visa">Visa</span>
-                                    <span class="ico mastercard">EuroCard/MasterCard</span>
-                                    <span class="ico google-pay">Google Pay</span>
-                                </span>
-                            </label>
+                        <div class="block-visa_image">
+                            <ul class="payments-visa_images">
+                                <li class="payments-image">
+                                    <img src="~/Image/Payments/google.svg" alt="google" class="payments-img" />
+                                </li>
+                                <li class="payments-image">
+                                    <img src="~/Image/Payments/Payment-1.svg" alt="visa" class="payments-img" />
+                                </li>
+                                <li class="payments-image">
+                                    <img src="~/Image/Payments/Payment-2.svg" alt="mastercart" class="payments-img" />
+                                </li>
+                            </ul>
                         </div>
                     </div>
-
-
+                    <div id="payment-block-2" class="checkout-block-visa">
+                        <div class="block-visa_label">
+                            <input id="input-payment-2" class="box-block-visa" type="radio" value="15" data-caption="Payment method" name="payment" required="" checked="checked">
+                            <label class="block-visa-label" for="input-payment-2">&nbsp;Cash to the courier&nbsp;</label>
+                            <p data-tooltip="After receiving your order, transfer the money to our courier">?</p>
+                        </div>
+                        <div class="block-visa_image">
+                            <ul class="payments-visa_images">
+                                <li class="payments-image">
+                                    <img src="~/Image/Payments/money.svg" alt="cash" class="payments-img" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="payment-block-3" class="checkout-block-visa">
+                        <div class="block-visa_label">
+                            <input id="input-payment-3" class="box-block-visa" type="radio" value="15" data-caption="Payment method" name="payment" required="" checked="checked">
+                            <label class="block-visa-label" for="input-payment-3">&nbsp;By card transfer to the bank&nbsp;</label>
+                            <p data-tooltip="Transfer by card number">?</p>
+                        </div>
+                        <div class="block-visa_image">
+                            <ul class="payments-visa_images">
+                                <li class="payments-image">
+                                    <img src="~/Image/Payments/card.svg" alt="card" class="payments-img" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-
-
         </div>
+
         <aside class="checkout-status">
             <div class="checkout-status__wrap">
                 <div class="checkout-total">
