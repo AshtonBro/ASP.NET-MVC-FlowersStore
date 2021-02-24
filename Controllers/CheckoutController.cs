@@ -9,7 +9,7 @@ namespace FlowersStore.Controllers
     {
         public IActionResult Index()
         {
-            return View("~/Views/Checkout/Index.cshtml");
+            return View();
         }
     }
 }

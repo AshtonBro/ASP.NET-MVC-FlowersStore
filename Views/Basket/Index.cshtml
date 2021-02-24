@@ -1,4 +1,5 @@
 ﻿@model FlowersStore.ViewModels.BasketViewModel
+@using FlowersStore.Controllers
 
 @{
     ViewData["Title"] = "BASKET";
@@ -114,7 +115,7 @@
                             <button class="basket-submit-btn button-btn clear-btn" name="Clear">Clear basket</button>
                         </td>
                         <td colspan="6" class="basket-actions">
-                            <button id="@checkoutBtn" class="basket-submit-btn button-btn checkout-btn" name="Checkout" asp-controller="Checkout" asp-action="Index">Checkout</button>
+                            <button id="@checkoutBtn" class="basket-submit-btn button-btn checkout-btn" name="Checkout" onclick="window.location.href='@Link.ToString(nameof(CheckoutController), nameof(CheckoutController.Index))'">Checkout</button>
                         </td>
                     </tr>
 
@@ -122,6 +123,11 @@
             </table>
         </form>
         <script>
+
+            document.getElementById('@checkoutBtn').addEventListener('click', (e) => {
+               dialogPost(e, '', '@(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)).ToString())');
+             });
+
              let shoppingCarts = document.querySelectorAll(".basket-cart-item");
              if (shoppingCarts.length != 0) {
                     document.querySelector('.clear-btn').disabled = false;
