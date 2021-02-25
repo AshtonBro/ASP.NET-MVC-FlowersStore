@@ -10,7 +10,7 @@
             <div class="cart" id="msCart">
                 <h2 class="checkout-group__title">@ViewData["Title"]</h2>
                 <div class="cart-positions">
-
+                    
                     <div class="cart-item" id="cartId">
                         <div class="cart-item__photo">
                             <img class="cart-item__img" src="~/Image/Растения/Растение-1.jpg" alt="Flower-img">
@@ -31,28 +31,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="cart-item" id="cartId">
-                        <div class="cart-item__photo">
-                            <img class="cart-item__img" src="~/Image/Растения/Растение-1.jpg" alt="Flower-img">
-                        </div>
-                        <div class="cart-item__body">
-                            <div class="cart-item__name">Роза Столистная</div>
-                            <div class="cart-item-counter">
-                                <div class="cart-item__counter">100<span class="span-style"> €</span></div>
-                                <div class="cart-item-counter__value" type="number" name="count"> <span class="multi">x </span>4</div>
-                            </div>
-                            <div class="cart-item-price">
-                                <div class="cart-item__price">SubTotal: </div>
-                                <span class="check-price-amount">2170</span>
-                                <span class="span-style">€</span>
-                            </div>
-                            <div class="cart-product-remove">
-                                <button class="product-remove" id="buttonId" style="outline: none;" aria-label="delete product">×</button>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
             </div>
@@ -77,7 +55,7 @@
             <div class="cart-delivery">
                 <h3 class="checkout-group__title">Delivery</h3>
                 <div class="checkbox-delivery">
-                    <input type="checkbox" name="checkout-delivery" id="checkout-delivery" class="checkout-delivery" @*data-groupswitch="contacts" data-validate-switch="address" value="off"*@>
+                    <input type="checkbox" name="checkout-delivery" id="checkout-delivery" class="checkout-delivery">
                     <label for="checkout-delivery">Self-Pickup</label>
                 </div>
                 <div class="address-delivery">
