@@ -102,7 +102,7 @@
                                 <span class="span-style">€</span>
                             </td>
                         </tr>
-                    }
+                     }
 
                     <tr class="basket-cart-footer">
                         <td colspan="6" class="basket-actions">
@@ -123,7 +123,6 @@
             </table>
         </form>
         <script>
-
             document.getElementById('@checkoutBtn').addEventListener('click', (e) => {
                dialogPost(e, '', '@(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)).ToString())');
              });
