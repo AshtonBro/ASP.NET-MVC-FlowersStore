@@ -1,14 +1,14 @@
 ﻿/* Collect all prices in basket page and count total sum*/
-const countTotal = () => {
-        let priceAmount = document.querySelectorAll(".basket-price-amount");
-        let amountTotal = document.querySelector(".amount-total");
+const countTotal = (priceAmount, amountTotal) => {
+    let price = document.querySelectorAll(priceAmount);
+    let total = document.querySelector(amountTotal);
 
-        let total = 0;
-        for (var i = 0; i < priceAmount.length - 1; i++) {
-            total += parseInt(priceAmount[i].innerText);
-        }
+    let _total = 0;
+    for (var i = 0; i < price.length - 1; i++) {
+        _total += parseInt(price[i].innerText);
+    }
 
-        amountTotal.innerText = total;
+    total.innerText = _total;
 }
 
 export default countTotal;

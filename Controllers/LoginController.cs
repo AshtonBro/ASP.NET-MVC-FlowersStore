@@ -48,7 +48,6 @@ namespace FlowersStore.Controllers
                 }
                 return new JsonRedirect("Invalid login or password.");
             }
-
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
         }
@@ -95,7 +94,6 @@ namespace FlowersStore.Controllers
                     return new JsonRedirect(result.Errors.FirstOrDefault().Code);
                 }
                 return new JsonRedirect("Such User or Email is registered.");
-
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
@@ -106,6 +104,5 @@ namespace FlowersStore.Controllers
             await _signInManager.SignOutAsync();
             return Redirect("/Home/Index");
         }
-
     }
 }

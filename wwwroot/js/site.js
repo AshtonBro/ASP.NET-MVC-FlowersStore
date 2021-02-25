@@ -36,7 +36,11 @@ window.startLoading = startLoading;
 window.showInfoBox = showInfoBox;
 
 if (window.location.pathname == '/Basket/Index') {
-    countTotal();
+    countTotal(".basket-price-amount", ".amount-total");
     window.changeMinus = changeMinus;
     window.changePlus = changePlus;
+}
+
+if (window.location.pathname == '/Checkout/Index') {
+    console.log('checkout page loaded');
 }
