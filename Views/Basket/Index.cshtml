@@ -3,14 +3,19 @@
 
 @{
     ViewData["Title"] = "BASKET";
-    var checkoutBtn = "Checkout_" + Guid.NewGuid();
+    var key = "CheckoutSubmit";
+    var frmId = $"{key}_F";
+    var msgId = $"{key}_M";
+    var btnId = $"{key}_B";
 }
 
 <div class="container container-basket">
     <section class="basket">
         <h1 class="title">@ViewData["Title"] &rarr; <span class="basket-user">@Model.UserName</span></h1>
 
-        <form class="basket-form" action="#" method="post">
+        <form class="basket-form" id="@frmId" method="post" enctype="multipart/form-data">
+
+            <input id="@Model.UserName" type="text" value="BlaBla" class="input-test" hidden name="@Model.UserName"/>
 
             <table class="basket-table" cellspacing="0">
                 <thead>
@@ -58,7 +63,7 @@
                             </td>
 
                             <td class="basket-product-descr" data-title="Description">
-                                <a class="product-name">@cart.Product.Name</a>
+                                <a class="product-name" name="@cart.Product.Name">@cart.Product.Name</a>
                                 <a class="product-category">@cart.Product.Category.FlowersType</a>
                             </td>
 
@@ -115,7 +120,7 @@
                             <button class="basket-submit-btn button-btn clear-btn" name="Clear">Clear basket</button>
                         </td>
                         <td colspan="6" class="basket-actions">
-                            <button id="@checkoutBtn" class="basket-submit-btn button-btn checkout-btn" name="Checkout" onclick="window.location.href='@Link.ToString(nameof(CheckoutController), nameof(CheckoutController.Index))'">Checkout</button>
+                            <button type="submit" id="@btnId" class="basket-submit-btn button-btn checkout-btn" name="Checkout">Checkout</button>
                         </td>
                     </tr>
 
@@ -123,8 +128,13 @@
             </table>
         </form>
         <script>
-            document.getElementById('@checkoutBtn').addEventListener('click', (e) => {
-               dialogPost(e, '', '@(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)).ToString())');
+            document.getElementById('@btnId').addEventListener('click', (e) => {
+               
+                ajaxPost("/Checkout/CheckoutFrom", "@frmId", (callback) => {
+                    console.log(callback);
+                });
+
+               @*dialogPost(e, '@key', '@(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)).ToString())');*@
              });
 
              let shoppingCarts = document.querySelectorAll(".basket-cart-item");

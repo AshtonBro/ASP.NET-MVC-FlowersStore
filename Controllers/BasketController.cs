@@ -80,11 +80,6 @@ namespace FlowersStore.Controllers
             _shopingCartservice.DeleteAll(user.Id);
             return new JsonResult(new { message = "You successfully deleted all items." });
         }
-
-        public IActionResult Checkout()
-        {
-            return View();
-        }
     }
 }
 

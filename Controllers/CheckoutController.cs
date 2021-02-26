@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using FlowersStore.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlowersStore.Controllers
@@ -11,5 +12,11 @@ namespace FlowersStore.Controllers
         {
             return View();
         }
+
+        public IActionResult CheckoutFrom(BasketViewModel model)
+        {
+            return View();
+        }
     }
 }
+
