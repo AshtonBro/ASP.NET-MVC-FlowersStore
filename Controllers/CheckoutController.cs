@@ -1,4 +1,5 @@
-﻿using FlowersStore.ViewModels;
+﻿using FlowersStore.Helpers;
+using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,9 +14,13 @@ namespace FlowersStore.Controllers
             return View();
         }
 
-        public IActionResult CheckoutFrom(BasketViewModel model)
+        public JsonRedirect CheckoutFrom(BasketViewModel model)
         {
-            return View();
+            if(model.ShopingCarts != null)
+            {
+                return new JsonRedirect(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)));
+            }
+            return new JsonRedirect("BasketViewModel is null.");
         }
     }
 }
