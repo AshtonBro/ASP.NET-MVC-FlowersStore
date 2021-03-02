@@ -1,4 +1,4 @@
-﻿@model FlowersStore.ViewModels.BasketViewModel
+﻿@model FlowersStore.ViewModels.CheckoutViewModel
 
 @{
     ViewData["Title"] = "CHECKOUT FORM";
@@ -10,27 +10,39 @@
             <div class="cart" id="msCart">
                 <h2 class="checkout-group__title">@ViewData["Title"]</h2>
                 <div class="cart-positions">
-                    
-                    <div class="cart-item" id="cartId">
-                        <div class="cart-item__photo">
-                            <img class="cart-item__img" src="~/Image/Растения/Растение-1.jpg" alt="Flower-img">
+
+                    @foreach (var cart in Model.ShopingCarts)
+                    {
+                        var base64 = Convert.ToBase64String(cart.Product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+
+                        var price = @cart.Product.Price.ToString();
+                        var trimPrice = decimal.Parse(price.Contains(",") ? price.TrimEnd('0') : price);
+
+                        var amount = cart.Quantity * trimPrice;
+
+                        <div class="cart-item" id="cartId">
+                            <div class="cart-item__photo">
+                                <img class="cart-item__img" src="@imgSrc" alt="Flower-img">
+                            </div>
+                            <div class="cart-item__body">
+                                <div class="cart-item__name">@cart.Product.Name</div>
+                                <div class="cart-item-counter">
+                                    <div class="cart-item__counter">@trimPrice<span class="span-style"> €</span></div>
+                                    <div class="cart-item-counter__value" type="number" name="count"> <span class="multi">x </span>@cart.Quantity</div>
+                                </div>
+                                <div class="cart-item-price">
+                                    <div class="cart-item__price">SubTotal: </div>
+                                    <div class="cart-item__block">
+                                        <span class="check-price-amount"><bdi id="subTotal" class="amount">@amount</bdi></span>
+                                        <span class="span-style"> €</span>
+                                    </div>
+                                    
+                                </div>
+                            </div>
                         </div>
-                        <div class="cart-item__body">
-                            <div class="cart-item__name">Роза Столистная</div>
-                            <div class="cart-item-counter">
-                                <div class="cart-item__counter">100<span class="span-style"> €</span></div>
-                                <div class="cart-item-counter__value" type="number" name="count"> <span class="multi">x </span>4</div>
-                            </div>
-                            <div class="cart-item-price">
-                                <div class="cart-item__price">SubTotal: </div>
-                                <span class="check-price-amount">2170</span>
-                                <span class="span-style">€</span>
-                            </div>
-                            <div class="cart-product-remove">
-                                <button class="product-remove" id="buttonId" style="outline: none;" aria-label="delete product">×</button>
-                            </div>
-                        </div>
-                    </div>
+                     }
+
 
                 </div>
             </div>
@@ -39,15 +51,15 @@
             <div class="cart-contact">
                 <h3 class="checkout-group__title">Contact details</h3>
                 <div class="cart-contact__block">
-                    <input type="text" class="block-input" value="Admin" disabled />
+                    <input type="text" class="block-input" value="@Model.UserName" disabled />
                     <label class="block-label">Your Name *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="tel" class="block-input" value="+72256574411" disabled />
+                    <input type="tel" class="block-input" value="@Model.Phone" disabled />
                     <label class="block-label">Your Phone *</label>
                 </div>
                 <div class="cart-contact__block">
-                    <input type="email" class="block-input" value="Email@gmai.com" disabled />
+                    <input type="email" class="block-input" value="@Model.Email" disabled />
                     <label class="block-label">Your Email *</label>
                 </div>
             </div>
@@ -169,7 +181,7 @@
                     <div class="checkout-rows">
                         <div class="form-row form-row_centered checkout-total__row">
                             <span class="checkout-total__title">Order</span>
-                            <span class="checkout-total__value"><span class="ms2_order_cart_cost">11 840</span></span>
+                            <span class="checkout-total__value"><span class="ms2_order_cart_cost check-amount-total">0</span></span>
                         </div>
                         <div class="form-row form-row_centered checkout-total__row">
                             <span class="checkout-total__title">Discount</span>
@@ -183,7 +195,7 @@
                     <div class="checkout-total__footer">
                         <div class="form-row form-row_centered checkout-total__row">
                             <span class="checkout-total__title">Total</span>
-                            <span class="checkout-total__value checkout-total__value_bold"><span class="ms2_order_cost check-amount-total rouble">0</span></span>
+                            <span class="checkout-total__value checkout-total__value_bold"><span class="ms2_order_cost rouble">0<span class="span-style"> €</span></span></span>
                         </div>
                     </div>
                     <div class="form-field coupon_field">

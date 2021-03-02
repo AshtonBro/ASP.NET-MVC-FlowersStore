@@ -7,6 +7,7 @@
         dataType: "html",
         processData: false,
         contentType: false,
+        //traditional: true,
         data: formData,//$("#" + formId).serialize(),
         success: function (response) {
             callBack(response);

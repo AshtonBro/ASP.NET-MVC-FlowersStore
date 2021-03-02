@@ -80,6 +80,23 @@ namespace FlowersStore.Controllers
             _shopingCartservice.DeleteAll(user.Id);
             return new JsonResult(new { message = "You successfully deleted all items." });
         }
+
+        public JsonResult ChangeQuantity(Guid id, int quantity)
+        {
+            if (id != Guid.Empty)
+            {
+                var exisingShopingCart = _shopingCartservice.GetById(id);
+                if (exisingShopingCart != null)
+                {
+                    exisingShopingCart.Quantity = quantity;
+                    bool success = _shopingCartservice.Update(exisingShopingCart);
+                    if (!success) return new JsonResult(new { error = "Error while changing quantity!" });
+                    return new JsonResult(new { message = "You changed quantity." });
+                }
+                return new JsonResult(new { error = "Shopping Cart is empty!" });
+            }
+            return new JsonResult(new { error = "Error while changing quantity!" });
+        }
     }
 }
 

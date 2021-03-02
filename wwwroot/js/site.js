@@ -42,5 +42,5 @@ if (window.location.pathname == '/Basket/Index') {
 }
 
 if (window.location.pathname == '/Checkout/Index') {
-    console.log('checkout page loaded');
+    countTotal(".check-price-amount", ".check-amount-total");
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FlowersStore.Migrations
 {
-    public partial class changeModelUs : Migration
+    public partial class ChangeModelUs : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

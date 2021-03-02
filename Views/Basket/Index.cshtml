@@ -12,74 +12,76 @@
 <div class="container container-basket">
     <section class="basket">
         <h1 class="title">@ViewData["Title"] &rarr; <span class="basket-user">@Model.UserName</span></h1>
+        
+        <form class="basket-form" id="" method="post" enctype="multipart/form-data">
+            @Html.HiddenFor(x => Model.UserName)
+          
+            <table class="basket-table" cellspacing="0">
+                <thead>
+                    <tr class="basket-header">
+                        <th class="basket-product-remove">&nbsp;</th>
+                        <th class="basket-product-thumbnail">&nbsp;</th>
+                        <th class="basket-product-name">Product</th>
+                        <th class="basket-product-price">Price</th>
+                        <th class="basket-product-quantity">Quantity</th>
+                        <th class="basket-product-subtotal">SubTotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var cart in Model.ShopingCarts)
+                    {
+                        var base64 = Convert.ToBase64String(cart.Product.Image);
+                        var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
 
-        <form class="basket-form" id="@frmId" method="post" enctype="multipart/form-data">
+                        var price = @cart.Product.Price.ToString();
+                        var trimPrice = decimal.Parse(price.Contains(",") ? price.TrimEnd('0') : price);
 
-            @*<input id="@Model.UserName" type="text" value="" class="input-test" hidden name="@Model.UserName" />*@
-            
-                <table class="basket-table" cellspacing="0">
-                    <thead>
-                        <tr class="basket-header">
-                            <th class="basket-product-remove">&nbsp;</th>
-                            <th class="basket-product-thumbnail">&nbsp;</th>
-                            <th class="basket-product-name">Product</th>
-                            <th class="basket-product-price">Price</th>
-                            <th class="basket-product-quantity">Quantity</th>
-                            <th class="basket-product-subtotal">SubTotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach (var cart in Model.ShopingCarts)
-                        {
+                        var buttonId = cart.ProductId;
+                        var quantityId = cart.ProductId;
+                        var buttonDeleteId = "button_" + buttonId;
+                        var buttonClearBasket = "Clear_" + buttonId;
+                        var cartId = cart.CartId.ToString();
 
-                            var base64 = Convert.ToBase64String(cart.Product.Image);
-                            var imgSrc = String.Format("data:image/gif;base64,{0}", base64);
+                        var minusBtn = buttonId + "_M";
+                        var quantityBasket = buttonId + "_Q";
+                        var plusBtn = buttonId + "_P";
+                        var productPrice = buttonId + "_Pr";
+                        var subTotal = buttonId + "_St";
 
-                            var price = @cart.Product.Price.ToString();
-                            var trimPrice = decimal.Parse(price.Contains(",") ? price.TrimEnd('0') : price);
+                        var amount = cart.Quantity * trimPrice;
+                        <tr class="basket-cart-item" id="@cartId">
+                            <td class="basket-product-remove">
+                                <button class="product-remove" id="@buttonDeleteId" style="outline: none;" aria-label="delete product">×</button>
+                            </td>
 
-                            var buttonId = cart.ProductId;
-                            var quantityId = cart.ProductId;
-                            var buttonDeleteId = "button_" + buttonId;
-                            var buttonClearBasket = "Clear_" + buttonId;
-                            var cartId = cart.CartId.ToString();
+                            <td class="basket-product-mini-img">
+                                <img width="300" height="300" src="@imgSrc" class="basket-mini-img" alt="mini-img" loading="lazy">
+                            </td>
 
-                            var minusBtn = buttonId + "_M";
-                            var quantityBasket = buttonId + "_Q";
-                            var plusBtn = buttonId + "_P";
-                            var productPrice = buttonId + "_Pr";
-                            var subTotal = buttonId + "_St";
+                            <td class="basket-product-descr" data-title="Description">
+                                <a class="product-name" name="@cart.Product.Name">@cart.Product.Name</a>
+                                <a class="product-category">@cart.Product.Category.FlowersType</a>
+                            </td>
 
-                            var amount = cart.Quantity * trimPrice;
+                            <td class="basket-product-price" data-title="Price">
+                                <span id="@productPrice" class="basket-product-amount amount-prc">@trimPrice <span class="span-style">€</span></span>
+                            </td>
 
+                            <td class="basket-product-quantity" data-title="quantity">
+                                <div class="basket-product-container">
+                                    <button id="@minusBtn" onclick="changeMinus(this)" type="button" class="basket-product-counter basket-minus">-</button>
+                                    <span id="@quantityBasket" name="@quantityId" class="span-product-quantity">@cart.Quantity</span>
+                                    <button id="@plusBtn" onclick="changePlus(this)" type="button" class="basket-product-counter basket-plus">+</button>
 
-                            <tr class="basket-cart-item" id="@cartId">
-                                
-                                <td class="basket-product-remove">
-                                    <button class="product-remove" id="@buttonDeleteId" style="outline: none;" aria-label="delete product">×</button>
-                                </td>
-
-                                <td class="basket-product-mini-img">
-                                    <img width="300" height="300" src="@imgSrc" class="basket-mini-img" alt="mini-img" loading="lazy">
-                                </td>
-
-                                <td class="basket-product-descr" data-title="Description">
-                                    @Html.HiddenFor(x => Model.UserName)
-                                    <a class="product-name" name="@cart.Product.Name">@cart.Product.Name</a>
-                                    <a class="product-category">@cart.Product.Category.FlowersType</a>
-                                </td>
-
-                                <td class="basket-product-price" data-title="Price">
-                                    <span id="@productPrice" class="basket-product-amount amount-prc">@trimPrice <span class="span-style">€</span></span>
-                                </td>
-
-                                <td class="basket-product-quantity" data-title="quantity">
-                                    <div class="basket-product-container">
-                                        <button id="@minusBtn" onclick="changeMinus(this)" type="button" class="basket-product-counter basket-minus">-</button>
-                                        <span id="@quantityBasket" name="@quantityId" class="span-product-quantity">@cart.Quantity</span>
-                                        <button id="@plusBtn" onclick="changePlus(this)" type="button" class="basket-product-counter basket-plus">+</button>
-
-                                        <script>
+                                    <script>
+                                        document.getElementById("@plusBtn").addEventListener("click", (e) => {
+                                            let quantity = document.getElementById("@quantityBasket").innerText;
+                                            ajaxPost("/Basket/ChangeQuantity?id=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                        });
+                                        document.getElementById("@minusBtn").addEventListener("click", (e) => {
+                                            let quantity = document.getElementById("@quantityBasket").innerText;
+                                            ajaxPost("/Basket/ChangeQuantity?id=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                        });
                                         document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
                                             e.preventDefault();
                                             document.getElementById("@buttonDeleteId").setAttribute("disabled", true);
@@ -100,44 +102,36 @@
                                                 }, 500);
                                             });
                                         });
-                                        </script>
-                                    </div>
-                                </td>
+                                    </script>
+                                </div>
+                            </td>
 
-                                <td class="basket-product-subtotal" data-title="subtotal">
-                                    <span class="basket-price-amount"><bdi id="@subTotal" class="amount">@amount</bdi></span>
-                                    <span class="span-style">€</span>
-                                </td>
-                            </tr>
-                        }
-
-                        <tr class="basket-cart-footer">
-                            <td colspan="6" class="basket-actions">
-                                <span class="basket-price-amount "><bdi class="basket-product-amount">Total: <span id="SumTotalBasket" class="amount-total">0</span> <span class="span-style">€</span></bdi></span>
+                            <td class="basket-product-subtotal" data-title="subtotal">
+                                <span class="basket-price-amount"><bdi id="@subTotal" class="amount">@amount</bdi></span>
+                                <span class="span-style">€</span>
                             </td>
                         </tr>
-                        <tr class="basket-cart-footer">
-                            <td colspan="3" class="basket-actions-left">
-                                <button class="basket-submit-btn button-btn store-btn" name="Store" asp-controller="Store" asp-action="Index">Back to the Store</button>
-                                <button class="basket-submit-btn button-btn clear-btn" name="Clear">Clear basket</button>
-                            </td>
-                            <td colspan="6" class="basket-actions">
-                                <button type="submit" id="@btnId" class="basket-submit-btn button-btn checkout-btn" name="Checkout">Checkout</button>
-                            </td>
-                        </tr>
+                    }
 
-                    </tbody>
-                </table>
+                    <tr class="basket-cart-footer">
+                        <td colspan="6" class="basket-actions">
+                            <span class="sumTotal-product-amount"><bdi class="sumTotal-product-amount">Total: <span id="SumTotalBasket" class="amount-total">0</span> <span class="span-style">€</span></bdi></span>
+                        </td>
+                    </tr>
+                    <tr class="basket-cart-footer">
+                        <td colspan="3" class="basket-actions-left">
+                            <button class="basket-submit-btn button-btn store-btn" name="Store" asp-controller="Store" asp-action="Index">Back to the Store</button>
+                            <button class="basket-submit-btn button-btn clear-btn" name="Clear">Clear basket</button>
+                        </td>
+                        <td colspan="6" class="basket-actions">
+                            <a  id="" class="basket-submit-btn button-btn checkout-btn" name="Checkout" onclick="window.location.href='@Link.ToString(nameof(CheckoutController), nameof(CheckoutController.Index))'">Checkout</a>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
         </form>
         <script>
-            document.getElementById('@btnId').addEventListener('click', (e) => {
-                ajaxPost("/Checkout/CheckoutFrom", "@frmId", (callback) => {
-                    showInfoBox(callback);
-                });
-               @*dialogPost(e, '@key', '@(new Link(nameof(CheckoutController), nameof(CheckoutController.CheckoutFrom)).ToString())');*@
-
-            });
-
              let shoppingCarts = document.querySelectorAll(".basket-cart-item");
              if (shoppingCarts.length != 0) {
                     document.querySelector('.clear-btn').disabled = false;

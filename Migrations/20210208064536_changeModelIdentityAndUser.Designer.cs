@@ -11,7 +11,7 @@ namespace FlowersStore.Migrations
 {
     [DbContext(typeof(StoreDBContext))]
     [Migration("20210208064536_changeModelIdentityAndUser")]
-    partial class changeModelIdentityAndUser
+    partial class ChangeModelIdentityAndUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

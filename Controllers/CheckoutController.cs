@@ -1,4 +1,6 @@
 ﻿using FlowersStore.Helpers;
+using FlowersStore.Models;
+using FlowersStore.Services.ServicesInterfaces;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -9,18 +11,24 @@ namespace FlowersStore.Controllers
     [Authorize(Policy = "User")]
     public class CheckoutController : Controller
     {
-        public IActionResult Index()
+        private readonly IShopingCartCRUDService<ShopingCart> _shopingCartservice;
+        private readonly IUserService _userService;
+
+        public CheckoutController(IShopingCartCRUDService<ShopingCart> shopingCartservice, IUserService userService)
         {
-            return View();
+            this._shopingCartservice = shopingCartservice;
+            this._userService = userService;
         }
 
-        public JsonRedirect CheckoutFrom(BasketViewModel model)
+        public IActionResult Index()
         {
-            if(model.ShopingCarts != null)
-            {
-                return new JsonRedirect(new Link(nameof(CheckoutController), nameof(CheckoutController.Index)));
-            }
-            return new JsonRedirect("BasketViewModel is null.");
+            var checkoutModel = new CheckoutViewModel();
+            var user = _userService.GetUser(HttpContext.User.Identity.Name);
+            checkoutModel.ShopingCarts = _shopingCartservice.Get(user.Id);
+            checkoutModel.UserName = user.Name;
+            checkoutModel.Phone = user.PhoneNumber;
+            checkoutModel.Email = user.Email;
+            return View("~/Views/Checkout/Index.cshtml", checkoutModel);
         }
     }
 }

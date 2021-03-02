@@ -4,7 +4,7 @@ const countTotal = (priceAmount, amountTotal) => {
     let total = document.querySelector(amountTotal);
 
     let _total = 0;
-    for (var i = 0; i < price.length - 1; i++) {
+    for (var i = 0; i < price.length; i++) {
         _total += parseInt(price[i].innerText);
     }
 

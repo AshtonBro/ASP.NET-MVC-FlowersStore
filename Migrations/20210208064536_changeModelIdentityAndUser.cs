@@ -2,7 +2,7 @@
 
 namespace FlowersStore.Migrations
 {
-    public partial class changeModelIdentityAndUser : Migration
+    public partial class ChangeModelIdentityAndUser : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
