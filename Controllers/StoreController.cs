@@ -1,11 +1,7 @@
-﻿using FlowersStore.Data;
-using FlowersStore.Services;
-using FlowersStore.Services.ServicesInterfaces;
+﻿using FlowersStore.Services.ServicesInterfaces;
 using FlowersStore.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace FlowersStore.Controllers
 {

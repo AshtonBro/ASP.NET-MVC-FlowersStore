@@ -1,8 +1,14 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model FlowersStore.ViewModels.ProfileViewModel
+@using FlowersStore.Controllers
 
 @{
     ViewData["Title"] = "Profile";
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
+    var key = "SubmitProfileDialog";
+    var frmId = $"{key}_F";
+    var msgId = $"{key}_M";
+    var btnId = $"{key}_B";
 }
 
 <div class="container container-profile">
@@ -12,96 +18,55 @@
                 <img src="~/Image/profile.svg" alt="avatart-image" class="avatar" />
             </div>
             <div class="profile-title">
-                <div class="profile-fullName">John Smith</div>
+                <div class="profile-fullName">@Model.Name @Model.SecondName</div>
                 <div class="profile-subtitle">
-                    <a href="mailto:johnsmith@mail.ru" class="profile-email">johnsmith@mail.ru</a>
+                    <a href="mailto:@Model.Email" class="profile-email">@Model.Email</a>
                     <div class="profile-role">- User</div>
                 </div>
             </div>
         </div>
         <h3 class="checkout-group__title">@ViewData["Title"]</h3>
         <div class="profile-body">
-            <form class="profile-form" id="form_id" method="post" enctype="multipart/form-data">
+            <form class="profile-form" id="@frmId" method="post" enctype="multipart/form-data">
 
-                @{
-                    if (HttpContextUser == "Admin")
-                    {
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__choose-user">Choose a user</div>
-                            <select name="choose-user" class="choose-user-selector input-style">
-                                <option class="choose-user-option">Max</option>
-                                <option class="choose-user-option">Roman</option>
-                            </select>
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__role">Role</div>
-                            <select name="user-role" class="user-role-selector input-style">
-                                <option class="user-role-option">User</option>
-                                <option class="user-role-option">Administrator</option>
-                            </select>
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__name">Name</div>
-                            <input type="text" value="John" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__secondName">SecondName</div>
-                            <input type="text" value="Smith" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__phone">Phone</div>
-                            <input type="tel" value="+792265554" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__email">Email</div>
-                            <input type="email" value="johnsmith@mail.ru" class="profile-data__input input-style" />
-                        </div>
-
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__password">Password</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
-                        </div>
-
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
-                        </div>
-                    }
-                    else
-                    {
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__name">Name</div>
-                            <input type="text" value="John" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__secondName">SecondName</div>
-                            <input type="text" value="Smith" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__phone">Phone</div>
-                            <input type="tel" value="+792265554" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__email">Email</div>
-                            <input type="email" value="johnsmith@mail.ru" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__password">Password</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
-                        </div>
-                    }
-                }
-
-                <div>
-                    <label id="msg" class="alert-danger m-1"></label>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__name">Name</div>
+                    <input asp-for="Name" type="text" value="@Model.Name" class="profile-data__input input-style" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__secondName">SecondName</div>
+                    <input asp-for="SecondName" type="text" value="@Model.SecondName" class="profile-data__input input-style" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__phone">Phone</div>
+                    <input asp-for="Phone" type="tel" value="@Model.Phone" class="profile-data__input input-style" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__email">Email</div>
+                    <input asp-for="Email" type="email" value="@Model.Email" class="profile-data__input input-style" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__password">Password</div>
+                    <input asp-for="Password" type="password" value="" class="profile-data__input input-style" />
+                </div>
+                <div class="profile-data">
+                    <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
+                    <input asp-for="ConfirmPassword" type="password" value="" class="profile-data__input input-style" />
                 </div>
 
-                <button type="submit" class="button-btn btn-user-changes auth" id="Save changes">Save changes</button>
+                <div class="error-label">
+                    <label id="@msgId" class="alert-danger m-1"></label>
+                </div>
+
+                <button type="submit" class="button-btn btn-user-changes auth" id="@btnId">Save changes</button>
+                   
             </form>
         </div>
     </section>
 </div>
+
+<script>
+    document.getElementById('@btnId').addEventListener('click', (e) => {
+        dialogPost(e, '@key', '@(new Link(nameof(ProfileController), nameof(ProfileController.ChangeUserModel)).ToString())');
+    });
+</script>
