@@ -5,6 +5,8 @@ namespace FlowersStore.ViewModels
 {
     public class ProfileViewModel
     {
+        public Guid Id { get; set; }
+        public string Role { get; set; }
         [Required(ErrorMessage = "Name isn't be empty")]
         [StringLength(20, ErrorMessage = "Name can't be more than 20 characters")]
         [DataType(DataType.Text)]
@@ -26,17 +28,6 @@ namespace FlowersStore.ViewModels
         [DataType(DataType.EmailAddress)]
         [RegularExpression(@"^[^@\s]+@[^@\s]+\.[^@\s]+$", ErrorMessage = "Not a valid email")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Password is required")]
-        [StringLength(255, ErrorMessage = "Password must be between 5 and 255 characters", MinimumLength = 5)]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-
-        [Required(ErrorMessage = "Confirm Password is required")]
-        [StringLength(255, ErrorMessage = "Password must be between 5 and 255 characters", MinimumLength = 5)]
-        [DataType(DataType.Password)]
-        [Compare("Password")]
-        public string ConfirmPassword { get; set; }
 
         public DateTime CreateDate { get; set; }
     }

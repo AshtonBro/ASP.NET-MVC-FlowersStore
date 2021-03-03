@@ -21,11 +21,14 @@
                 <div class="profile-fullName">@Model.Name @Model.SecondName</div>
                 <div class="profile-subtitle">
                     <a href="mailto:@Model.Email" class="profile-email">@Model.Email</a>
-                    <div class="profile-role">- User</div>
+                    <div class="profile-role">- @Model.Role</div>
                 </div>
             </div>
         </div>
-        <h3 class="checkout-group__title">@ViewData["Title"]</h3>
+        <div class="profile-title-group">
+            <h3 class="checkout-group__title">@ViewData["Title"]</h3>
+            <div class="profile-role profile-title-subtitle">Here you can edit your profile</div>
+        </div>
         <div class="profile-body">
             <form class="profile-form" id="@frmId" method="post" enctype="multipart/form-data">
 
@@ -45,21 +48,21 @@
                     <div class="profile-data-desc profile-data__email">Email</div>
                     <input asp-for="Email" type="email" value="@Model.Email" class="profile-data__input input-style" />
                 </div>
-                <div class="profile-data">
+                @*<div class="profile-data">
                     <div class="profile-data-desc profile-data__password">Password</div>
                     <input asp-for="Password" type="password" value="" class="profile-data__input input-style" />
                 </div>
                 <div class="profile-data">
                     <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
                     <input asp-for="ConfirmPassword" type="password" value="" class="profile-data__input input-style" />
-                </div>
+                </div>*@
 
                 <div class="error-label">
                     <label id="@msgId" class="alert-danger m-1"></label>
                 </div>
 
                 <button type="submit" class="button-btn btn-user-changes auth" id="@btnId">Save changes</button>
-                   
+
             </form>
         </div>
     </section>
@@ -68,5 +71,6 @@
 <script>
     document.getElementById('@btnId').addEventListener('click', (e) => {
         dialogPost(e, '@key', '@(new Link(nameof(ProfileController), nameof(ProfileController.ChangeUserModel)).ToString())');
+
     });
 </script>

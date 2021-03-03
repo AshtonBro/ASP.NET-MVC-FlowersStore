@@ -18,7 +18,7 @@ namespace FlowersStore.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IUserService _userService;
-        
+        private static readonly StoreDBContext _context = new StoreDBContext();
         public ProfileController(UserManager<User> userManager, SignInManager<User> signInManager, IUserService userService)
         {
             this._userManager = userManager;
@@ -30,7 +30,8 @@ namespace FlowersStore.Controllers
         {
             var user = _userService.GetUser(HttpContext.User.Identity.Name);
             if (user == null) return new JsonRedirect("Such a user isn't found.");
-            
+
+            model.Role = _userService.GetUserRole(user.Name);
             model.Name = user.Name;
             model.SecondName = user.SecondName;
             model.Phone = user.PhoneNumber;
@@ -43,6 +44,9 @@ namespace FlowersStore.Controllers
         {
             if(ModelState.IsValid)
             {
+                 var user = _userService.GetUser(HttpContext.User.Identity.Name);
+                 model.Id = user.Id;
+                _userService.UserUpdate(model);
                 return new JsonRedirect("User successful changed.");
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();

@@ -2036,10 +2036,20 @@ td {
 
 #SubmitProfileDialog_M {
     font-size: 16px;
-    padding: 6px 9px;
     border-radius: .25rem;
 }
 
 .error-label {
     padding-left: 33%;
+}
+
+.profile-title-group {
+    display: flex;
+    align-items: center;
+    text-align: center
+}
+
+.profile-title-subtitle {
+    padding-left: 24.5%;
+    font-size: 16px;
 }
