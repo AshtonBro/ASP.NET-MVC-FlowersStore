@@ -7,6 +7,6 @@ namespace FlowersStore.Services.ServicesInterfaces
     {
         User GetUser(string userName);
         string GetUserRole(string userName);
-        bool UserUpdate(ProfileViewModel model);
+        bool UserUpdate(User user);
     }
 }
