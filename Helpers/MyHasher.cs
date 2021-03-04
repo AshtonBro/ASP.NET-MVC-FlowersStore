@@ -4,40 +4,34 @@ using System.Security.Cryptography;
 
 public class Crypto
 {
-    private const int PBKDF2IterCount = 1000;
-    private const int PBKDF2SubkeyLength = 256 / 8;
-    private const int SaltSize = 128 / 8;
-
     /* =======================
      * HASHED PASSWORD FORMATS
      * =======================
      */
 
-    public string HashPassword(string password)
+    public static string HashPassword(string password)
     {
+        byte[] salt;
+        byte[] buffer2;
         if (password == null)
         {
             throw new ArgumentNullException("password");
         }
-
-        // Produce a version 0 (see comment above) text hash.
-        byte[] salt;
-        byte[] subkey;
-        using (var deriveBytes = new Rfc2898DeriveBytes(password, SaltSize, PBKDF2IterCount))
+        using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
         {
-            salt = deriveBytes.Salt;
-            subkey = deriveBytes.GetBytes(PBKDF2SubkeyLength);
+            salt = bytes.Salt;
+            buffer2 = bytes.GetBytes(0x20);
         }
-
-        var outputBytes = new byte[1 + SaltSize + PBKDF2SubkeyLength];
-        Buffer.BlockCopy(salt, 0, outputBytes, 1, SaltSize);
-        Buffer.BlockCopy(subkey, 0, outputBytes, 1 + SaltSize, PBKDF2SubkeyLength);
-        return Convert.ToBase64String(outputBytes);
+        byte[] dst = new byte[0x31];
+        Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+        Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+        return Convert.ToBase64String(dst);
     }
 
     // hashedPassword must be of the format of HashWithPassword (salt + Hash(salt+input)
-    public bool VerifyHashedPassword(string hashedPassword, string password)
+    public static bool VerifyHashedPassword(string hashedPassword, string password)
     {
+        byte[] buffer4;
         if (hashedPassword == null)
         {
             return false;
@@ -46,28 +40,20 @@ public class Crypto
         {
             throw new ArgumentNullException("password");
         }
-
-        var hashedPasswordBytes = Convert.FromBase64String(hashedPassword);
-
-        // Verify a version 0 (see comment above) text hash.
-
-        if (hashedPasswordBytes.Length != (1 + SaltSize + PBKDF2SubkeyLength) || hashedPasswordBytes[0] != 0x00)
+        byte[] src = Convert.FromBase64String(hashedPassword);
+        if ((src.Length != 0x31) || (src[0] != 0))
         {
-            // Wrong length or version header.
             return false;
         }
-
-        var salt = new byte[SaltSize];
-        Buffer.BlockCopy(hashedPasswordBytes, 1, salt, 0, SaltSize);
-        var storedSubkey = new byte[PBKDF2SubkeyLength];
-        Buffer.BlockCopy(hashedPasswordBytes, 1 + SaltSize, storedSubkey, 0, PBKDF2SubkeyLength);
-
-        byte[] generatedSubkey;
-        using (var deriveBytes = new Rfc2898DeriveBytes(password, salt, PBKDF2IterCount))
+        byte[] dst = new byte[0x10];
+        Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+        byte[] buffer3 = new byte[0x20];
+        Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+        using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
         {
-            generatedSubkey = deriveBytes.GetBytes(PBKDF2SubkeyLength);
+            buffer4 = bytes.GetBytes(0x20);
         }
-        return ByteArraysEqual(storedSubkey, generatedSubkey);
+        return ByteArraysEqual(buffer3, buffer4);
     }
 
     // Compares two byte arrays for equality. The method is specifically written so that the loop is not optimized.

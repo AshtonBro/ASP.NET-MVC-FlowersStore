@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 
 namespace FlowersStore.Controllers
 {
@@ -31,6 +33,7 @@ namespace FlowersStore.Controllers
             var user = _userService.GetUser(HttpContext.User.Identity.Name);
             if (user == null) return new JsonRedirect("Such a user isn't found.");
 
+            model.Id = user.Id;
             model.Role = _userService.GetUserRole(user.Name);
             model.Name = user.Name;
             model.SecondName = user.SecondName;
@@ -40,14 +43,35 @@ namespace FlowersStore.Controllers
             return View(model);
         }
 
-        public JsonRedirect ChangeUserModel(ProfileViewModel model)
+        public async Task<JsonRedirect> ChangeUserModel(ProfileViewModel model)
         {
             if(ModelState.IsValid)
             {
-                 var user = _userService.GetUser(HttpContext.User.Identity.Name);
-                 model.Id = user.Id;
-                _userService.UserUpdate(model);
-                return new JsonRedirect("User successful changed.");
+                var user = _userService.GetUser(HttpContext.User.Identity.Name);
+                var changedUser = new User()
+                {
+                    Id = user.Id,
+                    Name = model.Name,
+                    SecondName = model.SecondName,
+                    PhoneNumber = model.Phone,
+                    Email = model.Email,
+                    PasswordHash = model.Password
+                };
+
+
+                var result = _signInManager.PasswordSignInAsync(user.Name, changedUser.PasswordHash, false, false)
+                    .GetAwaiter()
+                    .GetResult();
+
+                if (result.Succeeded)
+                {
+                    _userService.UserUpdate(changedUser);
+                    await _signInManager.SignOutAsync();
+                    return new JsonRedirect(new Link(nameof(HomeController), nameof(HomeController.Index)));
+                    //return new JsonRedirect("User successful changed.");
+                }
+
+                return new JsonRedirect("Incorrect password.");
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);

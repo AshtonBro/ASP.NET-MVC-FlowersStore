@@ -48,15 +48,20 @@
                     <div class="profile-data-desc profile-data__email">Email</div>
                     <input asp-for="Email" type="email" value="@Model.Email" class="profile-data__input input-style" />
                 </div>
-                @*<div class="profile-data">
+
+                <div class="profile-confirm-pass">Confirm password to save settings.</div>
+
+                <div class="profile-data">
                     <div class="profile-data-desc profile-data__password">Password</div>
                     <input asp-for="Password" type="password" value="" class="profile-data__input input-style" />
                 </div>
                 <div class="profile-data">
                     <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
                     <input asp-for="ConfirmPassword" type="password" value="" class="profile-data__input input-style" />
-                </div>*@
-
+                </div>
+                <div class="profile-data">
+                    <a href="#" class="profile-forgot-pass-link">forgot password ?</a>
+                </div>
                 <div class="error-label">
                     <label id="@msgId" class="alert-danger m-1"></label>
                 </div>
@@ -71,6 +76,11 @@
 <script>
     document.getElementById('@btnId').addEventListener('click', (e) => {
         dialogPost(e, '@key', '@(new Link(nameof(ProfileController), nameof(ProfileController.ChangeUserModel)).ToString())');
-
+         document.getElementById('@msgId').style.backgroundColor = '#f8d7da';
+            setTimeout(() => {
+                if (document.getElementById('@msgId').innerText.includes('successful')) {
+                    document.getElementById('@msgId').style.backgroundColor = '#58c455';
+                }
+            }, 400);
     });
 </script>

@@ -83,16 +83,12 @@
                                     <a class="btnClick nav-btn form-control profile-btn">@httpContextName</a>
                                     <ul class="nav-dropdown-items">
                                         @{
-                                            if (HttpContextUser == "Admin")
-                                            {
-                                                <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(AdminController), nameof(AdminController.Index))'">Profile</a></li>
-                                            }
-                                            else
+                                            if (HttpContextUser != "Admin")
                                             {
                                                 <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(ProfileController), nameof(ProfileController.Index))'">Profile</a></li>
+
                                             }
                                         }
-
                                         <li class="btnClick nav-dropdown-item"><a class="profile-btn-logout" onclick="window.location.href='@Link.ToString(nameof(LoginController), nameof(LoginController.Logout))'">Logout</a></li>
                                     </ul>
                                 </li>

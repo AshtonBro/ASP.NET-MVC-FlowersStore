@@ -24,17 +24,18 @@ namespace FlowersStore.Services
             return _context.UserClaims.FirstOrDefault(f => f.UserId == userId).ClaimValue;
         }
 
-        public bool UserUpdate(ProfileViewModel model)
+        public bool UserUpdate(User user)
         {
             using StoreDBContext _context = new StoreDBContext();
-            User oldModel = _context.Users.FirstOrDefault(f => f.Id == model.Id);
+            User oldModel = _context.Users.FirstOrDefault(f => f.Id == user.Id);
             if (oldModel == null) return false;
 
-            oldModel.Name = model.Name;
-            oldModel.SecondName = model.SecondName;
-            oldModel.PhoneNumber = model.Phone;
-            oldModel.Email = model.Email;
-            oldModel.UserName = model.Name;
+            oldModel.Name = user.Name;
+            oldModel.SecondName = user.SecondName;
+            oldModel.PhoneNumber = user.PhoneNumber;
+            oldModel.Email = user.Email;
+            oldModel.UserName = user.Name;
+            oldModel.NormalizedUserName = user.Name.ToUpper();
 
             return _context.SaveChanges() >= 1;
         }
