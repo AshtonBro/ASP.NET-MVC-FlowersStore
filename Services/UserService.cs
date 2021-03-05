@@ -31,11 +31,12 @@ namespace FlowersStore.Services
             if (oldModel == null) return false;
 
             oldModel.Name = user.Name;
+            oldModel.UserName = user.Name;
+            oldModel.NormalizedUserName = user.Name.ToUpper();
             oldModel.SecondName = user.SecondName;
             oldModel.PhoneNumber = user.PhoneNumber;
             oldModel.Email = user.Email;
-            oldModel.UserName = user.Name;
-            oldModel.NormalizedUserName = user.Name.ToUpper();
+            oldModel.NormalizedEmail = user.Email.ToUpper();
 
             return _context.SaveChanges() >= 1;
         }
