@@ -72,20 +72,17 @@ namespace FlowersStore.Controllers
                     {
                         _userService.UserUpdate(changedUser);
 
-                        await _signInManager.SignOutAsync();
-                        await _signInManager.SignInAsync(user, false);
+                        //await _signInManager.SignOutAsync();
+                        //await _signInManager.SignInAsync(user, false);
 
                         return new JsonRedirect("User successful changed.");
                     }
                     return new JsonRedirect("Incorrect password.");
-
                 }
                 return new JsonRedirect("Nothing to change.");
-                
             }
             var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
             return new JsonRedirect(error.ErrorMessage);
         }
-
     }
 }

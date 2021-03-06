@@ -40,7 +40,7 @@
                                 </div>
                             </div>
                         </div>
-                     }
+                    }
 
                 </div>
             </div>
@@ -94,10 +94,10 @@
 
             <script>
                 document.querySelector('.checkout-delivery').addEventListener('click', () => {
-                        document.querySelector('.address-delivery').classList.toggle('address-delivery_hidden');
+                    document.querySelector('.address-delivery').classList.toggle('address-delivery_hidden');
                 });
             </script>
-
+            
             <div class="checkout-date-calendar">
                 <h3 class="checkout-group__title">Date and Time</h3>
                 <form class="form-checkout-date">
@@ -105,15 +105,10 @@
                         <input class="calendar-input" type="datetime-local" id="date" name="date" />
                         <label class="calendar-label" for="date">Delivery date and time</label>
                     </div>
-                    @*<div class="checkout-number-block">
-                    <div class="checkout-number-min">
-                        <input class="checkout-number-input" autocomplete="off" id="time-start" type="text" name="time_start" placeholder="9:00" required="" value="08:06" data-required="true">
-                    </div>
-                    <div class="checkout-number-max">
-                        <input class="checkout-number-input" autocomplete="off" id="time-end" type="text" name="time_end" placeholder="18:00" required="" value="11:00" data-required="true">
-                    </div>
-                </div>*@
                     <span class="validation-text" name="date">This field is required</span>
+                    <script>
+                        document.querySelector('.calendar-input').value = "2021-01-01T00:00";
+                    </script>
                 </form>
             </div>
 
