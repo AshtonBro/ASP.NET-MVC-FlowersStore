@@ -5,6 +5,8 @@ body {
     background: linear-gradient(90deg, rgba(242,156,119,1) 0%, rgba(242,91,165,1) 51%, rgba(219,90,90,1) 100%);
     background-size: 400% 400%;
     animation: gradient 15s ease infinite;
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
     /* background: url("../Image/background.jpeg");
     background-position: center;
     background-repeat: no-repeat;
@@ -553,7 +555,7 @@ a.navbar-brand {
 
 .shoping-cards {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
     flex-basis: 33%;
 }
@@ -561,9 +563,9 @@ a.navbar-brand {
 .shoping-card {
     align-items: center;
     text-align: center;
-    flex-direction: row;
-    flex-basis: 29%;
-    border: 1.4px solid #EE1B22;
+    flex-direction: column;
+    flex-basis: 23%;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
     border-radius: .25rem;
     margin-bottom: 30px;
     transition: all 0.6s ease 0s;
@@ -578,18 +580,20 @@ a.navbar-brand {
     position: relative;
     display: block;
     flex-basis: 27%;
+    padding: 15px;
     max-height: 386px;
     border-radius: .25rem;
 }
 
 .card-shoping-image {
-    width: 100%;
-    height: 100%;
+    width: 211px;
+    max-height: 237px;
     border-radius: .25rem;
     object-fit: fill;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    box-shadow: 0 .25rem .75rem gray;
 }
 
 .card-title {
@@ -614,7 +618,6 @@ a.navbar-brand {
     line-height: 18px;
     margin: 0 10px 0px 10px;
     min-height: 90px;
-    text-align:justify;
 }
 
 .card-color-box {
@@ -678,7 +681,22 @@ input[type=number] {
     }
 
 .card-btn-add {
+    position: relative;
     margin-bottom: 10px;
+    z-index: 2;
+}
+
+
+.card-text::after {
+    background: url(../Image/list-fl.png) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+    bottom: -12px;
+    content: "";
+    display: block !important;
+    height: 151px;
+    position: absolute;
+    right: -13px;
+    width: 199px;
+    z-index: 1;
 }
 
 .card-price {
@@ -691,8 +709,11 @@ input[type=number] {
     color: #678568;
 }
 
-/* Pre-footer*/
+.card-payment {
+    margin-bottom: 30px;
+}
 
+/* Pre-footer*/
 .pre-footer-block {
     display: flex;
     align-items: center;
