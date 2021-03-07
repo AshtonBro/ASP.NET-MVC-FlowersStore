@@ -28,9 +28,10 @@ namespace FlowersStore.Controllers
         public IActionResult Index()
         {
             var model = new BasketViewModel();
-            var userId = _userService.GetUser(HttpContext.User.Identity.Name).Id;
-            model.ShopingCarts = _shopingCartservice.Get(userId);
-            model.UserName = HttpContext.User.Identity.Name;
+            var user = _userService.GetUser(HttpContext.User.Identity.Name);
+            model.ShopingCarts = _shopingCartservice.Get(user.Id);
+            model.UserName = user.UserName;
+            model.Name = user.Name;
             return View("~/Views/Basket/Index.cshtml", model);
         }
 

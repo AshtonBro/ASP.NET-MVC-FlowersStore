@@ -1,7 +1,6 @@
 ﻿using FlowersStore.Data;
 using FlowersStore.Models;
 using FlowersStore.Services.ServicesInterfaces;
-using FlowersStore.ViewModels;
 using System;
 using System.Linq;
 
@@ -13,7 +12,7 @@ namespace FlowersStore.Services
         {
             if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
             using StoreDBContext _context = new StoreDBContext();
-            return _context.Users.FirstOrDefault(f => f.Name == userName);
+            return _context.Users.FirstOrDefault(f => f.NormalizedUserName == userName.ToUpper());
         }
 
         public string GetUserRole(string userName)
@@ -31,8 +30,6 @@ namespace FlowersStore.Services
             if (oldModel == null) return false;
 
             oldModel.Name = user.Name;
-            oldModel.UserName = user.Name;
-            oldModel.NormalizedUserName = user.Name.ToUpper();
             oldModel.SecondName = user.SecondName;
             oldModel.PhoneNumber = user.PhoneNumber;
             oldModel.Email = user.Email;

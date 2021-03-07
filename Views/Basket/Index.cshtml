@@ -11,10 +11,10 @@
 
 <div class="container container-basket">
     <section class="basket">
-        <h1 class="title">@ViewData["Title"] &rarr; <span class="basket-user">@Model.UserName</span></h1>
+        <h1 class="title">@ViewData["Title"] &rarr; <span class="basket-user">@Model.Name</span></h1>
         
         <form class="basket-form" id="" method="post" enctype="multipart/form-data">
-            @Html.HiddenFor(x => Model.UserName)
+            @Html.HiddenFor(x => Model.Name)
           
             <table class="basket-table" cellspacing="0">
                 <thead>

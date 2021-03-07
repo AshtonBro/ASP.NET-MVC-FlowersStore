@@ -68,6 +68,7 @@ namespace FlowersStore
             services.AddScoped<IStoreService, StoreService>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
