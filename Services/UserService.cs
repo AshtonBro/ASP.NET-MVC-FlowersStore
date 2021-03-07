@@ -37,6 +37,7 @@ namespace FlowersStore.Services
             oldModel.PhoneNumber = user.PhoneNumber;
             oldModel.Email = user.Email;
             oldModel.NormalizedEmail = user.Email.ToUpper();
+            oldModel.PasswordHash = user.PasswordHash;
 
             return _context.SaveChanges() >= 1;
         }

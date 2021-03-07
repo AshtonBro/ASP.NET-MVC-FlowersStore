@@ -46,7 +46,7 @@ namespace FlowersStore.Controllers
 
         public async Task<JsonRedirect> ChangeUserModel(ProfileViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
                 var user = _userService.GetUser(HttpContext.User.Identity.Name);
                 var changedUser = new User()
@@ -59,25 +59,29 @@ namespace FlowersStore.Controllers
                     PasswordHash = model.Password
                 };
 
-                if (user.Name != changedUser.Name 
-                    || user.SecondName != changedUser.SecondName 
-                    || user.Email != changedUser.Email 
-                    || user.PhoneNumber != changedUser.PhoneNumber)
+                if (user.Name != changedUser.Name
+                    || user.SecondName != changedUser.SecondName
+                    || user.Email != changedUser.Email
+                    || user.PhoneNumber != changedUser.PhoneNumber
+                    || !string.IsNullOrEmpty(changedUser.PasswordHash))
                 {
-                    var result = _signInManager.PasswordSignInAsync(user.Name, changedUser.PasswordHash, false, false)
-                      .GetAwaiter()
-                      .GetResult();
+                    var hashPasswordNew = _userManager.PasswordHasher.HashPassword(user, changedUser.PasswordHash);
+                   // var authContext = await Authentication.AuthenticateAsync(changedUser.Name);
+                    //var result = _signInManager.PasswordSignInAsync(user.Name, changedUser.PasswordHash, false, false)
+                    //  .GetAwaiter()
+                    //  .GetResult();
 
-                    if (result.Succeeded)
-                    {
-                        _userService.UserUpdate(changedUser);
 
-                        //await _signInManager.SignOutAsync();
-                        //await _signInManager.SignInAsync(user, false);
+                    //if (result.Succeeded)
+                    //{
 
-                        return new JsonRedirect("User successful changed.");
-                    }
-                    return new JsonRedirect("Incorrect password.");
+                    changedUser.PasswordHash = hashPasswordNew;
+                    _userService.UserUpdate(changedUser);
+
+                    //await _signInManager.SignOutAsync();
+                    //await _signInManager.SignInAsync(user, false);
+
+                    return new JsonRedirect("User successful changed.");
                 }
                 return new JsonRedirect("Nothing to change.");
             }

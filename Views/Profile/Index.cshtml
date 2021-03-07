@@ -49,7 +49,7 @@
                     <input asp-for="Email" type="email" value="@Model.Email" class="profile-data__input input-style" />
                 </div>
 
-                <div class="profile-confirm-pass">Confirm password to save settings.</div>
+                <div class="profile-confirm-pass">Write new password or confirm old password to save settings.</div>
 
                 <div class="profile-data">
                     <div class="profile-data-desc profile-data__password">Password</div>
@@ -59,9 +59,9 @@
                     <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
                     <input asp-for="ConfirmPassword" type="password" value="" class="profile-data__input input-style" />
                 </div>
-                <div class="profile-data">
+                @*<div class="profile-data">
                     <a href="#" class="profile-forgot-pass-link">forgot password ?</a>
-                </div>
+                </div>*@
                 <div class="error-label">
                     <label id="@msgId" class="alert-danger m-1"></label>
                 </div>
