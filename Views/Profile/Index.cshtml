@@ -29,35 +29,35 @@
             <h3 class="checkout-group__title">@ViewData["Title"]</h3>
             <div class="profile-role profile-title-subtitle">Here you can edit your profile</div>
         </div>
-        <div class="profile-body">
+        <div class="profile-body body-border-top">
             <form class="profile-form" id="@frmId" method="post" enctype="multipart/form-data">
   
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__name">Name</div>
-                    <input asp-for="Name" type="text" value="@Model.Name" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__name">Name</div>
+                    <input asp-for="Name" type="text" value="@Model.Name" class="input-data__input input-style" />
                 </div>
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__secondName">SecondName</div>
-                    <input asp-for="SecondName" type="text" value="@Model.SecondName" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__secondName">SecondName</div>
+                    <input asp-for="SecondName" type="text" value="@Model.SecondName" class="input-data__input input-style" />
                 </div>
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__phone">Phone</div>
-                    <input asp-for="Phone" type="tel" value="@Model.Phone" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__phone">Phone</div>
+                    <input asp-for="Phone" type="tel" value="@Model.Phone" class="input-data__input input-style" />
                 </div>
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__email">Email</div>
-                    <input asp-for="Email" type="email" value="@Model.Email" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__email">Email</div>
+                    <input asp-for="Email" type="email" value="@Model.Email" class="input-data__input input-style" />
                 </div>
 
                 <div class="profile-confirm-pass">Write new password or confirm old password to save settings.</div>
 
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__password">Password</div>
-                    <input asp-for="Password" type="password" value="" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__password">Password</div>
+                    <input asp-for="Password" type="password" value="" class="input-data__input input-style" />
                 </div>
                 <div class="profile-data">
-                    <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
-                    <input asp-for="ConfirmPassword" type="password" value="" class="profile-data__input input-style" />
+                    <div class="lable-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
+                    <input asp-for="ConfirmPassword" type="password" value="" class="input-data__input input-style" />
                 </div>
                 @*<div class="profile-data">
                     <a href="#" class="profile-forgot-pass-link">forgot password ?</a>

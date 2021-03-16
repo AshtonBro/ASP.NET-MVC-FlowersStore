@@ -1,95 +1,131 @@
-﻿
+﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+
+
 @{
     ViewData["Title"] = "ADMINISTRATOR PANEL";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-
-<div class="container container-admin">
-    <section class="admin">
-        <h2 class="store-title">@ViewData["Title"]</h2>
-        <div class="developer-box">
-            <img class="developer-box-img" src="~/Image/gear.svg" alt="gear" />
-            <h3 class="developer-box-desc">
-                This page is under construction.
-            </h3>
-        </div>
-    </section>
-</div>
-
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-
-@{
     ViewData["Title"] = "Profile";
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
 }
 
-<div class="container container-profile">
-    <section class="profile">
+
+<div class="container">
+
+    <section class="admin-profile profile">
         <h3 class="checkout-group__title">@ViewData["Title"]</h3>
-        <div class="profile-body">
-            <form class="profile-form" id="form_id" method="post" enctype="multipart/form-data">
+        <div class="profile-role admin-subtitle">Here you can change the settings for the user.</div>
+        <div class="profile-body body-border-top">
+            <form class="admin-profile-form" id="form_id" method="post" enctype="multipart/form-data">
 
                 @{
                     if (HttpContextUser == "Admin")
                     {
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__choose-user">Choose a user</div>
-                            <select name="choose-user" class="choose-user-selector input-style">
+                        <div class="admin-data info-box">
+                            <div class="lable-data-desc profile-data__choose-user">Choose a user</div>
+                            <select name="choose-user" class="choose-selector input-style">
                                 <option class="choose-user-option">Max</option>
                                 <option class="choose-user-option">Roman</option>
+                                <option class="choose-user-option">Nikita</option>
                             </select>
                         </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__role">Role</div>
-                            <select name="user-role" class="user-role-selector input-style">
+                        <div class="admin-data info-box">
+                            <div class="lable-data-desc profile-data__role">Role</div>
+                            <select name="user-role" class="choose-selector input-style">
                                 <option class="user-role-option">User</option>
                                 <option class="user-role-option">Administrator</option>
                             </select>
                         </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__name">Name</div>
-                            <input type="text" value="John" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__secondName">SecondName</div>
-                            <input type="text" value="Smith" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__phone">Phone</div>
-                            <input type="tel" value="+792265554" class="profile-data__input input-style" />
-                        </div>
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__email">Email</div>
-                            <input type="email" value="johnsmith@mail.ru" class="profile-data__input input-style" />
+
+                        <div class="admin-data info-box">
+                            <div class="lable-data-desc profile-data__password">ChangePassword</div>
+                            <input type="password" value="" class="input-data__input input-style" />
                         </div>
 
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__password">Password</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
-                        </div>
-
-                        <div class="profile-data">
-                            <div class="profile-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
-                            <input type="password" value="" class="profile-data__input input-style" />
+                        <div class="admin-data info-box">
+                            <div class="lable-data-desc profile-data__ConfirmPassword">ConfirmPassword</div>
+                            <input type="password" value="" class="input-data__input input-style" />
                         </div>
 
                         <div>
                             <label id="msg" class="alert-danger m-1"></label>
                         </div>
 
-                        <button type="submit" class="button-btn btn-user-changes auth" id="Save changes">Save changes</button>
+                        <button type="submit" class="button-btn btn-user-changes auth" id="Save_Changes">Save changes</button>
                     }
                     else
                     {
                         <div class="profile-data">
-                            <div class="profile-data-desc profile-data__name">You is not ADMIN.</div>
+                            <div class="lable-data-desc profile-data__name">You is not ADMIN.</div>
                         </div>
                     }
                 }
 
             </form>
         </div>
+    </section>
+
+    <section class="admin-product">
+        <h3 class="checkout-group__title">Product</h3>
+        <div class="profile-role admin-subtitle">Here you can add some product</div>
+        <div class="product-body body-border-top">
+            <form class="admin-product-form" id="form_id" method="post" enctype="multipart/form-data">
+
+                @{
+                    if (HttpContextUser == "Admin")
+                    {
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__image">Image</div>
+                            <input type="file" value="" class="input-data__input input-style" />
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__name">Name</div>
+                            <input type="text" value="" class="input-data__input input-style" />
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__descripton">Description</div>
+                            <input type="text" value="" class="input-data__input input-style" />
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__color">Color</div>
+                            <input type="color" value="" class="input-data__input input-style" />
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__price">Price</div>
+                            <input type="number" value="" class="input-data__input input-style" />
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc profile-data__role">Category</div>
+                            <select name="user-role" class="choose-selector input-style">
+                                <option class="user-role-option">Растения</option>
+                                <option class="user-role-option">Розы</option>
+                                <option class="user-role-option">Тюльпаны</option>
+                                <option class="user-role-option">Букеты</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label id="msg" class="alert-danger m-1"></label>
+                        </div>
+
+                        <button type="submit" class="button-btn btn-user-changes auth" id="Add_product">Add product</button>
+                    }
+                    else
+                    {
+                        <div class="profile-data">
+                            <div class="lables-data-desc profile-data__name">You is not ADMIN.</div>
+                        </div>
+                    }
+                }
+
+            </form>
+
+        </div>
+
     </section>
 </div>
 
