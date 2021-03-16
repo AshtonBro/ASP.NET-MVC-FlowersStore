@@ -65,7 +65,6 @@ namespace FlowersStore.Controllers
                 {
                     var hashPasswordNew = _userManager.PasswordHasher.HashPassword(user, changedUser.PasswordHash);
 
-                    
                     changedUser.PasswordHash = hashPasswordNew;
                     _userService.UserUpdate(changedUser);
 

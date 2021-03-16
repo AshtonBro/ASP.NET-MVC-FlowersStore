@@ -32,6 +32,8 @@ namespace FlowersStore
         {
             services.AddControllersWithViews();
 
+            //services.AddMvc(options => options.EnableEndpointRouting = false);
+
             services.AddDbContext<StoreDBContext>(options =>
             {
                 options.UseSqlServer("name=ConnectionStrings:DefaultConnection");
@@ -69,6 +71,7 @@ namespace FlowersStore
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<UserService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +96,14 @@ namespace FlowersStore
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapAreaControllerRoute(
+                //name: "MyAreaProducts",
+                //areaName: "Products",
+                //pattern: "Products/{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                    name: "Areas",
+                    pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

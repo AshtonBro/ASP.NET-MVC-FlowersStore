@@ -15,7 +15,6 @@
     {
         httpContextName = userServiceMethods.GetUser(HttpContextUser).Name;
     }
-
 }
 
 <!DOCTYPE html>
@@ -65,22 +64,22 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="btnClick nav-btn form-control" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="btnClick nav-btn form-control"  href='@Url.Action("Index", "Home", new { area = "" })'>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btnClick nav-btn form-control" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="btnClick nav-btn form-control"  href='@Url.Action("Privacy", "Home", new { area = "" })'>Privacy</a>
                         </li>
                         @{
                             if (HttpContextUser == "Admin")
                             {
                                 <li class="nav-item">
-                                    <a class="btnClick nav-btn form-control admin-btn" asp-controller="Admin" asp-action="Index">Admin Panel</a>
+                                    <a class="btnClick nav-btn form-control admin-btn" href='@Url.Action("Index", "Admin", new { area = "Admin" })'>Admin Panel</a>
                                 </li>
                             }
                         }
                     </ul>
                 </div>
-
+               
                 <div class="navbar-expand float-right">
                     <ul class="navbar-nav">
                         <li class="nav-item">

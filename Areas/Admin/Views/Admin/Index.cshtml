@@ -1,6 +1,7 @@
 ﻿
 @{
     ViewData["Title"] = "ADMINISTRATOR PANEL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 
@@ -17,7 +18,6 @@
 </div>
 
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@model FlowersStore.ViewModels.ProfileViewModel
 
 @{
     ViewData["Title"] = "Profile";
@@ -26,18 +26,6 @@
 
 <div class="container container-profile">
     <section class="profile">
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <img src="~/Image/profile.svg" alt="avatart-image" class="avatar" />
-            </div>
-            @*<div class="profile-title">
-                    <div class="profile-fullName">@Model.AdminModel.Name @Model.AdminModel.SecondName</div>
-                    <div class="profile-subtitle">
-                        <a href="mailto:@Model.AdminModel.Email" class="profile-email">@Model.AdminModel.Email</a>
-                        <div class="profile-role">- User</div>
-                    </div>
-                </div>*@
-        </div>
         <h3 class="checkout-group__title">@ViewData["Title"]</h3>
         <div class="profile-body">
             <form class="profile-form" id="form_id" method="post" enctype="multipart/form-data">

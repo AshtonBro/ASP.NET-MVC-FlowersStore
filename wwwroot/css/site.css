@@ -1,6 +1,6 @@
 ﻿
 body {
-    font-family: 'Open Sans', sans-serif;
+    font-family: 'Open Sans';
     background: rgb(242,156,119);
     background: linear-gradient(90deg, rgba(242,156,119,1) 0%, rgba(242,91,165,1) 51%, rgba(219,90,90,1) 100%);
     background-size: 400% 400%;
@@ -723,6 +723,7 @@ input[type=number] {
 /* Pre-footer*/
 .pre-footer-block {
     display: flex;
+    justify-content: center;
     align-items: center;
     margin-left: auto;
     margin-right: auto;
