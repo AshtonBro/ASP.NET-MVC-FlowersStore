@@ -182,4 +182,3 @@ D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Vie
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.csproj.CoreCompileInputs.cache
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.MvcApplicationPartsAssemblyInfo.cache
 D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\Razor\Areas\Admin\Views\Admin\Index.cshtml.g.cs
-D:\Web-developer\3. С#\VS_source\FlowersStore\obj\Debug\netcoreapp3.1\FlowersStore.csprojAssemblyReference.cache

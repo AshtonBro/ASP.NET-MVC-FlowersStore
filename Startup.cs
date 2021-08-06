@@ -11,7 +11,6 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using FlowersStore.Entities;
 using FlowersStore.Services.ServicesInterfaces;
-using System;
 
 namespace FlowersStore
 {
@@ -96,14 +95,10 @@ namespace FlowersStore
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapAreaControllerRoute(
-                //name: "MyAreaProducts",
-                //areaName: "Products",
-                //pattern: "Products/{controller=Home}/{action=Index}/{id?}");
-
                 endpoints.MapControllerRoute(
                     name: "Areas",
                     pattern: "{area:exists}/{controller=Admin}/{action=Index}/{id?}");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

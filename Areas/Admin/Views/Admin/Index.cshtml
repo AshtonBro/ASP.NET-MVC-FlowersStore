@@ -1,13 +1,11 @@
 ﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 
-
 @{
     ViewData["Title"] = "ADMINISTRATOR PANEL";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Profile";
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
 }
-
 
 <div class="container">
 
@@ -25,7 +23,6 @@
                             <select name="choose-user" class="choose-selector input-style">
                                 <option class="choose-user-option">Max</option>
                                 <option class="choose-user-option">Roman</option>
-                                <option class="choose-user-option">Nikita</option>
                             </select>
                         </div>
                         <div class="admin-data info-box">
@@ -106,6 +103,11 @@
                                 <option class="user-role-option">Тюльпаны</option>
                                 <option class="user-role-option">Букеты</option>
                             </select>
+                        </div>
+
+                        <div class="product-data info-box">
+                            <div class="lable-data-desc product-data__price">Add new category</div>
+                            <input type="text" value="" class="input-data__input input-style" />
                         </div>
 
                         <div>
