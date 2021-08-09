@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FlowersStore.Services
+namespace FlowersStore.BusinessLogic
 {
     public class StoreService : IStoreService
     {

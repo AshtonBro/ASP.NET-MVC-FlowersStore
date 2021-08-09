@@ -1,10 +1,9 @@
 ﻿using FlowersStore.Core.CoreModels;
 using FlowersStore.Core.Services;
-using FlowersStore.Data;
 using System;
 using System.Linq;
 
-namespace FlowersStore.Services
+namespace FlowersStore.BusinessLogic
 {
     public class UserService : IUserService
     {

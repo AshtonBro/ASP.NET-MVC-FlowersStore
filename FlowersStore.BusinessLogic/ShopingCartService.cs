@@ -1,19 +1,19 @@
 ﻿using FlowersStore.Core.CoreModels;
 using FlowersStore.Core.Services;
-using FlowersStore.Data;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace FlowersStore.Services
+namespace FlowersStore.BusinessLogic
 {
     public class ShopingCartService : IShopingCartCRUDService<ShopingCart>
     {
         public IEnumerable<ShopingCart> Get(Guid id)
         {
             if (id == Guid.Empty) throw new ArgumentException("User id is empty.");
+
             using StoreDBContext _context = new StoreDBContext();
+
             Basket basket = _context.Baskets.FirstOrDefault(basket => basket.Id == id);
 
             if (basket == null) throw new ArgumentException("Basket is empty.");

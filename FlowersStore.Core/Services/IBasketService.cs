@@ -7,5 +7,6 @@ namespace FlowersStore.Core.Services
     {
         Basket GetBasket(Guid userId);
         bool CreateBasket(Guid userId);
+        Basket GetBasket(string contextUserName);
     }
 }

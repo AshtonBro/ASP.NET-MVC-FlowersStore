@@ -4,15 +4,21 @@ using FlowersStore.DataAccess.MSSQL.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace FlowersStore.Data
+namespace FlowersStore.DataAccess.MSSQL
 {
     public class StoreDBContext : IdentityDbContext<User, UserRole, Guid>
     {
-        public override DbSet<User> Users { get; set; }  
+        public override DbSet<User> Users { get; set; }
         public virtual DbSet<Basket> Baskets { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ShopingCart> ShopingCarts { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
+
+        public StoreDBContext(DbContextOptions<StoreDBContext> options)
+           : base(options)
+        {
+
+        }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -20,12 +26,6 @@ namespace FlowersStore.Data
             modelBuilder.ApplyConfiguration(new UserConfiguration());
 
             base.OnModelCreating(modelBuilder);
-        }
-
-        public StoreDBContext(DbContextOptions<StoreDBContext> options)
-           : base(options)
-        {
-
         }
 
         public StoreDBContext()
@@ -176,14 +176,6 @@ namespace FlowersStore.Data
             //    SaveChanges();
             //}
             #endregion
-        }
-
-        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        {
-            //default connection
-            optionsBuilder.UseSqlServer(@"Data Source=ASHTON\ASHTON;Initial Catalog=FlowersStore;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
-
-
         }
     }
 }
