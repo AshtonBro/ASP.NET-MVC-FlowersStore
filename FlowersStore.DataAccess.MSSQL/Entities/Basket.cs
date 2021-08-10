@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FlowersStore.DataAccess.MSSQL.Entities
 {
@@ -11,5 +12,7 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
         public User User { get; set; }
 
         public DateTime DateCreated { get; set; }
+
+        public ICollection<ShopingCart> ShopingCarts { get; set; }
     }
 }

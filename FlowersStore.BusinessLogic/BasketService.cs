@@ -1,26 +1,28 @@
-﻿using FlowersStore.Core.CoreModels;
+﻿using System;
+using System.Threading.Tasks;
+using FlowersStore.Core.CoreModels;
+using FlowersStore.Core.Repositories;
 using FlowersStore.Core.Services;
-using System;
-using System.Linq;
 
 namespace FlowersStore.BusinessLogic
 {
     public class BasketService : IBasketService
     {
-        public Basket GetBasket(Guid userId)
+        private readonly IBasketRepository _basketRepository;
+        private readonly IUserService _userService;
+
+        public BasketService(IBasketRepository basketRepository, IUserService userService)
         {
-            if (userId == Guid.Empty) throw new ArgumentException("User id is Empty.");
-
-            using StoreDBContext _context = new StoreDBContext();
-
-            return _context.Baskets.FirstOrDefault(b => b.User.Id == userId);
+            _basketRepository = basketRepository;
+            _userService = userService;
         }
 
-        public bool CreateBasket(Guid userId)
+        public async Task<bool> Create(Guid userId)
         {
-            if (userId == Guid.Empty) throw new ArgumentException("User id is Empty.");
-
-            using StoreDBContext _context = new StoreDBContext();
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
 
             Basket newBasket = new Basket()
             {
@@ -29,9 +31,24 @@ namespace FlowersStore.BusinessLogic
                 DateCreated = DateTime.Now
             };
 
-            _context.Baskets.Add(newBasket);
+            return await _basketRepository.Add(newBasket);
+        }
 
-            return _context.SaveChanges() >= 1;
+        public async Task<Basket> Get(string userNameContext)
+        {
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
+
+            var user = await _userService.Get(userNameContext);
+
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return await _basketRepository.Get(user.Id);
         }
     }
 }

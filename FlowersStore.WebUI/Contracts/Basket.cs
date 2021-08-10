@@ -5,12 +5,12 @@ namespace FlowersStore.WebUI.Contracts
 {
     public class Basket
     {
-        public string Name { get; set; }
-
-        public string UserName { get; set; }
+        public Guid BasketId { get; set; }
+        
+        public Guid Id { get; set; }
 
         public User User { get; set; }
 
-        public IEnumerable<ShopingCart> ShopingCarts { get; set; }
+        public ICollection<ShopingCart> ShopingCarts { get; set; }
     }
 }

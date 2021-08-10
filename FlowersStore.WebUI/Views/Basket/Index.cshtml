@@ -1,5 +1,5 @@
-﻿@using FlowersStore.Controllers
-@model FlowersStore.ViewModels.BasketViewModel
+﻿@using FlowersStore.WebUI.Controllers
+@model FlowersStore.WebUI.ViewModels.BasketViewModel
 
 @{
     ViewData["Title"] = "BASKET";
@@ -15,7 +15,7 @@
 
         <form class="basket-form" id="" method="post" enctype="multipart/form-data">
 
-            @Html.HiddenFor(x => Model.Name)
+            @Html.HiddenFor(x => Model.UserLogin)
 
             <table class="basket-table" cellspacing="0">
                 <thead>
@@ -77,16 +77,16 @@
                                     <script>
                                         document.getElementById("@plusBtn").addEventListener("click", (e) => {
                                             let quantity = document.getElementById("@quantityBasket").innerText;
-                                            ajaxPost("/Basket/ChangeQuantity?id=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                            ajaxPost("/Basket/ChangeShopingCartQuantity?shopingCartId=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
                                         });
                                         document.getElementById("@minusBtn").addEventListener("click", (e) => {
                                             let quantity = document.getElementById("@quantityBasket").innerText;
-                                            ajaxPost("/Basket/ChangeQuantity?id=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                            ajaxPost("/Basket/ChangeShopingCartQuantity?shopingCartId=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
                                         });
                                         document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
                                             e.preventDefault();
                                             document.getElementById("@buttonDeleteId").setAttribute("disabled", true);
-                                            ajaxPost("/Basket/DeleteFromBasket?id=" + "@cartId", null, (callback) => {
+                                            ajaxPost("/Basket/DeleteFromBasket?shopingCartId=" + "@cartId", null, (callback) => {
                                                 let shoppingCart = document.getElementById("@cartId");
                                                 shoppingCart.classList.add('box-hide');
                                                 let subTot = document.getElementById("@subTotal");
@@ -95,8 +95,8 @@
                                                 setTimeout(() => {
                                                     total.innerText = parseInt(total.innerText) - parseInt(subTot.innerText);
                                                     shoppingCart.remove();
-                                                    let shoppingCarts = document.querySelectorAll(".basket-cart-item");
-                                                    if (shoppingCarts.length == 0) {
+                                                    let shopingCarts = document.querySelectorAll(".basket-cart-item");
+                                                    if (shopingCarts.length == 0) {
                                                         document.querySelector('.clear-btn').disabled = true;
                                                         document.querySelector('.checkout-btn').disabled = true;
                                                     };
@@ -133,15 +133,15 @@
             </table>
         </form>
         <script>
-             let shoppingCarts = document.querySelectorAll(".basket-cart-item");
-             if (shoppingCarts.length != 0) {
+            let shopingCarts = document.querySelectorAll(".basket-cart-item");
+            if (shopingCarts.length != 0) {
                     document.querySelector('.clear-btn').disabled = false;
                     document.querySelector('.checkout-btn').disabled = false;
                     document.querySelector('.clear-btn').addEventListener("click", (e) => {
-                    e.preventDefault();
-                    ajaxPost("/Basket/CleanBasket?userName=" + "@Model.UserName", null, (callback) => {
+                        e.preventDefault();
+                        ajaxPost("/Basket/DeleteAllFromBasket?userName=" + "@Model.UserLogin", null, (callback) => {
                         showInfoBox(callback);
-                        shoppingCarts.forEach(cart => cart.remove());
+                        shopingCarts.forEach(cart => cart.remove());
                         document.getElementById("SumTotalBasket").innerText = 0;
                         document.querySelector('.clear-btn').disabled = true;
                         document.querySelector('.checkout-btn').disabled = true;

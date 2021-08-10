@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace FlowersStore.WebUI.Aries.AdminPanel.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "Administrator")]
+    [Authorize(Policy = ClaimPolicyMatch.ADMIN)]
     [Area("Admin")]
     public class AdminController : Controller
     {

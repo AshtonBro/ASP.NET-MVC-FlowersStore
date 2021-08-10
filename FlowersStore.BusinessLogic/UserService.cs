@@ -1,41 +1,48 @@
-﻿using FlowersStore.Core.CoreModels;
+﻿using System;
+using System.Threading.Tasks;
+using FlowersStore.Core.CoreModels;
+using FlowersStore.Core.Repositories;
 using FlowersStore.Core.Services;
-using System;
-using System.Linq;
 
 namespace FlowersStore.BusinessLogic
 {
     public class UserService : IUserService
     {
-        public User GetUser(string userName)
+        private readonly IUserRepository _userRepository;
+
+        public UserService(IUserRepository userRepository)
         {
-            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
-            using StoreDBContext _context = new StoreDBContext();
-            return _context.Users.FirstOrDefault(f => f.NormalizedUserName == userName.ToUpper());
+            _userRepository = userRepository;
         }
 
-        public string GetUserRole(string userName)
+        public async Task<User> Get(string userNameContext)
         {
-            if (string.IsNullOrEmpty(userName)) throw new ArgumentException("User name can't be empty.");
-            var userId = GetUser(userName).Id;
-            using StoreDBContext _context = new StoreDBContext();
-            return _context.UserClaims.FirstOrDefault(f => f.UserId == userId).ClaimValue;
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
+
+            return await _userRepository.Get(userNameContext);
         }
 
-        public bool UserUpdate(User user)
+        public async Task<string> GetUserClaim(string userNameContext)
         {
-            using StoreDBContext _context = new StoreDBContext();
-            User oldModel = _context.Users.FirstOrDefault(f => f.Id == user.Id);
-            if (oldModel == null) return false;
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
 
-            oldModel.Name = user.Name;
-            oldModel.SecondName = user.SecondName;
-            oldModel.PhoneNumber = user.PhoneNumber;
-            oldModel.Email = user.Email;
-            oldModel.NormalizedEmail = user.Email.ToUpper();
-            oldModel.PasswordHash = user.PasswordHash;
+            return await _userRepository.GetUserClaim(userNameContext);
+        }
 
-            return _context.SaveChanges() >= 1;
+        public async Task<bool> Update(User user)
+        {
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            return await _userRepository.Update(user);
         }
     }
 }

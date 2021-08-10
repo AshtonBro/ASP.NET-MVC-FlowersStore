@@ -1,11 +1,9 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
 namespace FlowersStore.WebUI.Contracts
 {
-    [Table("User")]
     public class User : IdentityUser<Guid>
     {
         public override Guid Id { get; set; }
@@ -20,16 +18,18 @@ namespace FlowersStore.WebUI.Contracts
         [RegularExpression(@"^[a-zA-Z]+$", ErrorMessage = "SecondName should not contain special character,numbers or space")]
         public string SecondName { get; set; }
 
+        public override string UserName { get; set; }
+
         [Required(ErrorMessage = "The Email field is required.")]
         [EmailAddress(ErrorMessage = "The Email field is not a valid.")]
         public override string Email { get; set; }
+
+        public override string PhoneNumber { get; set; }
 
         public virtual Basket Basket { get; set; }
 
         [Required]
         [DataType(DataType.DateTime)]
-
         public DateTime DateCreated { get; set; }
     }
-
 }

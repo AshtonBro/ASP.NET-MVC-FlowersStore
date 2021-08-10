@@ -1,92 +1,147 @@
-﻿using FlowersStore.Core.CoreModels;
-using FlowersStore.Core.Services;
-using System;
+﻿using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Linq;
+using FlowersStore.Core.CoreModels;
+using FlowersStore.Core.Repositories;
+using FlowersStore.Core.Services;
 
 namespace FlowersStore.BusinessLogic
 {
-    public class ShopingCartService : IShopingCartCRUDService<ShopingCart>
+    public class ShopingCartService : IShopingCartService
     {
-        public IEnumerable<ShopingCart> Get(Guid id)
+        private readonly IShopingCartRepository _shopingCartRepository;
+        private readonly IUserService _userService;
+
+        public ShopingCartService(IShopingCartRepository shopingCartRepository, IUserService userService)
         {
-            if (id == Guid.Empty) throw new ArgumentException("User id is empty.");
-
-            using StoreDBContext _context = new StoreDBContext();
-
-            Basket basket = _context.Baskets.FirstOrDefault(basket => basket.Id == id);
-
-            if (basket == null) throw new ArgumentException("Basket is empty.");
-
-            return _context.ShopingCarts.Where(f => f.BasketId == basket.BasketId).Include(f => f.Product.Category).ToArray();
+            _shopingCartRepository = shopingCartRepository;
+            _userService = userService;
         }
 
-        public ShopingCart GetById(Guid id)
+        public async Task<bool> Create(ShopingCart shopingCart)
         {
-            if (id == Guid.Empty) throw new ArgumentException("ShopingCart id is empty.");
-            using StoreDBContext _context = new StoreDBContext();
-            return _context.ShopingCarts.Include(f => f.Product.Category).FirstOrDefault(cart => cart.CartId == id);
-        }
-
-        public bool Update(ShopingCart model)
-        {
-            using StoreDBContext _context = new StoreDBContext();
-            ShopingCart oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
-            if (oldModel == null) return false;
-
-            oldModel.DateCreated = model.DateCreated;
-            oldModel.Quantity = model.Quantity;
-
-            return _context.SaveChanges() >= 1;
-        }
-
-        public bool Update(IEnumerable<ShopingCart> collection)
-        {
-            using StoreDBContext _context = new StoreDBContext();
-            foreach (var model in collection)
+            if (shopingCart is null)
             {
-                var oldModel = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == model.CartId);
-                if (oldModel == null) continue;
-
-                oldModel.DateCreated = model.DateCreated;
-                oldModel.Quantity = model.Quantity;
+                throw new ArgumentNullException(nameof(shopingCart));
             }
 
-            return _context.SaveChanges() >= 1;
+            return await _shopingCartRepository.Add(shopingCart);
         }
 
-        public bool Create(ShopingCart model)
+        public async Task<bool> Delete(Guid shopingCartId)
         {
-            using StoreDBContext _context = new StoreDBContext();
-            model.CartId = Guid.NewGuid();
-            model.DateCreated = DateTime.Now;
-            _context.ShopingCarts.Add(model);
-
-            return _context.SaveChanges() >= 1;
-        }
-
-        public bool Delete(Guid id)
-        {
-            if (id == Guid.Empty) return false;
-            using StoreDBContext _context = new StoreDBContext();
-            ShopingCart modelToDelete = _context.ShopingCarts.FirstOrDefault(cart => cart.CartId == id);
-            if (modelToDelete == null) return false;
-
-            _context.Remove(modelToDelete);
-
-            return _context.SaveChanges() >= 1;
-        }
-
-        public bool DeleteAll(Guid id)
-        {
-            if (id == null) return false;
-            using StoreDBContext _context = new StoreDBContext();
-            var shoppingCarts = Get(id);
-            foreach (var cart in shoppingCarts)
+            if (shopingCartId == Guid.Empty)
             {
-                _context.ShopingCarts.Remove(cart);
+                throw new ArgumentNullException(nameof(shopingCartId));
             }
-            return _context.SaveChanges() >= 1;
+
+            return await _shopingCartRepository.Delete(shopingCartId);
+        }
+
+        public async Task<bool> DeleteAllByUserId(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            return await _shopingCartRepository.DeleteAllByUserId(userId);
+        }
+
+        public async Task<ShopingCart> Get(Guid shopingCartId)
+        {
+            if (shopingCartId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(shopingCartId));
+            }
+
+            var shopingCart = await _shopingCartRepository.Get(shopingCartId);
+
+            if (shopingCart is null)
+            {
+                throw new ArgumentNullException(nameof(shopingCart));
+            }
+
+            return shopingCart;
+        }
+
+        public async Task<ICollection<ShopingCart>> Get()
+        {
+            return await _shopingCartRepository.Get();
+        }
+
+        public async Task<ICollection<ShopingCart>> GetAllByUserId(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            var shopingCarts = await _shopingCartRepository.GetAllByUserId(userId);
+
+            if (shopingCarts is null)
+            {
+                throw new ArgumentNullException(nameof(shopingCarts));
+            }
+
+            return shopingCarts;
+        }
+
+        public async Task<ShopingCart> GetByUserId(Guid userId)
+        {
+            if (userId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(userId));
+            }
+
+            var shopingCart = await _shopingCartRepository.GetByUserId(userId);
+
+            if (shopingCart is null)
+            {
+                throw new ArgumentNullException(nameof(shopingCart));
+            }
+
+            return shopingCart;
+        }
+
+        public async Task<bool> Update(ShopingCart shopingCart)
+        {
+            if (shopingCart is null)
+            {
+                throw new ArgumentNullException(nameof(shopingCart));
+            }
+
+            return await _shopingCartRepository.Update(shopingCart);
+        }
+
+        public async Task<bool> UpdateAll(ICollection<ShopingCart> shopingCarts)
+        {
+            if (shopingCarts is null)
+            {
+                throw new ArgumentNullException(nameof(shopingCarts));
+            }
+
+            return await _shopingCartRepository.UpdateAll(shopingCarts);
+        }
+
+        public async Task<bool> CreateOrUpdate(string userNameContext, Guid productId, int quantity)
+        {
+            if (productId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(productId));
+            }
+
+            if (quantity < 0)
+            {
+                throw new ArgumentNullException(nameof(quantity));
+            }
+
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
+
+            return await _shopingCartRepository.CreateOrUpdate(userNameContext, productId, quantity);
         }
     }
 }

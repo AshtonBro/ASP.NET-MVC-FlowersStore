@@ -1,4 +1,4 @@
-﻿@model FlowersStore.ViewModels.StoreViewModel
+﻿@model FlowersStore.WebUI.ViewModels.StoreViewModel
 
 @{
     ViewData["Title"] = "PRODUCTS";
@@ -13,7 +13,7 @@
             </label>
         </div>
         <div class="shoping-cards">
-            @foreach (Product product in Model.Products)
+            @foreach (var product in Model.Products)
             {
 
                 var base64 = Convert.ToBase64String(product.Image);
@@ -56,7 +56,7 @@
                                 <script>
                                     document.getElementById("@button").addEventListener("click", (e) => {
                                         let quantity = document.getElementById("@quantityid").innerText;
-                                        ajaxPost("/Basket/AddToBasket?id=" + "@productId" + "&quantity=" + quantity, null, (callback) => {
+                                        ajaxPost("/Basket/AddToBasket?productId=" + "@productId" + "&quantity=" + quantity, null, (callback) => {
                                             showInfoBox(callback);
                                         });
                                     });

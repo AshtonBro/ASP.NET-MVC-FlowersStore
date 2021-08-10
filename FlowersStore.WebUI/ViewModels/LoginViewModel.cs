@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FlowersStore.WebUI.ViewModels
@@ -65,7 +65,5 @@ namespace FlowersStore.WebUI.ViewModels
 
             public DateTime CreateDate { get; set; }
         }
-            
-       
     }
 }

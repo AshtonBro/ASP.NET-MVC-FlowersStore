@@ -1,12 +1,13 @@
-﻿using FlowersStore.Core.CoreModels;
-using System;
+﻿using System;
+using System.Threading.Tasks;
+using FlowersStore.Core.CoreModels;
 
 namespace FlowersStore.Core.Services
 {
     public interface IBasketService
     {
-        Basket GetBasket(Guid userId);
-        bool CreateBasket(Guid userId);
-        Basket GetBasket(string contextUserName);
+        Task<bool> Create(Guid userId);
+
+        Task<Basket> Get(string userNameContext);
     }
 }

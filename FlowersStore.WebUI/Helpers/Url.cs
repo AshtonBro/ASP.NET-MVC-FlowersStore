@@ -2,13 +2,15 @@
 {
     public Url(string controllerName, string actionName, object @params = null)
     {
-        this.ControllerName = controllerName;
-        this.ActionName = actionName;
-        this.Params = @params;
+        ControllerName = controllerName;
+        ActionName = actionName;
+        Params = @params;
     }
 
     public string ControllerName { get; set; }
+
     public string ActionName { get; set; }
+
     public object Params { get; set; }
 
     public static Url OfIndex(string controllerName)
