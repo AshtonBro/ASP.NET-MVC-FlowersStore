@@ -1,133 +1,166 @@
 ﻿using System;
-using System.Linq;
-using FlowersStore.WebUI.Contracts;
-using FlowersStore.Core.Services;
-using FlowersStore.WebUI.Helpers;
-using FlowersStore.WebUI.ViewModels;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using FlowersStore.Core.Services;
+using FlowersStore.WebUI.ViewModels;
+using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "User")]
+    [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class BasketController : Controller
     {
-        private readonly IShopingCartCRUDService<ShopingCart> _shopingCartService;
+        private readonly IShopingCartService _shopingCartService;
         private readonly IBasketService _basketService;
         private readonly IUserService _userService;
-        private HttpContext _httpContext;
+        private readonly IMapper _mapper;
+        private readonly HttpContext _httpContext;
 
         public BasketController(
             HttpContext httpContext,
-            IShopingCartCRUDService<ShopingCart> shopingCartservice,
+            IShopingCartService shopingCartservice,
             IBasketService basketService,
-            IUserService userService)
+            IUserService userService,
+            IMapper mapper)
         {
             _httpContext = httpContext;
             _shopingCartService = shopingCartservice;
             _basketService = basketService;
             _userService = userService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var backetModel = _basketService.GetBasket(_httpContext.User.Identity.Name);
+            var userNameContext = _httpContext.User.Identity.Name;
 
-            //var user = _userService.GetUser(_httpContext.User.Identity.Name);
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
 
-            //var shopingCarts = _shopingCartService.Get(user.Id);
+            var basket = await _basketService.Get(userNameContext);
+
+            if (basket is null)
+            {
+                throw new ArgumentNullException(nameof(basket));
+            }
+
+            var shopingCartsView = _mapper.Map<ICollection<Core.CoreModels.ShopingCart>, ICollection<ShopingCartViewModel>>(basket.ShopingCarts);
 
             var model = new BasketViewModel
             {
-                Name = backetModel.Name,
-                UserName = backetModel.UserName,
-               // ShopingCarts = backetModel.ShopingCarts // need map
+                Name = basket.User.Name,
+                UserLogin = basket.User.UserName,
+                ShopingCarts = shopingCartsView
             };
 
             return View("~/Views/Basket/Index.cshtml", model);
         }
 
-        public JsonResult DeleteFromBasket(Guid id)
+        public async Task<JsonResult> DeleteFromBasket(Guid shopingCartId)
         {
-            var result = _shopingCartService.Delete(id);
-
-            if (result) return new JsonResult(new { message = "Success deleted item from basket." });
-
-            return new JsonRedirect("ShopingCart isn't deleted.");
-        }
-
-        public JsonResult AddToBasket(Guid id, int quantity)
-        {
-            if (id != Guid.Empty)
+            if (shopingCartId == Guid.Empty)
             {
-                var success = false;
-
-                var userId = _userService.GetUser(HttpContext.User.Identity.Name).Id;
-
-                var exisingShopingCart = _shopingCartService.Get(userId).FirstOrDefault(f => f.ProductId == id);
-
-                if (exisingShopingCart == null)
-                {
-                    var basket = _basketService.GetBasket(userId);
-
-                    var newModel = new ShopingCart()
-                    {
-                        Quantity = quantity,
-                        ProductId = id,
-                        BasketId = basket.BasketId
-                    };
-
-                    success = _shopingCartService.Create(newModel);
-                }
-                else
-                {
-                    exisingShopingCart.Quantity += quantity;
-
-                    success = _shopingCartService.Update(exisingShopingCart);
-                }
-
-                if (!success) return new JsonResult(new { error = "Error while adding product!" });
-
-                return new JsonResult(new { message = "Thank you! Item added to basket." });
+                throw new ArgumentNullException(nameof(shopingCartId));
             }
-            return new JsonResult(new { error = "Error while adding product!" });
-        }
 
-        public JsonResult CleanBasket(string userName)
-        {
-            if (String.IsNullOrEmpty(userName)) new JsonResult(new { error = "User name is empty or null" });
+            var result = await _shopingCartService.Delete(shopingCartId);
 
-            var user = _userService.GetUser(userName);
-
-            if (user.Id == Guid.Empty) new JsonResult(new { error = "UserId is null" });
-
-            _shopingCartService.DeleteAll(user.Id);
-
-            return new JsonResult(new { message = "You successfully deleted all items." });
-        }
-
-        public JsonResult ChangeQuantity(Guid id, int quantity)
-        {
-            if (id != Guid.Empty)
+            if (!result)
             {
-                var exisingShopingCart = _shopingCartService.GetById(id);
-
-                if (exisingShopingCart != null)
-                {
-                    exisingShopingCart.Quantity = quantity;
-
-                    bool success = _shopingCartService.Update(exisingShopingCart);
-
-                    if (!success) return new JsonResult(new { error = "Error while changing quantity!" });
-
-                    return new JsonResult(new { message = "You changed quantity." });
-                }
-                return new JsonResult(new { error = "Shopping Cart is empty!" });
+                return new JsonResult( new { error = "Failure." });
             }
-            return new JsonResult(new { error = "Error while changing quantity!" });
+
+            return new JsonResult(new { message = "Success." });
+        }
+
+        public async Task<JsonResult> AddToBasket(Guid productId, int quantity)
+        {
+            if (productId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(productId));
+            }
+
+            if (quantity < 0)
+            {
+                throw new ArgumentNullException(nameof(quantity));
+            }
+
+            var userNameContext = _httpContext.User.Identity.Name;
+
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
+
+            var result = await _shopingCartService.CreateOrUpdate(userNameContext, productId, quantity);
+
+            if (!result)
+            {
+                return new JsonResult(new { error = "Failure." });
+            }
+
+            return new JsonResult(new { message = "Success." });
+        }
+
+        public async Task<JsonResult> DeleteAllFromBasket(string userName)
+        {
+            if (String.IsNullOrEmpty(userName))
+            {
+                throw new ArgumentNullException(nameof(userName));
+            }
+
+            var user = await _userService.Get(userName);
+
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var result = await _shopingCartService.DeleteAllByUserId(user.Id);
+
+            if (!result)
+            {
+                return new JsonResult(new { error = "Failure." });
+            }
+
+            return new JsonResult(new { message = "Success." });
+        }
+
+        public async Task<JsonResult> ChangeShopingCartQuantity(Guid shopingCartId, int quantity)
+        {
+            if (shopingCartId == Guid.Empty)
+            {
+                throw new ArgumentNullException(nameof(shopingCartId));
+            }
+
+            if (quantity < 0)
+            {
+                throw new ArgumentNullException(nameof(quantity));
+            }
+
+            var exisingShopingCart = await _shopingCartService.Get(shopingCartId);
+
+            if (exisingShopingCart is null)
+            {
+                throw new ArgumentNullException(nameof(exisingShopingCart));
+            }
+
+            exisingShopingCart.Quantity = quantity;
+
+            var result = await _shopingCartService.Update(exisingShopingCart);
+
+            if (!result)
+            {
+                return new JsonResult(new { error = "Failure." });
+            }
+
+            return new JsonResult(new { message = "Success." });
         }
     }
 }

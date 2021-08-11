@@ -1,6 +1,6 @@
-﻿using FlowersStore.DataAccess.MSSQL.Entities;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using FlowersStore.DataAccess.MSSQL.Entities;
 
 namespace FlowersStore.DataAccess.MSSQL.Configurations
 {

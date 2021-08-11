@@ -1,19 +1,26 @@
-﻿@    using FlowersStore.Controllers
-@    using FlowersStore.Services
-@    using FlowersStore.Services.ServicesInterfaces
-@    using Microsoft.Extensions.DependencyInjection
+﻿@using FlowersStore.WebUI.Controllers
+@using FlowersStore.Core.Services
+@using FlowersStore.BusinessLogic
+@using Microsoft.Extensions.DependencyInjection
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@inject             UserService userServiceMethods
+@inject UserService userServiceMethods
 
 @{
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
-    var httpContextName = HttpContextUser == null ? "User" : HttpContextUser;
+    var httpContextName = HttpContextUser == null ? "UndefinedUser" : HttpContextUser;
 
     var isAuthentication = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
 
     if (HttpContextUser != null)
     {
-        httpContextName = userServiceMethods.GetUser(HttpContextUser).Name;
+        var user = userServiceMethods.Get(HttpContextUser).Result;
+
+        if (user is null)
+        {
+            httpContextName = "UndefinedUser";
+        }
+
+        httpContextName = user.Name;
     }
 }
 

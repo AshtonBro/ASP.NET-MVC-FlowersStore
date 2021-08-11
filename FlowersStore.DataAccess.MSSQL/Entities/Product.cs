@@ -19,6 +19,5 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
         public decimal Price { get; set; }
 
         public virtual Category Category { get; set; }
-
     }
 }

@@ -1,20 +1,23 @@
 ﻿using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlowersStore.Core.CoreModels
 {
-    public class User
+    public class User : IdentityUser<Guid>
     {
-        public Guid Id { get; set; }
+        public override Guid Id { get; set; }
 
         public string Name { get; set; }
 
         public string SecondName { get; set; }
 
-        public string UserName { get; set; }
+        public override string UserName { get; set; }
 
-        public string PhoneNumber { get; set; }
+        public override string Email { get; set; }
 
-        public string Email { get; set; }
+        public override string PhoneNumber { get; set; }
+
+        public override string PasswordHash { get; set; }
 
         public Basket Basket { get; set; }
 

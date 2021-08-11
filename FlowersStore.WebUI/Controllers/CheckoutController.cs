@@ -1,39 +1,70 @@
-﻿using FlowersStore.WebUI.Contracts;
-using FlowersStore.Core.Services;
-using FlowersStore.WebUI.ViewModels;
+﻿using System;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using FlowersStore.Core.Services;
+using FlowersStore.WebUI.ViewModels;
+using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
 {
     [Authorize]
-    [Authorize(Policy = "User")]
+    [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class CheckoutController : Controller
     {
-        private readonly IShopingCartCRUDService<ShopingCart> _shopingCartservice;
+        private readonly HttpContext _httpContext;
+        private readonly IShopingCartService _shopingCartservice;
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public CheckoutController(IShopingCartCRUDService<ShopingCart> shopingCartservice, IUserService userService)
+        public CheckoutController(
+            HttpContext httpContext,
+            IShopingCartService shopingCartservice,
+            IUserService userService,
+            IMapper mapper)
         {
-            this._shopingCartservice = shopingCartservice;
-            this._userService = userService;
+            _httpContext = httpContext;
+            _shopingCartservice = shopingCartservice;
+            _userService = userService;
+            _mapper = mapper;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var checkoutModel = new CheckoutViewModel();
+            var userNameContext = _httpContext.User.Identity.Name;
 
-            var user = _userService.GetUser(HttpContext.User.Identity.Name);
+            if (string.IsNullOrEmpty(userNameContext))
+            {
+                throw new ArgumentNullException(nameof(userNameContext));
+            }
 
-            checkoutModel.ShopingCarts = _shopingCartservice.Get(user.Id);
+            var user = await _userService.Get(userNameContext);
 
-            checkoutModel.UserName = user.Name;
-            
-            checkoutModel.Phone = user.PhoneNumber;
-            
-            checkoutModel.Email = user.Email;
-            
-            return View("~/Views/Checkout/Index.cshtml", checkoutModel);
+            if (user is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var shopingCarts = await _shopingCartservice.GetAllByUserId(user.Id);
+
+            if (shopingCarts is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
+            var shopingCartsView = _mapper.Map<ICollection<Core.CoreModels.ShopingCart>, ICollection<ShopingCartViewModel>>(shopingCarts);
+
+            var model = new CheckoutViewModel
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                Phone = user.PhoneNumber,
+                ShopingCarts = shopingCartsView
+            };
+
+            return View("~/Views/Checkout/Index.cshtml", model);
         }
     }
 }

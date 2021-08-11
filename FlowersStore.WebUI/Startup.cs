@@ -1,23 +1,22 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
 using FlowersStore.WebUI.Contracts;
 using FlowersStore.DataAccess.MSSQL;
 using FlowersStore.Core.Services;
 using FlowersStore.BusinessLogic;
+using FlowersStore.Core.Repositories;
+using FlowersStore.DataAccess.MSSQL.Repositories;
 
 namespace FlowersStore.WebUI
 {
     public class Startup
     {
-        private const string ADMIN = "Administrator";
-        private const string USER = "User";
-
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,9 +27,13 @@ namespace FlowersStore.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<WebUIMappingProfile>();
+                cfg.AddProfile<DataAccessMappingProfile>();
+            });
 
-            //services.AddMvc(options => options.EnableEndpointRouting = false);
+            services.AddControllersWithViews();
 
             services.AddDbContext<StoreDBContext>(options =>
             {
@@ -53,22 +56,27 @@ namespace FlowersStore.WebUI
 
             services.AddAuthorization(options => 
             {
-                options.AddPolicy(ADMIN, builder =>
+                options.AddPolicy(ClaimPolicyMatch.ADMIN, builder =>
                 {
-                    builder.RequireClaim(ClaimTypes.Role, ADMIN);
+                    builder.RequireClaim(ClaimTypes.Role, ClaimPolicyMatch.ADMIN);
                 });
 
-                options.AddPolicy(USER, builder =>
+                options.AddPolicy(ClaimPolicyMatch.USER, builder =>
                 {
-                    builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, USER) 
-                                                || x.User.HasClaim(ClaimTypes.Role, ADMIN));
+                    builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, ClaimPolicyMatch.USER) 
+                                                || x.User.HasClaim(ClaimTypes.Role, ClaimPolicyMatch.ADMIN));
                 });
             });
 
-            services.AddScoped<IShopingCartCRUDService<Core.CoreModels.ShopingCart>, ShopingCartService>();
-            services.AddScoped<IStoreService, StoreService>();
+            services.AddScoped<IShopingCartService, ShopingCartService>();
+            services.AddScoped<IShopingCartRepository, ShopingCartRepository>();
+            services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketService, BasketService>();
+            services.AddScoped<IBasketRepository, BasketRepository>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -85,10 +93,13 @@ namespace FlowersStore.WebUI
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
 
             app.UseRouting();
+
             app.UseAuthentication();
+
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

@@ -9,6 +9,6 @@ namespace FlowersStore.Core.CoreModels
 
         public string FlowersType { get; set; }
 
-        public virtual IEnumerable<Product> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
