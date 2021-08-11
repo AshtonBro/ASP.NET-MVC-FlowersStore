@@ -35,7 +35,7 @@ namespace FlowersStore.WebUI.Controllers
         [AllowAnonymous]
         public async Task<JsonRedirect> LoginUser(LoginViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
 
@@ -74,7 +74,7 @@ namespace FlowersStore.WebUI.Controllers
 
             if (user == null)
             {
-                return new JsonRedirect("Such User or Email is registered.");
+                return new JsonRedirect("The user is already registered.");
             }
 
             var userRegistration = new User()
