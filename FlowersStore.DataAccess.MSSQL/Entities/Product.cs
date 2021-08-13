@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FlowersStore.DataAccess.MSSQL.Entities
 {
@@ -18,6 +19,8 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
 
         public decimal Price { get; set; }
 
-        public virtual Category Category { get; set; }
+        public Category Category { get; set; }
+
+        public ICollection<ShopingCart> ShopingCarts { get; set; }
     }
 }

@@ -5,35 +5,41 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
-using FlowersStore.WebUI.Contracts;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
 using FlowersStore.WebUI.Helpers;
+using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
 {
     [Authorize]
-    public class LoginController : Controller
+    public class AuthController : Controller
     {
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<DataAccess.MSSQL.Entities.User> _userManager;
+        private readonly SignInManager<DataAccess.MSSQL.Entities.User> _signInManager;
         private readonly IBasketService _basketService;
+        private readonly IMapper _mapper;
 
         public IActionResult Index()
         {
             return View();
         }
 
-        public LoginController(UserManager<User> userManager, SignInManager<User> signInManager, IBasketService basketService)
+        public AuthController(
+            UserManager<DataAccess.MSSQL.Entities.User> userManager,
+            SignInManager<DataAccess.MSSQL.Entities.User> signInManager,
+            IBasketService basketService,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _basketService = basketService;
+            _mapper = mapper;
         }
 
-        [HttpPost]
+        //[HttpPost("login")]
         [AllowAnonymous]
-        public async Task<JsonRedirect> LoginUser(LoginViewModel model)
+        public async Task<JsonRedirect> SignIn(AuthViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -42,26 +48,26 @@ namespace FlowersStore.WebUI.Controllers
                 return new JsonRedirect(error.ErrorMessage);
             }
 
-            var user = await _userManager.FindByNameAsync(model.LoginUser.Name);
+            var user = await _userManager.FindByNameAsync(model.SignIn.Name);
 
             if (user == null)
             {
-                return new JsonRedirect("You are not registered.");
+                return new JsonRedirect("User is not registered.");
             }
 
-            var result = await _signInManager.PasswordSignInAsync(user, model.LoginUser.Password, false, false);
+            var result = await _signInManager.PasswordSignInAsync(user, model.SignIn.Password, false, false);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
+                return new JsonRedirect("Login or password is invalid.");
             }
 
-            return new JsonRedirect("Login or password is invalid.");
+            return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
         }
 
-        [HttpPost]
+        //[HttpPost("registration")]
         [AllowAnonymous]
-        public async Task<JsonRedirect> RegistrationUser(LoginViewModel model)
+        public async Task<JsonRedirect> SignUp(AuthViewModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -70,36 +76,34 @@ namespace FlowersStore.WebUI.Controllers
                 return new JsonRedirect(error.ErrorMessage);
             }
 
-            var user = await _userManager.FindByNameAsync(model.RegistrationUser.Name);
+            var user = await _userManager.FindByNameAsync(model.SignUp.Name);
 
-            if (user == null)
+            if (user != null)
             {
                 return new JsonRedirect("The user is already registered.");
             }
 
-            var userRegistration = new User()
+            var userRegistration = new DataAccess.MSSQL.Entities.User()
             {
                 Id = Guid.NewGuid(),
-                UserName = model.RegistrationUser.Name,
-                Name = model.RegistrationUser.Name,
-                SecondName = model.RegistrationUser.SecondName,
-                PhoneNumber = model.RegistrationUser.Phone,
-                Email = model.RegistrationUser.Email,
-                PasswordHash = model.RegistrationUser.Password,
+                UserName = model.SignUp.Name,
+                Name = model.SignUp.Name,
+                SecondName = model.SignUp.SecondName,
+                PhoneNumber = model.SignUp.Phone,
+                Email = model.SignUp.Email,
+                PasswordHash = model.SignUp.Password,
                 DateCreated = DateTime.Now
             };
 
-            var result = await _userManager.CreateAsync(userRegistration, model.RegistrationUser.Password);
+            var result = await _userManager.CreateAsync(userRegistration, model.SignUp.Password);
 
             if (result.Succeeded)
             {
                 await _userManager.AddClaimAsync(userRegistration, new Claim(ClaimTypes.Role, ClaimPolicyMatch.USER));
 
-                await _signInManager.PasswordSignInAsync(userRegistration, model.RegistrationUser.Password, false, false);
+                await _signInManager.PasswordSignInAsync(userRegistration, model.SignUp.Password, false, false);
 
                 await _basketService.Create(userRegistration.Id);
-
-                //await _context.SaveChanges();
 
                 return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
             }

@@ -1,6 +1,6 @@
 ﻿namespace FlowersStore.WebUI.ViewModels
 {
-    public class ProfileViewModel : LoginViewModel.RegistrationUserModel
+    public class ProfileViewModel : AuthViewModel.SignUpModel
     {
         public string Role { get; set; }
     }

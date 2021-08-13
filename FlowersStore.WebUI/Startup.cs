@@ -33,19 +33,22 @@ namespace FlowersStore.WebUI
                 cfg.AddProfile<DataAccessMappingProfile>();
             });
 
+            services.AddHttpContextAccessor();
+
             services.AddControllersWithViews();
 
-            services.AddDbContext<StoreDBContext>(options =>
+            services.AddDbContext<FlowersStoreDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.GetConnectionString("StoreDBContext"));
+                options.UseSqlServer(Configuration.GetConnectionString("FlowersStoreDbContext"));
 
-            }).AddIdentity<User, UserRole>(config => 
+            }).AddIdentity<DataAccess.MSSQL.Entities.User, DataAccess.MSSQL.Entities.UserRole>(config => 
             {
                 config.Password.RequireLowercase = false;
                 config.Password.RequireNonAlphanumeric = false;
 
             })
-            .AddEntityFrameworkStores<StoreDBContext>()
+            .AddEntityFrameworkStores<FlowersStoreDbContext>()
+
             .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(config =>
@@ -68,15 +71,14 @@ namespace FlowersStore.WebUI
                 });
             });
 
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IShopingCartService, ShopingCartService>();
             services.AddScoped<IShopingCartRepository, ShopingCartRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBasketRepository, BasketRepository>();
-            services.AddScoped<IUserService, UserService>();
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

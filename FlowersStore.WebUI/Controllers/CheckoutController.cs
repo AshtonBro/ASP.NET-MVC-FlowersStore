@@ -14,18 +14,15 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class CheckoutController : Controller
     {
-        private readonly HttpContext _httpContext;
         private readonly IShopingCartService _shopingCartservice;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public CheckoutController(
-            HttpContext httpContext,
             IShopingCartService shopingCartservice,
             IUserService userService,
             IMapper mapper)
         {
-            _httpContext = httpContext;
             _shopingCartservice = shopingCartservice;
             _userService = userService;
             _mapper = mapper;
@@ -33,7 +30,7 @@ namespace FlowersStore.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {
@@ -68,4 +65,3 @@ namespace FlowersStore.WebUI.Controllers
         }
     }
 }
-

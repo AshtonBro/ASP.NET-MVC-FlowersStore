@@ -3,7 +3,7 @@
 @using FlowersStore.BusinessLogic
 @using Microsoft.Extensions.DependencyInjection
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@inject UserService userServiceMethods
+@inject IUserService _userService
 
 @{
     var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
@@ -13,7 +13,7 @@
 
     if (HttpContextUser != null)
     {
-        var user = userServiceMethods.Get(HttpContextUser).Result;
+        var user = _userService.Get(HttpContextUser).Result;
 
         if (user is null)
         {
@@ -105,7 +105,7 @@
 
                                             }
                                         }
-                                        <li class="btnClick nav-dropdown-item"><a class="profile-btn-logout" onclick="window.location.href='@Link.ToString(nameof(LoginController), nameof(LoginController.Logout))'">Logout</a></li>
+                                        <li class="btnClick nav-dropdown-item"><a class="profile-btn-logout" onclick="window.location.href='@Link.ToString(nameof(AuthController), nameof(AuthController.Logout))'">Logout</a></li>
                                     </ul>
                                 </li>
                             }

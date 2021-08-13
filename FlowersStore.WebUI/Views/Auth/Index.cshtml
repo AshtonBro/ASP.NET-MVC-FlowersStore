@@ -1,5 +1,5 @@
 ﻿@using FlowersStore.WebUI.Controllers;
-@model FlowersStore.WebUI.ViewModels.LoginViewModel
+@model FlowersStore.WebUI.ViewModels.AuthViewModel
 
 @{
     Layout = null;
@@ -23,8 +23,8 @@
     <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
         <div class="form form2">
             <h2 class="form__title">Login</h2>
-            <input asp-for="LoginUser.Name" class="input-form-control" placeholder="UserName" id="nametxt" type="text" />
-            <input asp-for="LoginUser.Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
+            <input asp-for="SignIn.Name" class="input-form-control" placeholder="UserName" id="nametxt" type="text" />
+            <input asp-for="SignIn.Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
             <div>
                 <label id="@msgId" class="alert-danger m-1"></label>
             </div>
@@ -36,12 +36,12 @@
     <form class="container-modal__form container-modal--signup" id="@frmIdR" method="post" enctype="multipart/form-data">
         <div class="form form1">
             <h2 class="form__title">Registration</h2>
-            <input asp-for="RegistrationUser.Name" type="text" placeholder="UserName" class="input-form-control"/>
-            <input asp-for="RegistrationUser.SecondName" type="text" placeholder="SecondName" class="input-form-control"/>
-            <input asp-for="RegistrationUser.Phone" type="tel" placeholder="Phone" class="input-form-control"/>
-            <input asp-for="RegistrationUser.Email" type="email" placeholder="Email" class="input-form-control"/>
-            <input asp-for="RegistrationUser.Password" type="password" placeholder="Password" class="input-form-control"/>
-            <input asp-for="RegistrationUser.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control"/>
+            <input asp-for="SignUp.Name" type="text" placeholder="UserName" class="input-form-control"/>
+            <input asp-for="SignUp.SecondName" type="text" placeholder="SecondName" class="input-form-control"/>
+            <input asp-for="SignUp.Phone" type="tel" placeholder="Phone" class="input-form-control"/>
+            <input asp-for="SignUp.Email" type="email" placeholder="Email" class="input-form-control"/>
+            <input asp-for="SignUp.Password" type="password" placeholder="Password" class="input-form-control"/>
+            <input asp-for="SignUp.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control"/>
                             
             <div>
                 <label id="@msgIdR" class="alert-danger m-1"></label>
@@ -66,11 +66,11 @@
 
 <script>
     document.getElementById('@btnId').addEventListener('click', (e) => {
-        dialogPost(e, '@key', '@(new Link(nameof(LoginController), nameof(LoginController.LoginUser)).ToString())');
+        dialogPost(e, '@key', '@(new Link(nameof(AuthController), nameof(AuthController.SignIn)).ToString())');
     });
 
    document.getElementById('@btnIdR').addEventListener('click', (e) => {
-        dialogPost(e, '@keyR', '@(new Link(nameof(LoginController), nameof(LoginController.RegistrationUser)).ToString())');
+        dialogPost(e, '@keyR', '@(new Link(nameof(AuthController), nameof(AuthController.SignUp)).ToString())');
    });
 
     document.getElementById("Login").addEventListener("click", () => {

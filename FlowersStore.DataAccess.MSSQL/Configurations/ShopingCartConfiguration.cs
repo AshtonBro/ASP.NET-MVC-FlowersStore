@@ -12,6 +12,17 @@ namespace FlowersStore.DataAccess.MSSQL.Configurations
 
             builder.HasIndex(p => new { p.BasketId, p.ProductId })
                    .IsUnique();
+
+            builder.HasOne(x => x.Basket)
+                .WithMany(x => x.ShopingCarts)
+                .OnDelete(DeleteBehavior.NoAction)
+                .IsRequired();
+
+            builder.HasOne(x => x.Product)
+                .WithMany(x => x.ShopingCarts)
+                .OnDelete(DeleteBehavior.NoAction)
+                .HasForeignKey(x => x.ProductId)
+                .IsRequired();
         }
     }
 }

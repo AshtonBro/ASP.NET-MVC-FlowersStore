@@ -10,12 +10,10 @@ namespace FlowersStore.BusinessLogic
     public class ShopingCartService : IShopingCartService
     {
         private readonly IShopingCartRepository _shopingCartRepository;
-        private readonly IUserService _userService;
 
-        public ShopingCartService(IShopingCartRepository shopingCartRepository, IUserService userService)
+        public ShopingCartService(IShopingCartRepository shopingCartRepository)
         {
             _shopingCartRepository = shopingCartRepository;
-            _userService = userService;
         }
 
         public async Task<bool> Create(ShopingCart shopingCart)

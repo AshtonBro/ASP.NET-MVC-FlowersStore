@@ -4,12 +4,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FlowersStore.WebUI.ViewModels
 {
-    public class LoginViewModel
+    public class AuthViewModel
     {
-        public LoginUserModel LoginUser { get; set; }
-        public RegistrationUserModel RegistrationUser { get; set; }
+        public SignInModel SignIn { get; set; }
+        public SignUpModel SignUp { get; set; }
 
-        public class LoginUserModel
+        public class SignInModel
         {
             [Display(Name = "Enter your Name:")]
             [Required(ErrorMessage = "Name isn't be empty")]
@@ -25,7 +25,7 @@ namespace FlowersStore.WebUI.ViewModels
             public string Password { get; set; }
         }
 
-        public class RegistrationUserModel 
+        public class SignUpModel
         {
             [HiddenInput(DisplayValue = false)]
             public Guid Id { get; set; }

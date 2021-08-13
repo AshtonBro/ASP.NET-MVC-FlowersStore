@@ -11,10 +11,10 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 {
     public class ShopingCartRepository : IShopingCartRepository
     {
-        private readonly StoreDBContext _context;
+        private readonly FlowersStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public ShopingCartRepository(StoreDBContext context, IMapper mapper)
+        public ShopingCartRepository(FlowersStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -182,6 +182,8 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 return false;
             }
 
+            await _context.SaveChangesAsync();
+
             return true;
         }
 
@@ -218,8 +220,11 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(userId));
             }
 
+            var basket = await _context.Baskets
+                .SingleOrDefaultAsync(f => f.Id == userId);
+
             var shopingCarts = await _context.ShopingCarts
-                .Include(f => f.Basket.Id == userId)
+                .Where(f => f.BasketId == basket.BasketId)
                 .ToArrayAsync();
 
             foreach (var shopingCart in shopingCarts)
@@ -249,16 +254,26 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(userNameContext));
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(f => f.UserName == userNameContext.ToUpper());
+            var user = await _context.Users
+                .FirstOrDefaultAsync(f => f.UserName == userNameContext.ToUpper());
 
             if (user is null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
+            var basket = await _context.Baskets
+                 .FirstOrDefaultAsync(f => f.Id == user.Id);
+
+            if (basket is null)
+            {
+                throw new ArgumentNullException(nameof(user));
+            }
+
             var existedShopingCart = await _context.ShopingCarts
-                .Include(f => f.Basket.Id == user.Id)
-                .FirstOrDefaultAsync();
+                .Where(f => f.BasketId == basket.BasketId)
+                .Include(f => f.Product.Category)
+                .FirstOrDefaultAsync(f => f.ProductId == productId);
 
             if (existedShopingCart is null)
             {
@@ -266,7 +281,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 {
                     Quantity = quantity,
                     ProductId = productId,
-                    BasketId = existedShopingCart.BasketId
+                    BasketId = basket.BasketId
                 };
 
                 return await Add(newShopingCart);

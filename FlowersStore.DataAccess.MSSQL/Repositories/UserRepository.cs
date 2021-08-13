@@ -9,10 +9,10 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 {
     public class UserRepository : IUserRepository
     {
-        private readonly StoreDBContext _context;
+        private readonly FlowersStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public UserRepository(StoreDBContext context, IMapper mapper)
+        public UserRepository(FlowersStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -25,7 +25,8 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(userNameContext));
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
+            var user = await _context.Users
+                .FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
 
             if (user is null)
             {
@@ -42,14 +43,16 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(userNameContext));
             }
 
-            var user = await _context.Users.FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
+            var user = await _context.Users
+                .FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
 
             if (user is null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var UserClaims = await _context.UserClaims.FirstOrDefaultAsync(f => f.UserId == user.Id);
+            var UserClaims = await _context.UserClaims
+                .FirstOrDefaultAsync(f => f.UserId == user.Id);
 
             if (UserClaims is null)
             {
@@ -66,7 +69,8 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var exsistedUser = await _context.Users.FirstOrDefaultAsync(f => f.Id == user.Id);
+            var exsistedUser = await _context.Users
+                .FirstOrDefaultAsync(f => f.Id == user.Id);
 
             if (exsistedUser is null)
             {
@@ -81,6 +85,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             exsistedUser.Email = user.Email;
             exsistedUser.NormalizedEmail = user.Email.ToUpper();
             exsistedUser.PasswordHash = user.PasswordHash;
+            exsistedUser.UserName = user.Name;
 
             await _context.SaveChangesAsync();
 

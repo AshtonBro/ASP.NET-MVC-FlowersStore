@@ -9,6 +9,6 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
 
         public string FlowersType { get; set; }
 
-        public virtual ICollection<Product> Products { get; set; }
+        public ICollection<Product> Products { get; set; }
     }
 }

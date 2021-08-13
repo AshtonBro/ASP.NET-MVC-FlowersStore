@@ -18,16 +18,13 @@ namespace FlowersStore.WebUI.Controllers
         private readonly IBasketService _basketService;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
-        private readonly HttpContext _httpContext;
 
         public BasketController(
-            HttpContext httpContext,
             IShopingCartService shopingCartservice,
             IBasketService basketService,
             IUserService userService,
             IMapper mapper)
         {
-            _httpContext = httpContext;
             _shopingCartService = shopingCartservice;
             _basketService = basketService;
             _userService = userService;
@@ -36,7 +33,7 @@ namespace FlowersStore.WebUI.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {
@@ -91,7 +88,7 @@ namespace FlowersStore.WebUI.Controllers
                 throw new ArgumentNullException(nameof(quantity));
             }
 
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {

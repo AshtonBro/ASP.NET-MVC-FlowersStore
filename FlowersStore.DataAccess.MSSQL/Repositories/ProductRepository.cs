@@ -9,10 +9,10 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 {
     public class ProductRepository : IProductRepository
     {
-        private readonly StoreDBContext _context;
+        private readonly FlowersStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public ProductRepository(StoreDBContext context, IMapper mapper)
+        public ProductRepository(FlowersStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
@@ -20,7 +20,8 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
         public async Task<ICollection<Product>> Get()
         {
-            var products = await _context.Products.Include(f => f.Category).ToArrayAsync();
+            var products = await _context.Products
+                .Include(f => f.Category).ToArrayAsync();
 
             return _mapper.Map<ICollection<Entities.Product>, ICollection<Core.CoreModels.Product>>(products);
         }

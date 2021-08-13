@@ -39,9 +39,9 @@ namespace FlowersStore.WebUI.Controllers
 
         public IActionResult UserLogin()
         {
-            var model = new LoginViewModel();
+            var model = new AuthViewModel();
 
-            return View("~/Views/Login/Index.cshtml", model);
+            return View("~/Views/Auth/Index.cshtml", model);
         }
     }
 }

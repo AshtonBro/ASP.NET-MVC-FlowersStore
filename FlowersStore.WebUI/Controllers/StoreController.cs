@@ -14,20 +14,20 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class StoreController : Controller
     {
-        private readonly HttpContext _httpContext;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
-        public StoreController(HttpContext httpContext, IProductService productService, IMapper mapper)
+        public StoreController(
+            IProductService productService,
+            IMapper mapper)
         {
-            _httpContext = httpContext;
             _productService = productService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {

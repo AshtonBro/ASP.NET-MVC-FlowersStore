@@ -4,11 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
 using FlowersStore.Core.Services;
-using FlowersStore.WebUI.Contracts;
 using FlowersStore.WebUI.Helpers;
 using FlowersStore.WebUI.ViewModels;
-using Microsoft.AspNetCore.Http;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -17,20 +16,17 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class ProfileController : Controller
     {
-        private readonly HttpContext _httpContext;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
+        private readonly UserManager<DataAccess.MSSQL.Entities.User> _userManager;
+        private readonly SignInManager<DataAccess.MSSQL.Entities.User> _signInManager;
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public ProfileController(
-            HttpContext httpContext,
-            UserManager<User> userManager,
-            SignInManager<User> signInManager,
+            UserManager<DataAccess.MSSQL.Entities.User> userManager,
+            SignInManager<DataAccess.MSSQL.Entities.User> signInManager,
             IUserService userService,
             IMapper mapper)
         {
-            _httpContext = httpContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _userService = userService;
@@ -39,7 +35,7 @@ namespace FlowersStore.WebUI.Controllers
 
         public async Task<IActionResult> Index(ProfileViewModel model)
         {
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {
@@ -78,7 +74,7 @@ namespace FlowersStore.WebUI.Controllers
                 return new JsonRedirect(error.ErrorMessage);
             }
 
-            var userNameContext = _httpContext.User.Identity.Name;
+            var userNameContext = HttpContext.User.Identity.Name;
 
             if (string.IsNullOrEmpty(userNameContext))
             {
@@ -87,9 +83,9 @@ namespace FlowersStore.WebUI.Controllers
 
             var userCore = await _userService.Get(userNameContext);
 
-            var user = _mapper.Map<Core.CoreModels.User, Contracts.User>(userCore);
+            var user = _mapper.Map<Core.CoreModels.User, DataAccess.MSSQL.Entities.User>(userCore);
 
-            var updatedUserCore = new Core.CoreModels.User()
+            var updatedUserCore = new DataAccess.MSSQL.Entities.User()
             {
                 Id = user.Id,
                 Name = model.Name,
@@ -105,14 +101,15 @@ namespace FlowersStore.WebUI.Controllers
                 || user.PhoneNumber != updatedUserCore.PhoneNumber)
             {
 
-
                 var hashPasswordNew = _userManager.PasswordHasher.HashPassword(user, updatedUserCore.PasswordHash);
 
                 updatedUserCore.PasswordHash = hashPasswordNew;
 
-                await _userService.Update(updatedUserCore);
+                var updatedUserEntity = _mapper.Map<DataAccess.MSSQL.Entities.User, Core.CoreModels.User>(updatedUserCore);
 
-                var updatedUser = _mapper.Map<Core.CoreModels.User, Contracts.User>(updatedUserCore);
+                await _userService.Update(updatedUserEntity);
+
+                var updatedUser = _mapper.Map<Core.CoreModels.User, DataAccess.MSSQL.Entities.User>(updatedUserEntity);
 
                 await _signInManager.RefreshSignInAsync(updatedUser);
 
