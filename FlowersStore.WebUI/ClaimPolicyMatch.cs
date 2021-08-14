@@ -1,8 +1,8 @@
 ﻿namespace FlowersStore.WebUI
 {
-    internal static class ClaimPolicyMatch
+    public static class ClaimPolicyMatch
     {
-        internal const string ADMIN = "Administrator";
-        internal const string USER = "User";
+        public const string ADMIN = "Administrator";
+        public const string USER = "User";
     }
 }

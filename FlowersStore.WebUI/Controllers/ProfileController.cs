@@ -4,10 +4,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.Helpers;
 using FlowersStore.WebUI.ViewModels;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -16,48 +16,37 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class ProfileController : Controller
     {
-        private readonly UserManager<DataAccess.MSSQL.Entities.User> _userManager;
-        private readonly SignInManager<DataAccess.MSSQL.Entities.User> _signInManager;
-        private readonly IUserService _userService;
-        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         public ProfileController(
-            UserManager<DataAccess.MSSQL.Entities.User> userManager,
-            SignInManager<DataAccess.MSSQL.Entities.User> signInManager,
-            IUserService userService,
-            IMapper mapper)
+            UserManager<User> userManager,
+            SignInManager<User> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
-            _userService = userService;
-            _mapper = mapper;
         }
 
         public async Task<IActionResult> Index(ProfileViewModel model)
         {
-            var userNameContext = HttpContext.User.Identity.Name;
-
-            if (string.IsNullOrEmpty(userNameContext))
-            {
-                throw new ArgumentNullException(nameof(userNameContext));
-            }
-
-            var user = await _userService.Get(userNameContext);
+            var user = await _userManager.GetUserAsync(User);
 
             if (user is null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var userClaim = await _userService.GetUserClaim(user.UserName);
-
-            if (string.IsNullOrEmpty(userClaim))
+            var userClaims = await _userManager.GetClaimsAsync(user);
+                
+            if (userClaims.Count == 0)
             {
-                throw new ArgumentNullException(nameof(userClaim));
+                throw new ArgumentNullException(nameof(userClaims));
             }
 
+            var userClaim = userClaims.FirstOrDefault(f => f.Value == ClaimPolicyMatch.USER);
+
             model.Id = user.Id;
-            model.Role = userClaim;
+            model.Role = userClaim.Value;
             model.Name = user.Name;
             model.SecondName = user.SecondName;
             model.Phone = user.PhoneNumber;
@@ -74,44 +63,33 @@ namespace FlowersStore.WebUI.Controllers
                 return new JsonRedirect(error.ErrorMessage);
             }
 
-            var userNameContext = HttpContext.User.Identity.Name;
+            var user = await _userManager.GetUserAsync(User);
 
-            if (string.IsNullOrEmpty(userNameContext))
+            if (user is null)
             {
-                throw new ArgumentNullException(nameof(userNameContext));
+                throw new ArgumentNullException(nameof(user));
             }
 
-            var userCore = await _userService.Get(userNameContext);
-
-            var user = _mapper.Map<Core.CoreModels.User, DataAccess.MSSQL.Entities.User>(userCore);
-
-            var updatedUserCore = new DataAccess.MSSQL.Entities.User()
-            {
-                Id = user.Id,
-                Name = model.Name,
-                SecondName = model.SecondName,
-                PhoneNumber = model.Phone,
-                Email = model.Email,
-                PasswordHash = model.Password
-            };
-
-            if (user.Name != updatedUserCore.Name
-                || user.SecondName != updatedUserCore.SecondName
-                || user.Email != updatedUserCore.Email
-                || user.PhoneNumber != updatedUserCore.PhoneNumber)
+            if (user.Name != model.Name
+                || user.SecondName != model.SecondName
+                || user.Email != model.Email
+                || user.PhoneNumber != model.Phone)
             {
 
-                var hashPasswordNew = _userManager.PasswordHasher.HashPassword(user, updatedUserCore.PasswordHash);
+                var passwordHashNew = _userManager.PasswordHasher.HashPassword(user, model.Password);
 
-                updatedUserCore.PasswordHash = hashPasswordNew;
+                user.Name = model.Name;
+                user.NormalizedUserName = model.Name.ToUpper();
+                user.UserName = model.Name;
+                user.SecondName = model.SecondName;
+                user.PhoneNumber = model.Phone;
+                user.Email = model.Email;
+                user.NormalizedEmail = model.Email.ToUpper();
+                user.PasswordHash = passwordHashNew;
 
-                var updatedUserEntity = _mapper.Map<DataAccess.MSSQL.Entities.User, Core.CoreModels.User>(updatedUserCore);
+                var updatedUser = await _userManager.UpdateAsync(user);
 
-                await _userService.Update(updatedUserEntity);
-
-                var updatedUser = _mapper.Map<Core.CoreModels.User, DataAccess.MSSQL.Entities.User>(updatedUserEntity);
-
-                await _signInManager.RefreshSignInAsync(updatedUser);
+                await _signInManager.RefreshSignInAsync(user);
 
                 return new JsonRedirect("The user has been updated successfully.");
             }

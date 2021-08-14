@@ -1,27 +1,13 @@
 ﻿@using FlowersStore.WebUI.Controllers
-@using FlowersStore.Core.Services
-@using FlowersStore.BusinessLogic
-@using Microsoft.Extensions.DependencyInjection
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@inject IUserService _userService
+@using FlowersStore.WebUI
 
 @{
-    var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
-    var httpContextName = HttpContextUser == null ? "UndefinedUser" : HttpContextUser;
+    var userIdentutityName = User.Identity.Name == null ? "UserUndefined" : User.Identity.Name;
 
-    var isAuthentication = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
+    var isAuthentication = User.Identity.IsAuthenticated;
 
-    if (HttpContextUser != null)
-    {
-        var user = _userService.Get(HttpContextUser).Result;
-
-        if (user is null)
-        {
-            httpContextName = "UndefinedUser";
-        }
-
-        httpContextName = user.Name;
-    }
+    var userRole = User.Claims.Count() == 0 ?
+        "RoleUndefined" : User.Claims.Where(f => f.Type.Contains("role")).FirstOrDefault().Value;
 }
 
 <!DOCTYPE html>
@@ -71,13 +57,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="btnClick nav-btn form-control"  href='@Url.Action("Index", "Home", new { area = "" })'>Home</a>
+                            <a class="btnClick nav-btn form-control" href='@Url.Action("Index", "Home", new { area = "" })'>Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="btnClick nav-btn form-control"  href='@Url.Action("Privacy", "Home", new { area = "" })'>Privacy</a>
+                            <a class="btnClick nav-btn form-control" href='@Url.Action("Privacy", "Home", new { area = "" })'>Privacy</a>
                         </li>
                         @{
-                            if (HttpContextUser == "Admin")
+                            if (userRole == ClaimPolicyMatch.ADMIN)
                             {
                                 <li class="nav-item">
                                     <a class="btnClick nav-btn form-control admin-btn" href='@Url.Action("Index", "Admin", new { area = "Admin" })'>Admin Panel</a>
@@ -86,7 +72,7 @@
                         }
                     </ul>
                 </div>
-               
+
                 <div class="navbar-expand float-right">
                     <ul class="navbar-nav">
                         <li class="nav-item">
@@ -96,10 +82,10 @@
                             if (isAuthentication)
                             {
                                 <li class="nav-item nav-dropdown-box">
-                                    <a class="btnClick nav-btn form-control profile-btn">@httpContextName</a>
+                                    <a class="btnClick nav-btn form-control profile-btn">@userIdentutityName</a>
                                     <ul class="nav-dropdown-items">
                                         @{
-                                            if (HttpContextUser != "Admin")
+                                            if (userRole == ClaimPolicyMatch.USER)
                                             {
                                                 <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(ProfileController), nameof(ProfileController.Index))'">Profile</a></li>
 

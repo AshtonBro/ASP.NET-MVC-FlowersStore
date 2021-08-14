@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
-using System.Collections.Generic;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -14,24 +15,27 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class StoreController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IProductService _productService;
         private readonly IMapper _mapper;
 
         public StoreController(
+            UserManager<User> userManager,
             IProductService productService,
             IMapper mapper)
         {
+            _userManager = userManager;
             _productService = productService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = HttpContext.User.Identity.Name;
+            var user = await _userManager.GetUserAsync(User);
 
-            if (string.IsNullOrEmpty(userNameContext))
+            if (user is null)
             {
-                throw new ArgumentNullException(nameof(userNameContext));
+                throw new ArgumentNullException(nameof(user));
             }
 
             var products = await _productService.Get();
@@ -45,7 +49,7 @@ namespace FlowersStore.WebUI.Controllers
 
             var model = new StoreViewModel
             {
-                UserName = userNameContext,
+                UserName = user.Name,
                 Products = productsView
             };
 

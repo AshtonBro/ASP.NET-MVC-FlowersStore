@@ -6,12 +6,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity;
-using FlowersStore.WebUI.Contracts;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using FlowersStore.DataAccess.MSSQL;
 using FlowersStore.Core.Services;
 using FlowersStore.BusinessLogic;
 using FlowersStore.Core.Repositories;
 using FlowersStore.DataAccess.MSSQL.Repositories;
+using System;
 
 namespace FlowersStore.WebUI
 {
@@ -41,7 +42,7 @@ namespace FlowersStore.WebUI
             {
                 options.UseSqlServer(Configuration.GetConnectionString("FlowersStoreDbContext"));
 
-            }).AddIdentity<DataAccess.MSSQL.Entities.User, DataAccess.MSSQL.Entities.UserRole>(config => 
+            }).AddIdentity<User, UserRole>(config => 
             {
                 config.Password.RequireLowercase = false;
                 config.Password.RequireNonAlphanumeric = false;
@@ -69,6 +70,15 @@ namespace FlowersStore.WebUI
                     builder.RequireAssertion(x => x.User.HasClaim(ClaimTypes.Role, ClaimPolicyMatch.USER) 
                                                 || x.User.HasClaim(ClaimTypes.Role, ClaimPolicyMatch.ADMIN));
                 });
+            });
+
+            services.Configure<IdentityOptions>(cfg =>
+            {
+                // Lockout settings
+                cfg.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+
+                // user settings
+                cfg.User.RequireUniqueEmail = true;
             });
 
             services.AddScoped<IUserService, UserService>();

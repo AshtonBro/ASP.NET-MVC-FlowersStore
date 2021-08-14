@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -14,33 +15,33 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class BasketController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IShopingCartService _shopingCartService;
         private readonly IBasketService _basketService;
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public BasketController(
+            UserManager<User> userManager,
             IShopingCartService shopingCartservice,
             IBasketService basketService,
-            IUserService userService,
             IMapper mapper)
         {
+            _userManager = userManager;
             _shopingCartService = shopingCartservice;
             _basketService = basketService;
-            _userService = userService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = HttpContext.User.Identity.Name;
+            var user = await _userManager.GetUserAsync(User);
 
-            if (string.IsNullOrEmpty(userNameContext))
+            if (user is null)
             {
-                throw new ArgumentNullException(nameof(userNameContext));
+                throw new ArgumentNullException(nameof(user));
             }
 
-            var basket = await _basketService.Get(userNameContext);
+            var basket = await _basketService.Get(user.Name);
 
             if (basket is null)
             {
@@ -88,14 +89,14 @@ namespace FlowersStore.WebUI.Controllers
                 throw new ArgumentNullException(nameof(quantity));
             }
 
-            var userNameContext = HttpContext.User.Identity.Name;
+            var user = await _userManager.GetUserAsync(User);
 
-            if (string.IsNullOrEmpty(userNameContext))
+            if (user is null)
             {
-                throw new ArgumentNullException(nameof(userNameContext));
+                throw new ArgumentNullException(nameof(user));
             }
 
-            var result = await _shopingCartService.CreateOrUpdate(userNameContext, productId, quantity);
+            var result = await _shopingCartService.CreateOrUpdate(user.Name, productId, quantity);
 
             if (!result)
             {
@@ -105,14 +106,9 @@ namespace FlowersStore.WebUI.Controllers
             return new JsonResult(new { message = "Success." });
         }
 
-        public async Task<JsonResult> DeleteAllFromBasket(string userName)
+        public async Task<JsonResult> DeleteAllFromBasket()
         {
-            if (String.IsNullOrEmpty(userName))
-            {
-                throw new ArgumentNullException(nameof(userName));
-            }
-
-            var user = await _userService.Get(userName);
+            var user = await _userManager.GetUserAsync(User);
 
             if (user is null)
             {

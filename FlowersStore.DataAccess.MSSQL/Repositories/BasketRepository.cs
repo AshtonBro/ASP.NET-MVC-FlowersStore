@@ -48,13 +48,13 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-              .Where(f => f.Id == userId)
-              .FirstOrDefaultAsync();
-
+                    .Where(f => f.Id == userId)
+                    .FirstOrDefaultAsync();
+              
             var shopingCart = _context.ShopingCarts
-                .Where(f => f.BasketId == basket.BasketId)
-                .Include(f => f.Product.Category)
-                .ToArray();
+                    .Where(f => f.BasketId == basket.BasketId)
+                    .Include(f => f.Product.Category)
+                    .ToArray();
 
             basket.ShopingCarts = shopingCart;
 
@@ -64,7 +64,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 }
 
 /*
- 
+ *
   #1 why doesn't work include()?
     
     var basket = await _context.Baskets
