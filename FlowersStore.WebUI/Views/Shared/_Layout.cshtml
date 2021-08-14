@@ -1,27 +1,9 @@
 ﻿@using FlowersStore.WebUI.Controllers
-@using FlowersStore.Core.Services
-@using FlowersStore.BusinessLogic
-@using Microsoft.Extensions.DependencyInjection
-@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-@inject IUserService _userService
+@using FlowersStore.WebUI
 
 @{
-    var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
-    var httpContextName = HttpContextUser == null ? "UndefinedUser" : HttpContextUser;
-
-    var isAuthentication = HttpContextAccessor.HttpContext.User.Identity.IsAuthenticated;
-
-    if (HttpContextUser != null)
-    {
-        var user = _userService.Get(HttpContextUser).Result;
-
-        if (user is null)
-        {
-            httpContextName = "UndefinedUser";
-        }
-
-        httpContextName = user.Name;
-    }
+    var userIdentity = User.Identity;
+    var userClaim = User.Claims.First();
 }
 
 <!DOCTYPE html>
@@ -77,7 +59,7 @@
                             <a class="btnClick nav-btn form-control"  href='@Url.Action("Privacy", "Home", new { area = "" })'>Privacy</a>
                         </li>
                         @{
-                            if (HttpContextUser == "Admin")
+                            if (userClaim.Value == ClaimPolicyMatch.ADMIN)
                             {
                                 <li class="nav-item">
                                     <a class="btnClick nav-btn form-control admin-btn" href='@Url.Action("Index", "Admin", new { area = "Admin" })'>Admin Panel</a>
@@ -93,13 +75,13 @@
                             <a class="btnClick nav-btn phone-text form-control" href="tel:8(800)654-87-45">8 (800) 654-87-45</a>
                         </li>
                         @{
-                            if (isAuthentication)
+                            if (userIdentity.IsAuthenticated)
                             {
                                 <li class="nav-item nav-dropdown-box">
-                                    <a class="btnClick nav-btn form-control profile-btn">@httpContextName</a>
+                                    <a class="btnClick nav-btn form-control profile-btn">@userIdentity.Name</a>
                                     <ul class="nav-dropdown-items">
                                         @{
-                                            if (HttpContextUser != "Admin")
+                                            if (userClaim.Value != ClaimPolicyMatch.ADMIN)
                                             {
                                                 <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(ProfileController), nameof(ProfileController.Index))'">Profile</a></li>
 

@@ -135,22 +135,22 @@
         <script>
             let shopingCarts = document.querySelectorAll(".basket-cart-item");
             if (shopingCarts.length != 0) {
-                    document.querySelector('.clear-btn').disabled = false;
-                    document.querySelector('.checkout-btn').disabled = false;
-                    document.querySelector('.clear-btn').addEventListener("click", (e) => {
-                        e.preventDefault();
-                        ajaxPost("/Basket/DeleteAllFromBasket", null, (callback) => {
+                document.querySelector('.clear-btn').disabled = false;
+                document.querySelector('.checkout-btn').disabled = false;
+                document.querySelector('.clear-btn').addEventListener("click", (e) => {
+                    e.preventDefault();
+                    ajaxPost("/Basket/DeleteAllFromBasket", null, (callback) => {
                         showInfoBox(callback);
                         shopingCarts.forEach(cart => cart.remove());
                         document.getElementById("SumTotalBasket").innerText = 0;
                         document.querySelector('.clear-btn').disabled = true;
                         document.querySelector('.checkout-btn').disabled = true;
                     });
-                 });
-             } else {
-                    document.querySelector('.clear-btn').disabled = true;
-                    document.querySelector('.checkout-btn').disabled = true;
-             }
+                });
+            } else {
+                document.querySelector('.clear-btn').disabled = true;
+                document.querySelector('.checkout-btn').disabled = true;
+            }
         </script>
     </section>
 </div>
