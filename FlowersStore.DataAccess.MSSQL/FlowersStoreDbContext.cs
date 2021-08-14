@@ -13,9 +13,13 @@ namespace FlowersStore.DataAccess.MSSQL
         }
 
         public override DbSet<User> Users { get; set; }
+
         public DbSet<Basket> Baskets { get; set; }
+
         public DbSet<Product> Products { get; set; }
+
         public DbSet<ShopingCart> ShopingCarts { get; set; }
+
         public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
