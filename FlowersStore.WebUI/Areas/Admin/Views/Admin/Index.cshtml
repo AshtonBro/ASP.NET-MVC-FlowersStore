@@ -1,10 +1,13 @@
-﻿@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+﻿@using FlowersStore.WebUI;
 
 @{
     ViewData["Title"] = "ADMINISTRATOR PANEL";
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Profile";
-    var HttpContextUser = HttpContextAccessor.HttpContext.User.Identity.Name;
+
+    var userIdentity = User.Identity;
+
+    var userClaim = User.Claims.Where(f => f.Type.Contains("role")).FirstOrDefault().Value;
 }
 
 <div class="container">
@@ -16,7 +19,7 @@
             <form class="admin-profile-form" id="form_id" method="post" enctype="multipart/form-data">
 
                 @{
-                    if (HttpContextUser == "Admin")
+                    if (userClaim == ClaimPolicyMatch.ADMIN)
                     {
                         <div class="admin-data info-box">
                             <div class="lable-data-desc profile-data__choose-user">Choose a user</div>
@@ -68,7 +71,7 @@
             <form class="admin-product-form" id="form_id" method="post" enctype="multipart/form-data">
 
                 @{
-                    if (HttpContextUser == "Admin")
+                    if (userClaim == ClaimPolicyMatch.ADMIN)
                     {
                         <div class="product-data info-box">
                             <div class="lable-data-desc product-data__image">Image</div>
