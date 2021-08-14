@@ -13,6 +13,6 @@ namespace FlowersStore.Core.CoreModels
 
         public DateTime DateCreated { get; set; }
 
-        public ICollection<ShopingCart> ShopingCarts { get; set; }
+        public ICollection<ProductCard> ProductCards { get; set; }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace FlowersStore.DataAccess.MSSQL.Entities
+namespace FlowersStore.Core.CoreModels
 {
-    public class ShopingCart
+    public class ProductCard
     {
         public Guid CartId { get; set; }
 

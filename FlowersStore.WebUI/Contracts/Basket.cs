@@ -11,6 +11,6 @@ namespace FlowersStore.WebUI.Contracts
 
         public User User { get; set; }
 
-        public ICollection<ShopingCart> ShopingCarts { get; set; }
+        public ICollection<ProductCard> ProductCards { get; set; }
     }
 }

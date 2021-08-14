@@ -83,8 +83,8 @@ namespace FlowersStore.WebUI
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IShopingCartService, ShopingCartService>();
-            services.AddScoped<IShopingCartRepository, ShopingCartRepository>();
+            services.AddScoped<IProductCardService, ProductCardService>();
+            services.AddScoped<IProductCardRepository, ProductCardRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketService, BasketService>();

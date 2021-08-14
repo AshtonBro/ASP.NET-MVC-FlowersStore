@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace FlowersStore.WebUI.Contracts
+namespace FlowersStore.DataAccess.MSSQL.Entities
 {
-    public class ShopingCart
+    public class ProductCard
     {
         public Guid CartId { get; set; }
 

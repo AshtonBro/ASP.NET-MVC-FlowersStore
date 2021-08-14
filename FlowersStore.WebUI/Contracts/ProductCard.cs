@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace FlowersStore.Core.CoreModels
+namespace FlowersStore.WebUI.Contracts
 {
-    public class ShopingCart
+    public class ProductCard
     {
         public Guid CartId { get; set; }
 

@@ -4,7 +4,7 @@ using FlowersStore.WebUI.Contracts;
 
 namespace FlowersStore.WebUI.ViewModels
 {
-    public class ShopingCartViewModel
+    public class ProductCardViewModel
     {
         public Guid CartId { get; set; }
 

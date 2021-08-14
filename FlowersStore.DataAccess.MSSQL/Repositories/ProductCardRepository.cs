@@ -9,51 +9,51 @@ using AutoMapper;
 
 namespace FlowersStore.DataAccess.MSSQL.Repositories
 {
-    public class ShopingCartRepository : IShopingCartRepository
+    public class ProductCardRepository : IProductCardRepository
     {
         private readonly FlowersStoreDbContext _context;
         private readonly IMapper _mapper;
 
-        public ShopingCartRepository(FlowersStoreDbContext context, IMapper mapper)
+        public ProductCardRepository(FlowersStoreDbContext context, IMapper mapper)
         {
             _context = context;
             _mapper = mapper;
         }
 
-        public async Task<ShopingCart> Get(Guid shopingCartId)
+        public async Task<ProductCard> Get(Guid productCardId)
         {
-            if (shopingCartId == Guid.Empty)
+            if (productCardId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(shopingCartId));
+                throw new ArgumentNullException(nameof(productCardId));
             }
 
-            var shopingCart = await _context.ShopingCarts
+            var productCard = await _context.ProductCards
                 .Include(f => f.Product.Category)
-                .FirstOrDefaultAsync(f => f.CartId == shopingCartId);
+                .FirstOrDefaultAsync(f => f.CartId == productCardId);
 
-            if (shopingCart is null)
+            if (productCard is null)
             {
-                throw new ArgumentNullException(nameof(shopingCart));
+                throw new ArgumentNullException(nameof(productCard));
             }
 
-            return _mapper.Map<Entities.ShopingCart, Core.CoreModels.ShopingCart>(shopingCart);
+            return _mapper.Map<Entities.ProductCard, Core.CoreModels.ProductCard>(productCard);
         }
 
-        public async Task<ICollection<ShopingCart>> Get()
+        public async Task<ICollection<ProductCard>> Get()
         {
-            var shopingCarts = await _context.ShopingCarts
+            var productCards = await _context.ProductCards
                 .Include(f => f.Product.Category)
                 .ToArrayAsync();
 
-            if (shopingCarts is null)
+            if (productCards is null)
             {
-                throw new ArgumentNullException(nameof(shopingCarts));
+                throw new ArgumentNullException(nameof(productCards));
             }
 
-            return _mapper.Map<ICollection<Entities.ShopingCart>, ICollection<Core.CoreModels.ShopingCart>>(shopingCarts);
+            return _mapper.Map<ICollection<Entities.ProductCard>, ICollection<Core.CoreModels.ProductCard>>(productCards);
         }
 
-        public async Task<ShopingCart> GetByUserId(Guid userId)
+        public async Task<ProductCard> GetByUserId(Guid userId)
         {
             if (userId == Guid.Empty)
             {
@@ -68,20 +68,20 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(basket));
             }
 
-            var shopingCart = await _context.ShopingCarts
+            var productCard = await _context.ProductCards
                 .Where(f => f.BasketId == basket.BasketId)
                 .Include(f => f.Product.Category)
                 .FirstOrDefaultAsync();
 
-            if (shopingCart is null)
+            if (productCard is null)
             {
-                throw new ArgumentNullException(nameof(shopingCart));
+                throw new ArgumentNullException(nameof(productCard));
             }
 
-            return _mapper.Map<Entities.ShopingCart, Core.CoreModels.ShopingCart>(shopingCart);
+            return _mapper.Map<Entities.ProductCard, Core.CoreModels.ProductCard>(productCard);
         }
 
-        public async Task<ICollection<ShopingCart>> GetAllByUserId(Guid userId)
+        public async Task<ICollection<ProductCard>> GetAllByUserId(Guid userId)
         {
             if (userId == Guid.Empty)
             {
@@ -96,66 +96,67 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(basket));
             }
 
-            var shopingCarts = await _context.ShopingCarts
+            var productCards = await _context.ProductCards
                 .Where(f => f.BasketId == basket.BasketId)
                 .Include(f => f.Product.Category)
                 .ToArrayAsync();
 
-            if (shopingCarts is null)
+            if (productCards is null)
             {
-                throw new ArgumentNullException(nameof(shopingCarts));
+                throw new ArgumentNullException(nameof(productCards));
             }
 
-            return _mapper.Map<ICollection<Entities.ShopingCart>, ICollection<Core.CoreModels.ShopingCart>>(shopingCarts);
+            return _mapper.Map<ICollection<Entities.ProductCard>, ICollection<Core.CoreModels.ProductCard>>(productCards);
         }
 
-        public async Task<bool> Update(ShopingCart shopingCart)
+        public async Task<bool> Update(ProductCard productCard)
         {
 
-            if (shopingCart is null)
+            if (productCard is null)
             {
-                throw new ArgumentNullException(nameof(shopingCart));
+                throw new ArgumentNullException(nameof(productCard));
             }
 
-            var existedShopingCart = await _context.ShopingCarts
-                .FirstOrDefaultAsync(f => f.CartId == shopingCart.CartId);
+            var existedProductCard = await _context.ProductCards
+                .FirstOrDefaultAsync(f => f.CartId == productCard.CartId);
 
-            if (existedShopingCart is null)
+            if (existedProductCard is null)
             {
-                throw new ArgumentNullException(nameof(existedShopingCart));
+                throw new ArgumentNullException(nameof(existedProductCard));
             }
 
-            _context.Entry(existedShopingCart).State = EntityState.Modified;
+            _context.Entry(existedProductCard).State = EntityState.Modified;
 
-            existedShopingCart.DateCreated = shopingCart.DateCreated;
-            existedShopingCart.Quantity = shopingCart.Quantity;
+            existedProductCard.DateCreated = productCard.DateCreated;
+            existedProductCard.Quantity = productCard.Quantity;
 
             await _context.SaveChangesAsync();
 
             return true;
         }
 
-        public async Task<bool> UpdateAll(ICollection<ShopingCart> shopingCarts)
+        public async Task<bool> UpdateAll(ICollection<ProductCard> productCards)
         {
 
-            if (shopingCarts is null)
+            if (productCards is null)
             {
-                throw new ArgumentNullException(nameof(shopingCarts));
+                throw new ArgumentNullException(nameof(productCards));
             }
 
-            foreach (var shopingCart in shopingCarts)
+            foreach (var productCard in productCards)
             {
-                var existedShopingCart = await _context.ShopingCarts.FirstOrDefaultAsync(f => f.CartId == shopingCart.CartId);
+                var existedProductCard = await _context.ProductCards
+                    .FirstOrDefaultAsync(f => f.CartId == productCard.CartId);
 
-                if (existedShopingCart is null)
+                if (existedProductCard is null)
                 {
                     continue;
                 }
 
-                _context.Entry(existedShopingCart).State = EntityState.Modified;
+                _context.Entry(existedProductCard).State = EntityState.Modified;
 
-                existedShopingCart.DateCreated = shopingCart.DateCreated;
-                existedShopingCart.Quantity = shopingCart.Quantity;
+                existedProductCard.DateCreated = productCard.DateCreated;
+                existedProductCard.Quantity = productCard.Quantity;
             }
 
             await _context.SaveChangesAsync();
@@ -163,19 +164,19 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             return true;
         }
 
-        public async Task<bool> Add(ShopingCart shopingCart)
+        public async Task<bool> Add(ProductCard productCard)
         {
-            if (shopingCart is null)
+            if (productCard is null)
             {
-                throw new ArgumentNullException(nameof(shopingCart));
+                throw new ArgumentNullException(nameof(productCard));
             }
 
-            var newShopingCart = _mapper.Map<Core.CoreModels.ShopingCart, Entities.ShopingCart>(shopingCart);
+            var newProductCard = _mapper.Map<Core.CoreModels.ProductCard, Entities.ProductCard>(productCard);
 
-            newShopingCart.CartId = Guid.NewGuid();
-            newShopingCart.DateCreated = DateTime.Now;
+            newProductCard.CartId = Guid.NewGuid();
+            newProductCard.DateCreated = DateTime.Now;
 
-            var result = await _context.ShopingCarts.AddAsync(newShopingCart);
+            var result = await _context.ProductCards.AddAsync(newProductCard);
 
             if (result.State != EntityState.Added)
             {
@@ -187,21 +188,22 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             return true;
         }
 
-        public async Task<bool> Delete(Guid shopingCartId)
+        public async Task<bool> Delete(Guid productCardId)
         {
-            if (shopingCartId == Guid.Empty)
+            if (productCardId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(shopingCartId));
+                throw new ArgumentNullException(nameof(productCardId));
             }
 
-            var existedShopingCart = await _context.ShopingCarts.FirstOrDefaultAsync(f => f.CartId == shopingCartId);
+            var existedProductCard = await _context.ProductCards
+                .FirstOrDefaultAsync(f => f.CartId == productCardId);
 
-            if (existedShopingCart == null)
+            if (existedProductCard == null)
             {
-                throw new ArgumentNullException(nameof(existedShopingCart));
+                throw new ArgumentNullException(nameof(existedProductCard));
             }
 
-            var result = _context.Remove(existedShopingCart);
+            var result = _context.Remove(existedProductCard);
 
             if (result.State != EntityState.Deleted)
             {
@@ -223,13 +225,13 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var basket = await _context.Baskets
                 .SingleOrDefaultAsync(f => f.Id == userId);
 
-            var shopingCarts = await _context.ShopingCarts
+            var productCards = await _context.ProductCards
                 .Where(f => f.BasketId == basket.BasketId)
                 .ToArrayAsync();
 
-            foreach (var shopingCart in shopingCarts)
+            foreach (var productCard in productCards)
             {
-                _context.ShopingCarts.Remove(shopingCart);
+                _context.ProductCards.Remove(productCard);
             }
 
             await _context.SaveChangesAsync();
@@ -270,29 +272,29 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var existedShopingCart = await _context.ShopingCarts
+            var existedProductCard = await _context.ProductCards
                 .Where(f => f.BasketId == basket.BasketId)
                 .Include(f => f.Product.Category)
                 .FirstOrDefaultAsync(f => f.ProductId == productId);
 
-            if (existedShopingCart is null)
+            if (existedProductCard is null)
             {
-                var newShopingCart = new ShopingCart()
+                var newProductCard = new ProductCard()
                 {
                     Quantity = quantity,
                     ProductId = productId,
                     BasketId = basket.BasketId
                 };
 
-                return await Add(newShopingCart);
+                return await Add(newProductCard);
             }
             else
             {
-                existedShopingCart.Quantity += quantity;
+                existedProductCard.Quantity += quantity;
 
-                var existedShopingCartCore = _mapper.Map<Entities.ShopingCart, Core.CoreModels.ShopingCart>(existedShopingCart);
+                var existedProductCardCore = _mapper.Map<Entities.ProductCard, Core.CoreModels.ProductCard>(existedProductCard);
 
-                return await Update(existedShopingCartCore);
+                return await Update(existedProductCardCore);
             }
         }
     }
