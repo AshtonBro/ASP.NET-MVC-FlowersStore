@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Identity;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
 using FlowersStore.WebUI.Helpers;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -15,8 +16,8 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize]
     public class AuthController : Controller
     {
-        private readonly UserManager<DataAccess.MSSQL.Entities.User> _userManager;
-        private readonly SignInManager<DataAccess.MSSQL.Entities.User> _signInManager;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
         private readonly IBasketService _basketService;
         private readonly IMapper _mapper;
 
@@ -26,8 +27,8 @@ namespace FlowersStore.WebUI.Controllers
         }
 
         public AuthController(
-            UserManager<DataAccess.MSSQL.Entities.User> userManager,
-            SignInManager<DataAccess.MSSQL.Entities.User> signInManager,
+            UserManager<User> userManager,
+            SignInManager<User> signInManager,
             IBasketService basketService,
             IMapper mapper)
         {
@@ -83,7 +84,7 @@ namespace FlowersStore.WebUI.Controllers
                 return new JsonRedirect("The user is already registered.");
             }
 
-            var userRegistration = new DataAccess.MSSQL.Entities.User()
+            var newUser = new User()
             {
                 Id = Guid.NewGuid(),
                 UserName = model.SignUp.Name,
@@ -95,15 +96,15 @@ namespace FlowersStore.WebUI.Controllers
                 DateCreated = DateTime.Now
             };
 
-            var result = await _userManager.CreateAsync(userRegistration, model.SignUp.Password);
+            var result = await _userManager.CreateAsync(newUser, model.SignUp.Password);
 
             if (result.Succeeded)
             {
-                await _userManager.AddClaimAsync(userRegistration, new Claim(ClaimTypes.Role, ClaimPolicyMatch.USER));
+                await _userManager.AddClaimAsync(newUser, new Claim(ClaimTypes.Role, ClaimPolicyMatch.USER));
 
-                await _signInManager.PasswordSignInAsync(userRegistration, model.SignUp.Password, false, false);
+                await _signInManager.PasswordSignInAsync(newUser, model.SignUp.Password, false, false);
 
-                await _basketService.Create(userRegistration.Id);
+                await _basketService.Create(newUser.Id);
 
                 return new JsonRedirect(new Link(nameof(StoreController), nameof(StoreController.Index)));
             }

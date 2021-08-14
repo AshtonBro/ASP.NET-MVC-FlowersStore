@@ -3,9 +3,10 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
+using FlowersStore.DataAccess.MSSQL.Entities;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -14,30 +15,23 @@ namespace FlowersStore.WebUI.Controllers
     [Authorize(Policy = ClaimPolicyMatch.USER)]
     public class CheckoutController : Controller
     {
+        private readonly UserManager<User> _userManager;
         private readonly IShopingCartService _shopingCartservice;
-        private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
         public CheckoutController(
+            UserManager<User> userManager,
             IShopingCartService shopingCartservice,
-            IUserService userService,
             IMapper mapper)
         {
+            _userManager = userManager;
             _shopingCartservice = shopingCartservice;
-            _userService = userService;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> Index()
         {
-            var userNameContext = HttpContext.User.Identity.Name;
-
-            if (string.IsNullOrEmpty(userNameContext))
-            {
-                throw new ArgumentNullException(nameof(userNameContext));
-            }
-
-            var user = await _userService.Get(userNameContext);
+            var user = await _userManager.GetUserAsync(User);
 
             if (user is null)
             {

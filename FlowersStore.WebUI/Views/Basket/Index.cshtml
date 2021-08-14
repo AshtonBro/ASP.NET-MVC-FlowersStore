@@ -139,7 +139,7 @@
                     document.querySelector('.checkout-btn').disabled = false;
                     document.querySelector('.clear-btn').addEventListener("click", (e) => {
                         e.preventDefault();
-                        ajaxPost("/Basket/DeleteAllFromBasket?userName=" + "@Model.UserLogin", null, (callback) => {
+                        ajaxPost("/Basket/DeleteAllFromBasket", null, (callback) => {
                         showInfoBox(callback);
                         shopingCarts.forEach(cart => cart.remove());
                         document.getElementById("SumTotalBasket").innerText = 0;
