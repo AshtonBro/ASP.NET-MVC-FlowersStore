@@ -37,7 +37,7 @@ namespace FlowersStore.BusinessLogic
 
         public async Task<bool> Update(User user)
         {
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }

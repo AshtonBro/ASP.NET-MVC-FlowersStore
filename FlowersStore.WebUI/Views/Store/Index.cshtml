@@ -22,7 +22,7 @@
                 var price = @product.Price.ToString();
                 var trimPrice = decimal.Parse(price.Contains(',') ? price.TrimEnd('0') : price);
 
-                var productId = product.ProductId.ToString();
+                var productId = product.Id.ToString();
                 var quantityid = $"span_{productId}";
                 var button = "button_" + productId;
 

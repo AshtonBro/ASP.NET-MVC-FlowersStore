@@ -7,7 +7,7 @@ namespace FlowersStore.DataAccess.MSSQL
         public DataAccessMappingProfile()
         {
             CreateMap<Entities.Basket, Core.CoreModels.Basket>().ReverseMap();
-            CreateMap<Entities.ShopingCart, Core.CoreModels.ShopingCart>().ReverseMap();
+            CreateMap<Entities.ProductCard, Core.CoreModels.ProductCard>().ReverseMap();
             CreateMap<Entities.Product, Core.CoreModels.Product>().ReverseMap();
             CreateMap<Entities.Category, Core.CoreModels.Category>().ReverseMap();
             CreateMap<Entities.User, Core.CoreModels.User>().ReverseMap();

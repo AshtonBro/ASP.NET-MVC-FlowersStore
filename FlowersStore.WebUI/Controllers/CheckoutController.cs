@@ -16,16 +16,16 @@ namespace FlowersStore.WebUI.Controllers
     public class CheckoutController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly IShopingCartService _shopingCartservice;
+        private readonly IProductCardService _productCardservice;
         private readonly IMapper _mapper;
 
         public CheckoutController(
             UserManager<User> userManager,
-            IShopingCartService shopingCartservice,
+            IProductCardService productCardservice,
             IMapper mapper)
         {
             _userManager = userManager;
-            _shopingCartservice = shopingCartservice;
+            _productCardservice = productCardservice;
             _mapper = mapper;
         }
 
@@ -33,26 +33,26 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var shopingCarts = await _shopingCartservice.GetAllByUserId(user.Id);
+            var productCards = await _productCardservice.GetAllByUserId(user.Id);
 
-            if (shopingCarts is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var shopingCartsView = _mapper.Map<ICollection<Core.CoreModels.ShopingCart>, ICollection<ShopingCartViewModel>>(shopingCarts);
+            var productCardsView = _mapper.Map<ICollection<Core.CoreModels.ProductCard>, ICollection<ProductCardViewModel>>(productCards);
 
             var model = new CheckoutViewModel
             {
                 UserName = user.UserName,
                 Email = user.Email,
                 Phone = user.PhoneNumber,
-                ShopingCarts = shopingCartsView
+                ProductCards = productCardsView
             };
 
             return View("~/Views/Checkout/Index.cshtml", model);

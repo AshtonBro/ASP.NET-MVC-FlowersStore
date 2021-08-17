@@ -21,7 +21,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
         public async Task<bool> Add(Basket newBasket)
         {
-            if (newBasket is null)
+            if (newBasket == null)
             {
                 throw new ArgumentNullException(nameof(newBasket));
             }
@@ -48,15 +48,15 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-                    .Where(f => f.Id == userId)
+                    .Where(f => f.UserId == userId)
                     .FirstOrDefaultAsync();
               
-            var shopingCart = _context.ShopingCarts
-                    .Where(f => f.BasketId == basket.BasketId)
+            var productCards = _context.ProductCards
+                    .Where(f => f.BasketId == basket.Id)
                     .Include(f => f.Product.Category)
                     .ToArray();
 
-            basket.ShopingCarts = shopingCart;
+            basket.ProductCards = productCards;
 
             return _mapper.Map<Entities.Basket, Core.CoreModels.Basket>(basket);
         }
@@ -68,7 +68,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
   #1 why doesn't work include()?
     
     var basket = await _context.Baskets
-            .Include(f => f.ShopingCarts)
+            .Include(f => f.ProductCards)
             .Where(f => f.Id == userId)
             .FirstOrDefaultAsync();
 
@@ -79,16 +79,16 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 .Where(f => f.Id == userId)
                 .FirstOrDefaultAsync();
 
-    var shopingCart = _context.ShopingCarts
+    var productCards = _context.ProductCards
         .Where(f => f.BasketId == basket.BasketId)
         .Include(f => f.Product.Category)
         .ToArray();
 
-    basket.ShopingCarts = shopingCart;
+    basket.ProductCards = productCards;
 
  #3
  var baskets = from b in _context.Baskets
-                join sc in _context.ShopingCarts on b.BasketId equals sc.BasketId
+                join sc in _context.ProductCards on b.BasketId equals sc.BasketId
                 where b.Id == userId
                 select b;
  */

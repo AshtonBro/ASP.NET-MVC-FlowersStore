@@ -1,8 +1,9 @@
 ﻿using System;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FlowersStore.DataAccess.MSSQL.Entities;
 using FlowersStore.DataAccess.MSSQL.Configurations;
+using FlowersStore.DataAccess.MSSQL.SeedDb;
 
 namespace FlowersStore.DataAccess.MSSQL
 {
@@ -13,15 +14,22 @@ namespace FlowersStore.DataAccess.MSSQL
         }
 
         public override DbSet<User> Users { get; set; }
+
         public DbSet<Basket> Baskets { get; set; }
+
         public DbSet<Product> Products { get; set; }
-        public DbSet<ShopingCart> ShopingCarts { get; set; }
+
+        public DbSet<ProductCard> ProductCards { get; set; }
+
         public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new ShopingCartConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new BasketConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductCardConfiguration());
+            modelBuilder.ApplyConfiguration(new ProductConfiguration());
+            modelBuilder.ApplyConfiguration(new CategoryConfiguration());
 
             base.OnModelCreating(modelBuilder);
         }

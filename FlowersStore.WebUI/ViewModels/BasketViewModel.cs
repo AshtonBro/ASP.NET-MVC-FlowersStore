@@ -8,6 +8,6 @@ namespace FlowersStore.WebUI.ViewModels
 
         public string UserLogin { get; set; }
 
-        public ICollection<ShopingCartViewModel> ShopingCarts { get; set; }
+        public ICollection<ProductCardViewModel> ProductCards { get; set; }
     }
 }

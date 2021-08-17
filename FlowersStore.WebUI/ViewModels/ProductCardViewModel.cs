@@ -1,16 +1,17 @@
 ﻿using System;
+using FlowersStore.WebUI.Contracts;
 
-namespace FlowersStore.DataAccess.MSSQL.Entities
+namespace FlowersStore.WebUI.ViewModels
 {
-    public class ShopingCart
+    public class ProductCardViewModel
     {
-        public Guid CartId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid BasketId { get; set; }
 
         public Guid ProductId { get; set; }
 
-        public int Quantity { get; set; } = 0;
+        public int Quantity { get; set; }
 
         public DateTime DateCreated { get; set; }
 

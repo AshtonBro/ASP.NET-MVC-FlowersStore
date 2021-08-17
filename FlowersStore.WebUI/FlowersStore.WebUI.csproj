@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>1f3e2a04-0255-45a5-b4c1-3d2c623c3618</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,15 +20,18 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="5.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration" Version="5.0.2" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="5.0.2" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
-    <Folder Include="wwwroot\Image\Букеты\" />
-    <Folder Include="wwwroot\Image\Растения\" />
-    <Folder Include="wwwroot\Image\Тюльпаны\" />
-    <Folder Include="wwwroot\Image\Розы\" />
+    <Folder Include="wwwroot\Image\Store\Букеты\" />
+    <Folder Include="wwwroot\Image\Store\Растения\" />
+    <Folder Include="wwwroot\Image\Store\Тюльпаны\" />
+    <Folder Include="wwwroot\Image\Store\Розы\" />
   </ItemGroup>
 
   <ItemGroup>

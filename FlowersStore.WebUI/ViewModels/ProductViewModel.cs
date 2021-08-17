@@ -5,9 +5,7 @@ namespace FlowersStore.WebUI.ViewModels
 {
     public class ProductViewModel
     {
-        public Guid ProductId { get; set; }
-
-        public Guid CategoryId { get; set; }
+        public Guid Id { get; set; }
 
         public byte[] Image { get; set; }
 
@@ -18,6 +16,8 @@ namespace FlowersStore.WebUI.ViewModels
         public string Color { get; set; }
 
         public decimal Price { get; set; }
+
+        public Guid CategoryId { get; set; }
 
         public Category Category { get; set; }
     }

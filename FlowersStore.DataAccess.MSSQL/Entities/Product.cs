@@ -5,7 +5,7 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
 {
     public class Product
     {
-        public Guid ProductId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid CategoryId { get; set; }
 
@@ -21,6 +21,6 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
 
         public Category Category { get; set; }
 
-        public ICollection<ShopingCart> ShopingCarts { get; set; }
+        public ICollection<ProductCard> ProductCards { get; set; }
     }
 }

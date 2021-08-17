@@ -10,13 +10,15 @@ namespace FlowersStore.DataAccess.MSSQL.Configurations
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.Basket)
-                   .WithOne(x => x.User)
-                   .HasForeignKey<Basket>(x => x.Id);
-
             builder.HasIndex(x => x.Name)
                    .IsUnique();
 
+            builder.Property(x => x.Name).HasMaxLength(30);
+            builder.Property(x => x.SecondName).HasMaxLength(50);
+
+            builder.HasOne(x => x.Basket)
+                   .WithOne(x => x.User)
+                   .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

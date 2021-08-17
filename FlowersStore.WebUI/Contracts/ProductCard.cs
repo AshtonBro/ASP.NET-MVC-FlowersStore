@@ -1,16 +1,16 @@
 ﻿using System;
 
-namespace FlowersStore.Core.CoreModels
+namespace FlowersStore.WebUI.Contracts
 {
-    public class ShopingCart
+    public class ProductCard
     {
-        public Guid CartId { get; set; }
+        public Guid Id { get; set; }
 
         public Guid BasketId { get; set; }
 
         public Guid ProductId { get; set; }
 
-        public int Quantity { get; set; } = 0;
+        public int Quantity { get; set; }
 
         public DateTime DateCreated { get; set; }
 

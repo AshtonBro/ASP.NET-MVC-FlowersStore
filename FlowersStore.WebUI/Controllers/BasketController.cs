@@ -16,18 +16,18 @@ namespace FlowersStore.WebUI.Controllers
     public class BasketController : Controller
     {
         private readonly UserManager<User> _userManager;
-        private readonly IShopingCartService _shopingCartService;
+        private readonly IProductCardService _productCardService;
         private readonly IBasketService _basketService;
         private readonly IMapper _mapper;
 
         public BasketController(
             UserManager<User> userManager,
-            IShopingCartService shopingCartservice,
+            IProductCardService productCardservice,
             IBasketService basketService,
             IMapper mapper)
         {
             _userManager = userManager;
-            _shopingCartService = shopingCartservice;
+            _productCardService = productCardservice;
             _basketService = basketService;
             _mapper = mapper;
         }
@@ -36,38 +36,38 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
             var basket = await _basketService.Get(user.Name);
 
-            if (basket is null)
+            if (basket == null)
             {
                 throw new ArgumentNullException(nameof(basket));
             }
 
-            var shopingCartsView = _mapper.Map<ICollection<Core.CoreModels.ShopingCart>, ICollection<ShopingCartViewModel>>(basket.ShopingCarts);
+            var productCardsView = _mapper.Map<ICollection<Core.CoreModels.ProductCard>, ICollection<ProductCardViewModel>>(basket.ProductCards);
 
             var model = new BasketViewModel
             {
                 Name = basket.User.Name,
                 UserLogin = basket.User.UserName,
-                ShopingCarts = shopingCartsView
+                ProductCards = productCardsView
             };
 
             return View("~/Views/Basket/Index.cshtml", model);
         }
 
-        public async Task<JsonResult> DeleteFromBasket(Guid shopingCartId)
+        public async Task<JsonResult> DeleteFromBasket(Guid productCardId)
         {
-            if (shopingCartId == Guid.Empty)
+            if (productCardId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(shopingCartId));
+                throw new ArgumentNullException(nameof(productCardId));
             }
 
-            var result = await _shopingCartService.Delete(shopingCartId);
+            var result = await _productCardService.Delete(productCardId);
 
             if (!result)
             {
@@ -91,12 +91,12 @@ namespace FlowersStore.WebUI.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var result = await _shopingCartService.CreateOrUpdate(user.Name, productId, quantity);
+            var result = await _productCardService.CreateOrUpdate(user.Name, productId, quantity);
 
             if (!result)
             {
@@ -110,12 +110,12 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
-            var result = await _shopingCartService.DeleteAllByUserId(user.Id);
+            var result = await _productCardService.DeleteAllByUserId(user.Id);
 
             if (!result)
             {
@@ -125,11 +125,11 @@ namespace FlowersStore.WebUI.Controllers
             return new JsonResult(new { message = "Success." });
         }
 
-        public async Task<JsonResult> ChangeShopingCartQuantity(Guid shopingCartId, int quantity)
+        public async Task<JsonResult> ChangeProductCardQuantity(Guid productCardId, int quantity)
         {
-            if (shopingCartId == Guid.Empty)
+            if (productCardId == Guid.Empty)
             {
-                throw new ArgumentNullException(nameof(shopingCartId));
+                throw new ArgumentNullException(nameof(productCardId));
             }
 
             if (quantity < 0)
@@ -137,16 +137,16 @@ namespace FlowersStore.WebUI.Controllers
                 throw new ArgumentNullException(nameof(quantity));
             }
 
-            var exisingShopingCart = await _shopingCartService.Get(shopingCartId);
+            var exisingProductCard = await _productCardService.Get(productCardId);
 
-            if (exisingShopingCart is null)
+            if (exisingProductCard == null)
             {
-                throw new ArgumentNullException(nameof(exisingShopingCart));
+                throw new ArgumentNullException(nameof(exisingProductCard));
             }
 
-            exisingShopingCart.Quantity = quantity;
+            exisingProductCard.Quantity = quantity;
 
-            var result = await _shopingCartService.Update(exisingShopingCart);
+            var result = await _productCardService.Update(exisingProductCard);
 
             if (!result)
             {
