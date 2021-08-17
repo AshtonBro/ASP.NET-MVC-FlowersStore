@@ -5,7 +5,7 @@ namespace FlowersStore.DataAccess.MSSQL.Entities
 {
     public class Category
     {
-        public Guid CategoryId { get; set; }
+        public Guid Id { get; set; }
 
         public string FlowersType { get; set; }
 

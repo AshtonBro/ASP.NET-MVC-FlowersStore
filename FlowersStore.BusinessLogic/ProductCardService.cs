@@ -18,7 +18,7 @@ namespace FlowersStore.BusinessLogic
 
         public async Task<bool> Create(ProductCard productCard)
         {
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -55,7 +55,7 @@ namespace FlowersStore.BusinessLogic
 
             var productCard = await _productCardRepository.Get(productCardId);
 
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -77,7 +77,7 @@ namespace FlowersStore.BusinessLogic
 
             var productCards = await _productCardRepository.GetAllByUserId(userId);
 
-            if (productCards is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(productCards));
             }
@@ -94,7 +94,7 @@ namespace FlowersStore.BusinessLogic
 
             var productCard = await _productCardRepository.GetByUserId(userId);
 
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -104,7 +104,7 @@ namespace FlowersStore.BusinessLogic
 
         public async Task<bool> Update(ProductCard productCard)
         {
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -114,7 +114,7 @@ namespace FlowersStore.BusinessLogic
 
         public async Task<bool> UpdateAll(ICollection<ProductCard> productCards)
         {
-            if (productCards is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(productCards));
             }

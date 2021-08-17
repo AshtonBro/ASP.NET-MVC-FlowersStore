@@ -26,8 +26,8 @@ namespace FlowersStore.BusinessLogic
 
             Basket newBasket = new Basket()
             {
-                Id = userId,
-                BasketId = Guid.NewGuid(),
+                Id = Guid.NewGuid(),
+                UserId = userId,
                 DateCreated = DateTime.Now
             };
 
@@ -43,7 +43,7 @@ namespace FlowersStore.BusinessLogic
 
             var user = await _userService.Get(userNameContext);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }

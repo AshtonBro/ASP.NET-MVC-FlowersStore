@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,7 +13,6 @@ using FlowersStore.Core.Services;
 using FlowersStore.BusinessLogic;
 using FlowersStore.Core.Repositories;
 using FlowersStore.DataAccess.MSSQL.Repositories;
-using System;
 
 namespace FlowersStore.WebUI
 {
@@ -113,6 +113,10 @@ namespace FlowersStore.WebUI
             app.UseAuthentication();
 
             app.UseAuthorization();
+
+            app.ApplicationServices.InitializeDefaultAdmin(Configuration);
+
+            app.ApplicationServices.InitializeDBdata();
 
             app.UseEndpoints(endpoints =>
             {

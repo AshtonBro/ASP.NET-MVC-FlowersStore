@@ -1,5 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System;
+﻿using System;
+using Microsoft.AspNetCore.Identity;
 
 namespace FlowersStore.WebUI.Contracts
 {

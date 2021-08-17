@@ -33,14 +33,14 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
             var products = await _productService.Get();
 
-            if (products is null)
+            if (products == null)
             {
                 throw new ArgumentNullException(nameof(products));
             }

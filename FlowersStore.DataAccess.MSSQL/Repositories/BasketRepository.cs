@@ -21,7 +21,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
         public async Task<bool> Add(Basket newBasket)
         {
-            if (newBasket is null)
+            if (newBasket == null)
             {
                 throw new ArgumentNullException(nameof(newBasket));
             }
@@ -48,11 +48,11 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-                    .Where(f => f.Id == userId)
+                    .Where(f => f.UserId == userId)
                     .FirstOrDefaultAsync();
               
             var productCards = _context.ProductCards
-                    .Where(f => f.BasketId == basket.BasketId)
+                    .Where(f => f.BasketId == basket.Id)
                     .Include(f => f.Product.Category)
                     .ToArray();
 

@@ -36,14 +36,14 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
             var basket = await _basketService.Get(user.Name);
 
-            if (basket is null)
+            if (basket == null)
             {
                 throw new ArgumentNullException(nameof(basket));
             }
@@ -91,7 +91,7 @@ namespace FlowersStore.WebUI.Controllers
 
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -110,7 +110,7 @@ namespace FlowersStore.WebUI.Controllers
         {
             var user = await _userManager.GetUserAsync(User);
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -139,7 +139,7 @@ namespace FlowersStore.WebUI.Controllers
 
             var exisingProductCard = await _productCardService.Get(productCardId);
 
-            if (exisingProductCard is null)
+            if (exisingProductCard == null)
             {
                 throw new ArgumentNullException(nameof(exisingProductCard));
             }

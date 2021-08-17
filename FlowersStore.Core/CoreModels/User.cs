@@ -20,6 +20,7 @@ namespace FlowersStore.Core.CoreModels
 
         public Basket Basket { get; set; }
 
-        public DateTime DateCreated { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public DateTime UpdatedDate { get; set; }
     }
 }

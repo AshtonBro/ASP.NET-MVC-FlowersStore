@@ -42,7 +42,7 @@
                         var quantityId = cart.ProductId;
                         var buttonDeleteId = "button_" + buttonId;
                         var buttonClearBasket = "Clear_" + buttonId;
-                        var cartId = cart.CartId.ToString();
+                        var cartId = cart.Id.ToString();
 
                         var minusBtn = buttonId + "_M";
                         var quantityBasket = buttonId + "_Q";
@@ -77,11 +77,11 @@
                                     <script>
                                         document.getElementById("@plusBtn").addEventListener("click", (e) => {
                                             let quantity = document.getElementById("@quantityBasket").innerText;
-                                            ajaxPost("/Basket/ChangeProductCardQuantity?productCardId=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                            ajaxPost("/Basket/ChangeProductCardQuantity?productCardId=" + "@cart.Id" + "&quantity=" + quantity, null, (callback) => {});
                                         });
                                         document.getElementById("@minusBtn").addEventListener("click", (e) => {
                                             let quantity = document.getElementById("@quantityBasket").innerText;
-                                            ajaxPost("/Basket/ChangeProductCardQuantity?productCardId=" + "@cart.CartId" + "&quantity=" + quantity, null, (callback) => {});
+                                            ajaxPost("/Basket/ChangeProductCardQuantity?productCardId=" + "@cart.Id" + "&quantity=" + quantity, null, (callback) => {});
                                         });
                                         document.getElementById("@buttonDeleteId").addEventListener("click", (e) => {
                                             e.preventDefault();

@@ -5,7 +5,7 @@ namespace FlowersStore.Core.CoreModels
 {
     public class Category
     {
-        public Guid CategoryId { get; set; }
+        public Guid Id { get; set; }
 
         public string FlowersType { get; set; }
 

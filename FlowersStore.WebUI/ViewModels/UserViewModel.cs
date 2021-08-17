@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FlowersStore.WebUI.ViewModels
+﻿namespace FlowersStore.WebUI.ViewModels
 {
     public class UserViewModel
     {

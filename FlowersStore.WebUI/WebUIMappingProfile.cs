@@ -15,6 +15,7 @@ namespace FlowersStore.WebUI
             CreateMap<Core.CoreModels.Category, Contracts.Category>().ReverseMap();
             CreateMap<Core.CoreModels.User, Contracts.User>().ReverseMap();
             CreateMap<Core.CoreModels.User, DataAccess.MSSQL.Entities.User>().ReverseMap();
+            CreateMap<Core.CoreModels.Basket, Contracts.Basket>().ReverseMap();
         }
     }
 }

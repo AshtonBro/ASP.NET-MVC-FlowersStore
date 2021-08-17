@@ -29,9 +29,9 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
             var productCard = await _context.ProductCards
                 .Include(f => f.Product.Category)
-                .FirstOrDefaultAsync(f => f.CartId == productCardId);
+                .FirstOrDefaultAsync(f => f.Id == productCardId);
 
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -45,7 +45,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
                 .Include(f => f.Product.Category)
                 .ToArrayAsync();
 
-            if (productCards is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(productCards));
             }
@@ -61,19 +61,19 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-                .FirstOrDefaultAsync(f => f.Id == userId);
+                .FirstOrDefaultAsync(f => f.UserId == userId);
 
-            if (basket is null)
+            if (basket == null)
             {
                 throw new ArgumentNullException(nameof(basket));
             }
 
             var productCard = await _context.ProductCards
-                .Where(f => f.BasketId == basket.BasketId)
+                .Where(f => f.BasketId == basket.Id)
                 .Include(f => f.Product.Category)
                 .FirstOrDefaultAsync();
 
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
@@ -89,19 +89,19 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-                .FirstOrDefaultAsync(f => f.Id == userId);
+                .FirstOrDefaultAsync(f => f.UserId == userId);
 
-            if (basket is null)
+            if (basket == null)
             {
                 throw new ArgumentNullException(nameof(basket));
             }
 
             var productCards = await _context.ProductCards
-                .Where(f => f.BasketId == basket.BasketId)
+                .Where(f => f.BasketId == basket.Id)
                 .Include(f => f.Product.Category)
                 .ToArrayAsync();
 
-            if (productCards is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(productCards));
             }
@@ -112,15 +112,15 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
         public async Task<bool> Update(ProductCard productCard)
         {
 
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
 
             var existedProductCard = await _context.ProductCards
-                .FirstOrDefaultAsync(f => f.CartId == productCard.CartId);
+                .FirstOrDefaultAsync(f => f.Id == productCard.Id);
 
-            if (existedProductCard is null)
+            if (existedProductCard == null)
             {
                 throw new ArgumentNullException(nameof(existedProductCard));
             }
@@ -138,7 +138,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
         public async Task<bool> UpdateAll(ICollection<ProductCard> productCards)
         {
 
-            if (productCards is null)
+            if (productCards == null)
             {
                 throw new ArgumentNullException(nameof(productCards));
             }
@@ -146,9 +146,9 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             foreach (var productCard in productCards)
             {
                 var existedProductCard = await _context.ProductCards
-                    .FirstOrDefaultAsync(f => f.CartId == productCard.CartId);
+                    .FirstOrDefaultAsync(f => f.Id == productCard.Id);
 
-                if (existedProductCard is null)
+                if (existedProductCard == null)
                 {
                     continue;
                 }
@@ -166,14 +166,14 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
         public async Task<bool> Add(ProductCard productCard)
         {
-            if (productCard is null)
+            if (productCard == null)
             {
                 throw new ArgumentNullException(nameof(productCard));
             }
 
             var newProductCard = _mapper.Map<Core.CoreModels.ProductCard, Entities.ProductCard>(productCard);
 
-            newProductCard.CartId = Guid.NewGuid();
+            newProductCard.Id = Guid.NewGuid();
             newProductCard.DateCreated = DateTime.Now;
 
             var result = await _context.ProductCards.AddAsync(newProductCard);
@@ -196,7 +196,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var existedProductCard = await _context.ProductCards
-                .FirstOrDefaultAsync(f => f.CartId == productCardId);
+                .FirstOrDefaultAsync(f => f.Id == productCardId);
 
             if (existedProductCard == null)
             {
@@ -223,10 +223,10 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             }
 
             var basket = await _context.Baskets
-                .SingleOrDefaultAsync(f => f.Id == userId);
+                .SingleOrDefaultAsync(f => f.UserId == userId);
 
             var productCards = await _context.ProductCards
-                .Where(f => f.BasketId == basket.BasketId)
+                .Where(f => f.BasketId == basket.Id)
                 .ToArrayAsync();
 
             foreach (var productCard in productCards)
@@ -259,31 +259,31 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var user = await _context.Users
                 .FirstOrDefaultAsync(f => f.UserName == userNameContext.ToUpper());
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
             var basket = await _context.Baskets
-                 .FirstOrDefaultAsync(f => f.Id == user.Id);
+                 .FirstOrDefaultAsync(f => f.UserId == user.Id);
 
-            if (basket is null)
+            if (basket == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
 
             var existedProductCard = await _context.ProductCards
-                .Where(f => f.BasketId == basket.BasketId)
+                .Where(f => f.BasketId == basket.Id)
                 .Include(f => f.Product.Category)
                 .FirstOrDefaultAsync(f => f.ProductId == productId);
 
-            if (existedProductCard is null)
+            if (existedProductCard == null)
             {
                 var newProductCard = new ProductCard()
                 {
                     Quantity = quantity,
                     ProductId = productId,
-                    BasketId = basket.BasketId
+                    BasketId = basket.Id
                 };
 
                 return await Add(newProductCard);

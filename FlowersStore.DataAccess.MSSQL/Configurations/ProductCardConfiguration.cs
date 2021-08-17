@@ -8,7 +8,7 @@ namespace FlowersStore.DataAccess.MSSQL.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductCard> builder)
         {
-            builder.HasKey(x => x.CartId);
+            builder.HasKey(x => x.Id);
 
             builder.HasIndex(p => new { p.BasketId, p.ProductId })
                    .IsUnique();
@@ -16,6 +16,7 @@ namespace FlowersStore.DataAccess.MSSQL.Configurations
             builder.HasOne(x => x.Basket)
                 .WithMany(x => x.ProductCards)
                 .OnDelete(DeleteBehavior.NoAction)
+                .HasForeignKey(x => x.BasketId)
                 .IsRequired();
 
             builder.HasOne(x => x.Product)

@@ -23,7 +23,7 @@
     <form class="container-modal__form container-modal--signin" id="@frmId" method="post" enctype="multipart/form-data">
         <div class="form form2">
             <h2 class="form__title">Login</h2>
-            <input asp-for="SignIn.Name" class="input-form-control" placeholder="UserName" id="nametxt" type="text" />
+            <input asp-for="SignIn.Name" class="input-form-control" placeholder="Name" id="nametxt" type="text" />
             <input asp-for="SignIn.Password" class="input-form-control" placeholder="Password" id="passwordtxt" type="password" />
             <div>
                 <label id="@msgId" class="alert-danger m-1"></label>
@@ -36,9 +36,9 @@
     <form class="container-modal__form container-modal--signup" id="@frmIdR" method="post" enctype="multipart/form-data">
         <div class="form form1">
             <h2 class="form__title">Registration</h2>
-            <input asp-for="SignUp.Name" type="text" placeholder="UserName" class="input-form-control" />
-            <input asp-for="SignUp.SecondName" type="text" placeholder="SecondName" class="input-form-control" />
-            <input asp-for="SignUp.Phone" type="tel" placeholder="Phone" class="input-form-control" />
+            <input asp-for="SignUp.Name" type="text" placeholder="Name" class="input-form-control" />
+            <input asp-for="SignUp.SecondName" type="text" placeholder="Second Name" class="input-form-control" />
+            <input asp-for="SignUp.PhoneNumber" type="tel" placeholder="Phone" class="input-form-control" />
             <input asp-for="SignUp.Email" type="email" placeholder="Email" class="input-form-control" />
             <input asp-for="SignUp.Password" type="password" placeholder="Password" class="input-form-control" />
             <input asp-for="SignUp.ConfirmPassword" type="password" placeholder="Confirm password" class="input-form-control" />

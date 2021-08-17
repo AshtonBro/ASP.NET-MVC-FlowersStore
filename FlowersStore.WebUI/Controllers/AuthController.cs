@@ -90,10 +90,11 @@ namespace FlowersStore.WebUI.Controllers
                 UserName = model.SignUp.Name,
                 Name = model.SignUp.Name,
                 SecondName = model.SignUp.SecondName,
-                PhoneNumber = model.SignUp.Phone,
+                PhoneNumber = model.SignUp.PhoneNumber,
                 Email = model.SignUp.Email,
                 PasswordHash = model.SignUp.Password,
-                DateCreated = DateTime.Now
+                CreatedDate = DateTime.Now,
+                UpdatedDate = DateTime.Now
             };
 
             var result = await _userManager.CreateAsync(newUser, model.SignUp.Password);

@@ -28,7 +28,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var user = await _context.Users
                 .FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -46,7 +46,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var user = await _context.Users
                 .FirstOrDefaultAsync(f => f.NormalizedUserName == userNameContext.ToUpper());
 
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -54,7 +54,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var UserClaims = await _context.UserClaims
                 .FirstOrDefaultAsync(f => f.UserId == user.Id);
 
-            if (UserClaims is null)
+            if (UserClaims == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -64,7 +64,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
 
         public async Task<bool> Update(User user)
         {
-            if (user is null)
+            if (user == null)
             {
                 throw new ArgumentNullException(nameof(user));
             }
@@ -72,7 +72,7 @@ namespace FlowersStore.DataAccess.MSSQL.Repositories
             var exsistedUser = await _context.Users
                 .FirstOrDefaultAsync(f => f.Id == user.Id);
 
-            if (exsistedUser is null)
+            if (exsistedUser == null)
             {
                 throw new ArgumentNullException(nameof(exsistedUser));
             }
