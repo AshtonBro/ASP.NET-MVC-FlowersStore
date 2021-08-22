@@ -1,11 +1,11 @@
 # Flowers Store <img src="https://raw.githubusercontent.com/AshtonBro/ASP.NET-MVC-FlowersStore/44007b3d12a97d91126dfc74e29a15106754f296/FlowersStore.WebUI/wwwroot/Image/accessdeniedfl.svg" alt="logo" width="30" height="30">
      
-Flowers Store is an online store project, written for practice and development of key skills in developing .Net applications. Suitable for Full Stack developers. 
+<p text-align: justify;> Flowers Store is an online store project, written for practice and development of key skills in developing .Net applications. Suitable for Full Stack developers. 
 The project uses the MVC pattern to separate the user interface, data and business logic of the application, and also has a layered architecture. 
 The user interface pages are written in cshtml, the page is animated using JS, and an additional request handler is implemented in C # in conjunction with AJAX.
 The DataAccess layer uses Ms Sql, working with models is implemented using Entity Framework Core, but the database can be easily changed if necessary.
 Used by AutoMapper to work correctly with models. ASP.NET Core Identity is configured for authorization in the system. The project is being developed and supplemented
-with new features.
+with new features.</p>
 
 ## 
 <p align="center"><b>Home Page</b></p>
@@ -75,12 +75,13 @@ with new features.
   
    <img src="http://dl3.joxi.net/drive/2021/08/18/0023/3726/1527438/38/2bccb95eab.jpg" width="450">
  
-    Fill the secrets.json file.
+    Fill the secrets.json file or edit appsettings.json
     ```
     {
       "AdminConfig": {
         "Name": "***",
         "Email": "***",
+        "ClaimPolicy": "Administrator",
         "Password": "***"
       }
     } 
