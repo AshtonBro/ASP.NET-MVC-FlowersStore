@@ -1,4 +1,4 @@
-﻿@model FlowersStore.WebUI.ViewModels.ProfileViewModel
+﻿@model FlowersStore.WebUI.ViewModels.UserViewModel
 @using FlowersStore.WebUI.Controllers
 
 @{
@@ -76,12 +76,12 @@
 
 <script>
     document.getElementById('@btnId').addEventListener('click', (e) => {
-        dialogPost(e, '@key', '@(new Link(nameof(ProfileController), nameof(ProfileController.UpdateUserModel)).ToString())');
+        dialogPost(e, '@key', '@(new Link(nameof(UserController), nameof(UserController.UpdateUserModel)).ToString())');
 
-        document.getElementById('@msgId').style.backgroundColor = '#58c455';
+        document.getElementById('@msgId').style.backgroundColor = '#f8d7da';
             setTimeout(() => {
-                if (document.getElementById('@msgId').innerText.includes('No')) {
-                    document.getElementById('@msgId').style.backgroundColor = '#f8d7da';
+                if (document.getElementById('@msgId').innerText.includes('successfully')) {
+                    document.getElementById('@msgId').style.backgroundColor = '#58c455';
                 }
             }, 400);
     });

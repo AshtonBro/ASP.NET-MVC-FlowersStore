@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using FlowersStore.DataAccess.MSSQL.Entities;
 using FlowersStore.DataAccess.MSSQL.Configurations;
-using FlowersStore.DataAccess.MSSQL.SeedDb;
 
 namespace FlowersStore.DataAccess.MSSQL
 {

@@ -7,6 +7,8 @@ namespace FlowersStore.WebUI
     {
         public WebUIMappingProfile()
         {
+            CreateMap<AuthViewModel.SignUpModel, UserViewModel>();
+
             CreateMap<Core.CoreModels.ProductCard, ProductCardViewModel>();
             CreateMap<Core.CoreModels.Product, ProductViewModel>();
 

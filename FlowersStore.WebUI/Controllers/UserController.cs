@@ -7,25 +7,30 @@ using Microsoft.AspNetCore.Mvc;
 using FlowersStore.WebUI.Helpers;
 using FlowersStore.WebUI.ViewModels;
 using FlowersStore.DataAccess.MSSQL.Entities;
+using FlowersStore.WebUI.Validators;
+using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
 {
     [Authorize]
     [Authorize(Policy = ClaimPolicyMatch.USER)]
-    public class ProfileController : Controller
+    public class UserController : Controller
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
-        public ProfileController(
+        public UserController(
             UserManager<User> userManager,
-            SignInManager<User> signInManager)
+            SignInManager<User> signInManager,
+            IMapper mapper)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
-        public async Task<IActionResult> Index(ProfileViewModel model)
+        public async Task<IActionResult> Index(UserViewModel model)
         {
             var user = await _userManager.GetUserAsync(User);
 
@@ -53,13 +58,20 @@ namespace FlowersStore.WebUI.Controllers
             return View(model);
         }
 
-        public async Task<JsonRedirect> UpdateUserModel(ProfileViewModel model)
+        public async Task<JsonRedirect> UpdateUserModel(AuthViewModel.SignUpModel model)
         {
-            if (!ModelState.IsValid)
+            var _validations = new AuthSignUpModelValidator();
+
+            var results = _validations.Validate(model);
+
+            if (!results.IsValid)
             {
-                var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
-                return new JsonRedirect(error.ErrorMessage);
+                var failure = results.Errors.FirstOrDefault();
+
+                return new JsonRedirect(failure.ErrorMessage);
             }
+
+            var userViewModel = _mapper.Map<AuthViewModel.SignUpModel, UserViewModel>(model);
 
             var user = await _userManager.GetUserAsync(User);
 
@@ -68,31 +80,40 @@ namespace FlowersStore.WebUI.Controllers
                 throw new ArgumentNullException(nameof(user));
             }
 
-            if (user.Name != model.Name
-                || user.SecondName != model.SecondName
-                || user.Email != model.Email
-                || user.PhoneNumber != model.PhoneNumber)
+            if (user.Name != userViewModel.Name
+                || user.SecondName != userViewModel.SecondName
+                || user.Email != userViewModel.Email
+                || user.PhoneNumber != userViewModel.PhoneNumber)
             {
-                var passwordHashNew = _userManager.PasswordHasher.HashPassword(user, model.Password);
+                var passwordHashNew = _userManager.PasswordHasher.HashPassword(user, userViewModel.Password);
 
-                user.Name = model.Name;
-                user.NormalizedUserName = model.Name.ToUpper();
-                user.UserName = model.Name;
-                user.SecondName = model.SecondName;
-                user.PhoneNumber = model.PhoneNumber;
-                user.Email = model.Email;
-                user.NormalizedEmail = model.Email.ToUpper();
+                user.Name = userViewModel.Name;
+                user.NormalizedUserName = userViewModel.Name.ToUpper();
+                user.UserName = userViewModel.Name;
+                user.SecondName = userViewModel.SecondName;
+                user.PhoneNumber = userViewModel.PhoneNumber;
+                user.Email = userViewModel.Email;
+                user.NormalizedEmail = userViewModel.Email.ToUpper();
                 user.PasswordHash = passwordHashNew;
                 user.UpdatedDate = DateTime.Now;
 
-                var updatedUser = await _userManager.UpdateAsync(user);
+                var updateResult = await _userManager.UpdateAsync(user);
+
+                if (!updateResult.Succeeded)
+                {
+                    var failure = updateResult.Errors.FirstOrDefault().Description;
+
+                    return new JsonRedirect(failure);
+                }
 
                 await _signInManager.RefreshSignInAsync(user);
 
                 return new JsonRedirect("The user has been updated successfully.");
             }
-
-            return new JsonRedirect("No changes in the fields.");
+            else
+            {
+                return new JsonRedirect("No changes in the fields.");
+            }
         }
     }
 }

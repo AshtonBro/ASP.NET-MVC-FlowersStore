@@ -49,7 +49,7 @@
                     </svg>
                 </div>
 
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FLOWER<span class="logo-span">STORE</span></a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">FLOWERS <span class="logo-span">STORE</span></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -87,7 +87,7 @@
                                         @{
                                             if (userRole == ClaimPolicyMatch.USER)
                                             {
-                                                <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(ProfileController), nameof(ProfileController.Index))'">Profile</a></li>
+                                                <li class="btnClick nav-dropdown-item"><a class="profile-btn-userProfile" onclick="window.location.href='@Link.ToString(nameof(UserController), nameof(UserController.Index))'">Profile</a></li>
 
                                             }
                                         }
@@ -183,7 +183,7 @@
                     </svg>
                 </div>
                 <div class="footer-info">
-                    &copy; 2020 - FLOWER<span class="logo-span">STORE</span> - <a class="btnClick" style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                    &copy; 2020 - FLOWERS <span class="logo-span">STORE</span> - <a class="btnClick" style="text-decoration: none;" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                 </div>
             </div>
         </div>

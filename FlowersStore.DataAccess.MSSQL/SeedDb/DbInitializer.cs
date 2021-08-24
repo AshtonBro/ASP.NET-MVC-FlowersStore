@@ -2,17 +2,24 @@
 using System.IO;
 using System.Linq;
 using System.Collections.Generic;
-using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Options;
+using Microsoft.Extensions.DependencyInjection;
 using FlowersStore.DataAccess.MSSQL.Entities;
+using FlowersStore.Core.Services;
 
 namespace FlowersStore.DataAccess.MSSQL.SeedDb
 {
-    public static class SeedingRelatedData
+    public static class DbInitializer
     {
-        public static void Seed(FlowersStoreDbContext context)
+        public static async void SeedData(this IServiceCollection services)
         {
+            var scope = services.BuildServiceProvider().CreateScope();
 
-            if (!(context.Categories.Any() & context.Products.Any()))
+            var _context = scope.ServiceProvider.GetService<FlowersStoreDbContext>();
+
+            if (!(_context.Categories.Any() & _context.Products.Any()))
             {
                 var categories = new Category[]
                 {
@@ -101,10 +108,67 @@ namespace FlowersStore.DataAccess.MSSQL.SeedDb
                     }
                 }
 
-                context.AddRange(categories);
-                context.AddRange(products);
+                await _context.AddRangeAsync(categories);
+                await _context.AddRangeAsync(products);
+                await _context.SaveChangesAsync();
+            }
+        }
 
-                context.SaveChanges();
+        public static async void SeedAdmin(this IServiceCollection services)
+        {
+            var scope = services.BuildServiceProvider().CreateScope();
+
+            var userManager = scope.ServiceProvider.GetService<UserManager<User>>();
+
+            if (userManager == null)
+            {
+                throw new ArgumentNullException(nameof(userManager));
+            }
+
+            var basketService = scope.ServiceProvider.GetService<IBasketService>();
+
+            if (basketService == null)
+            {
+                throw new ArgumentNullException(nameof(basketService));
+            }
+
+            var adminConfig = scope.ServiceProvider.GetService<IOptions<AdminConfig>>().Value;
+
+            if (adminConfig.Password == null)
+            {
+                return;
+            }
+
+            var admin = await userManager.FindByEmailAsync(adminConfig.Email);
+
+            if (admin == null)
+            {
+                //Create the default Admin account
+                var userAdmin = new User()
+                {
+                    Id = Guid.NewGuid(),
+                    Name = adminConfig.Name,
+                    UserName = adminConfig.Name,
+                    Email = adminConfig.Email,
+                    PasswordHash = adminConfig.Password,
+                    CreatedDate = DateTime.Now,
+                    UpdatedDate = DateTime.Now
+                };
+
+                var result = await userManager.CreateAsync(userAdmin, userAdmin.PasswordHash);
+
+                if (result.Succeeded)
+                {
+                    await userManager.AddClaimAsync(userAdmin, new Claim(ClaimTypes.Role, adminConfig.ClaimPolicy));
+
+                    await basketService.Create(userAdmin.Id);
+                }
+                else
+                {
+                    var error = result.Errors.FirstOrDefault().Description;
+
+                    throw new ArgumentException(error);
+                }
             }
         }
     }

@@ -9,6 +9,7 @@ using FlowersStore.Core.Services;
 using FlowersStore.WebUI.ViewModels;
 using FlowersStore.WebUI.Helpers;
 using FlowersStore.DataAccess.MSSQL.Entities;
+using FlowersStore.WebUI.Validators;
 using AutoMapper;
 
 namespace FlowersStore.WebUI.Controllers
@@ -20,11 +21,6 @@ namespace FlowersStore.WebUI.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IBasketService _basketService;
         private readonly IMapper _mapper;
-
-        public IActionResult Index()
-        {
-            return View();
-        }
 
         public AuthController(
             UserManager<User> userManager,
@@ -38,15 +34,24 @@ namespace FlowersStore.WebUI.Controllers
             _mapper = mapper;
         }
 
+        public IActionResult Index()
+        {
+            return View();
+        }
+
         //[HttpPost("login")]
         [AllowAnonymous]
         public async Task<JsonRedirect> SignIn(AuthViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
+            var _validations = new AuthSignInModelValidator();
 
-                return new JsonRedirect(error.ErrorMessage);
+            var results = _validations.Validate(model.SignIn);
+
+            if (!results.IsValid)
+            {
+                var failure = results.Errors.FirstOrDefault();
+
+                return new JsonRedirect(failure.ErrorMessage);
             }
 
             var user = await _userManager.FindByNameAsync(model.SignIn.Name);
@@ -70,11 +75,15 @@ namespace FlowersStore.WebUI.Controllers
         [AllowAnonymous]
         public async Task<JsonRedirect> SignUp(AuthViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                var error = ModelState.Values.FirstOrDefault(f => f.Errors.Count > 0).Errors.FirstOrDefault();
+            var _validations = new AuthSignUpModelValidator();
 
-                return new JsonRedirect(error.ErrorMessage);
+            var results = _validations.Validate(model.SignUp);
+
+            if (!results.IsValid)
+            {
+                var failure = results.Errors.FirstOrDefault();
+
+                return new JsonRedirect(failure.ErrorMessage);
             }
 
             var user = await _userManager.FindByNameAsync(model.SignUp.Name);

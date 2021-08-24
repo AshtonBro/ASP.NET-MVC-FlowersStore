@@ -13,6 +13,7 @@ using FlowersStore.Core.Services;
 using FlowersStore.BusinessLogic;
 using FlowersStore.Core.Repositories;
 using FlowersStore.DataAccess.MSSQL.Repositories;
+using FlowersStore.DataAccess.MSSQL.SeedDb;
 
 namespace FlowersStore.WebUI
 {
@@ -34,6 +35,8 @@ namespace FlowersStore.WebUI
                 cfg.AddProfile<DataAccessMappingProfile>();
             });
 
+            services.Configure<AdminConfig>(Configuration.GetSection("AdminConfig"));
+
             services.AddHttpContextAccessor();
 
             services.AddControllersWithViews();
@@ -41,15 +44,13 @@ namespace FlowersStore.WebUI
             services.AddDbContext<FlowersStoreDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("FlowersStoreDbContext"));
-
-            }).AddIdentity<User, UserRole>(config => 
+            })
+            .AddIdentity<User, UserRole>(config => 
             {
                 config.Password.RequireLowercase = false;
                 config.Password.RequireNonAlphanumeric = false;
-
             })
             .AddEntityFrameworkStores<FlowersStoreDbContext>()
-
             .AddDefaultTokenProviders();
 
             services.ConfigureApplicationCookie(config =>
@@ -89,6 +90,9 @@ namespace FlowersStore.WebUI
             services.AddScoped<IProductRepository, ProductRepository>();
             services.AddScoped<IBasketService, BasketService>();
             services.AddScoped<IBasketRepository, BasketRepository>();
+
+            services.SeedData();
+            services.SeedAdmin();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -104,6 +108,7 @@ namespace FlowersStore.WebUI
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
             app.UseHttpsRedirection();
 
             app.UseStaticFiles();
@@ -113,10 +118,6 @@ namespace FlowersStore.WebUI
             app.UseAuthentication();
 
             app.UseAuthorization();
-
-            app.ApplicationServices.InitializeDefaultAdmin(Configuration);
-
-            app.ApplicationServices.InitializeDBdata();
 
             app.UseEndpoints(endpoints =>
             {

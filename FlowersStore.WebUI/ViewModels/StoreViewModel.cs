@@ -5,8 +5,7 @@ namespace FlowersStore.WebUI.ViewModels
     public class StoreViewModel
     {
         public string UserName { get; set; }
-        public ICollection<ProductViewModel> Products { get; set; }
 
-        // Filtration
+        public ICollection<ProductViewModel> Products { get; set; }
     }
 }
