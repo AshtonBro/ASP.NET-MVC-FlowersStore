@@ -4,13 +4,22 @@
 The project uses the MVC pattern to separate the user interface, data and business logic of the application, and also has a layered architecture. 
 The user interface pages are written in cshtml, the page is animated using JS, and an additional request handler is implemented in C # in conjunction with AJAX.
 The DataAccess layer uses Ms Sql, working with models is implemented using Entity Framework Core, but the database can be easily changed if necessary.
-Used by AutoMapper to work correctly with models. ASP.NET Core Identity is configured for authorization in the system. The project is being developed and supplemented
+Used by AutoMapper to work correctly with models. ASP.NET Core Identity is configured for authorization in the system. FluentValidation is used for form validation. The project is being developed and supplemented
 with new features.</p>
+
+#### Short list of technologies used:
+* ASP.NET Core 5.0
+* Layered architecture
+* C#, HTML, CSS, JS, AJAX
+* ASP.NET Core Identity
+* Entity Framework Core
+* AutoMapper
+* FluentValidation
 
 ## 
 <p align="center"><b>Home Page</b></p>
 <p align="center">
-  <img src="https://nimbusweb.me/box/attachment/5930871/5v5k8ycu2e32ytuognls/UTAbT42Kzl0MYien/screenshot-localhost_5001-2021.08.18-01_30_32.png" alt="Home" width="750">
+  <img src="http://dl3.joxi.net/drive/2021/08/31/0023/3726/1527438/38/ba439d480f.jpg" alt="Home" width="750">
 </p>
 
 ## 
